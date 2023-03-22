@@ -27,7 +27,7 @@ const Navbar = () => {
                 Gallery
               </Link>
               <Link
-                to="/dictionary"
+                to="/word"
                 className="ml-4 text-white hover:text-gray-300"
               >
                 Dictionary

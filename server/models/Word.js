@@ -1,24 +1,35 @@
 const { Schema, model } = require("mongoose");
 
-const dictionarySchema = new Schema(
+const DictionarySchema = new Schema(
     {
         word: {
             type: String,
+            required: [true, "word is required."],
             unique: true,
         },
-        translation: String,
-        description: String,
-        author: {
-            type: Schema.Types.ObjectId, 
-            ref:  "User"
+        description: {
+            type: String,
+            required: [true, "translation is required."],
+
         },
-        createdAt: {
-            type: Date,
-            default: Date.now
-        }
-    }
+        translation: {
+            type: String,
+        },
+        // author: {
+        //     id: {
+        //         type: Schema.Types.ObjectId,
+        //         ref: "User"
+        //     },
+        // },
+        // createdAt: {
+        //     type: Date,
+        //     default: Date.now
+        // }
+    }, {
+    timestamps: true,
+}
 )
 
-const Word = model("Dictionary", dictionarySchema);
+const Word = model("Word", DictionarySchema);
 
-module.exports = Dictionary;
+module.exports = Word;
