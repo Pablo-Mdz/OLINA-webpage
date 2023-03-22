@@ -36,7 +36,7 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dictionary" element={<Words  />} />
+        <Route path="/word" element={<Words  />} />
 
         <Route
           path="/profile"
