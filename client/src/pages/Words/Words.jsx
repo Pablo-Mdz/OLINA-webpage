@@ -73,7 +73,7 @@ export const Words = () => {
     const handleAddWord = (event) => {
         event.preventDefault();
         axios
-            .post(`/api/word/word`, newWord)
+            .post(`/word/word`, newWord)
             .then((response) => {
                 console.log("esta es la respuesta", response);
                 // setWords([...words, response.data]);
@@ -261,13 +261,13 @@ export const Words = () => {
                                     {word.translation}
                                 </td>
                                 <td className="border px-4 py-2">
-                                     <button
+                                    <button
                                         onClick={() =>
                                             handleEditModalOpen(
                                                 word._id,
                                                 word.word,
                                                 word.description,
-                                                word.translation,
+                                                word.translation
                                                 // word.author,
                                                 // word.createdAt
                                             )
@@ -275,7 +275,7 @@ export const Words = () => {
                                         className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                                     >
                                         Edit
-                                    </button> 
+                                    </button>
                                     {/* <button
                                         onClick={() =>
                                             handleDeleteModalOpen(word._id)
