@@ -1,9 +1,9 @@
-import React, {useState, useEffect, useParams} from "react";
+import React, {useState, useEffect} from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import {useNavigate} from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005";
-
 const customStyles = {
     overlay: {
         backgroundColor: "rgba(0, 0, 0, 0.75)",
@@ -27,6 +27,7 @@ Modal.setAppElement("#root");
 
 export const Words = () => {
     const [words, setWords] = useState([]);
+    const navigate = useNavigate();
 
     const [newWord, setNewWord] = useState({
         word: "",
@@ -41,36 +42,36 @@ export const Words = () => {
         word: "",
         description: "",
         translation: "",
-        author: "",
-        createdAt: "",
+        // author: "",
+        // createdAt: "",
     });
     const [deleteWord, setDeleteWord] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
+    // get all words
     const GetWords = () => {
         axios
             .get(`${API_URL}/word`)
             .then((response) => {
                 setWords(response.data);
-                // console.log('this is the response of get',response.data);
             })
             .catch((error) => {
                 console.log(error);
             });
     };
-
     useEffect(() => {
         GetWords();
     }, []);
 
-    const handleAddWord = (event) => {
-        event.preventDefault();
+    //add words
+    const handleAddWord = () => {
+        // event.preventDefault();
         axios
             .post(`${API_URL}/word`, newWord)
             .then((response) => {
-                console.log("esta es la respuesta de post", response);
+                // console.log("esta es la respuesta de post", response);
                 setWords([...words, response.data]);
                 setNewWord({
                     word: "",
@@ -84,6 +85,7 @@ export const Words = () => {
                 console.log("post doesn't work", error);
             });
     };
+
     const handleInputChange = (event) => {
         const {name, value} = event.target;
         setNewWord({...newWord, [name]: value});
@@ -101,10 +103,10 @@ export const Words = () => {
     // });
     // console.log(event)
 
-    const handleEditWord = (event) => {
-        event.preventDefault();
+    const handleEditWord = () => {
+        // event.preventDefault();
         axios
-            .put(`${API_URL}/word/${editWord.id}`, editWord)
+            .post(`${API_URL}/word/${editWord.id}/edit`, editWord)
             .then((response) => {
                 setWords(
                     words.map((word) =>
@@ -124,29 +126,30 @@ export const Words = () => {
                 console.log(error);
             });
     };
-    // const {id} = useParams();
+
     const handleDeleteWord = (id) => {
         // event.preventDefault();
         axios
-            .delete(`${API_URL}/word/${id}/delete`)
+            .delete(`${API_URL}/word/${id}`)
             .then((response) => {
                 setWords(
                     words.filter((word) => word._id !== response.data._id)
                 );
                 setDeleteWord("");
+                handleDeleteModalClose()
             })
             .catch((error) => {
                 console.log(error);
             });
     };
 
-    // const handleModalOpen = () => {
-    //     setModalIsOpen(true);
-    // };
+    const handleModalOpen = () => {
+        setModalIsOpen(true);
+    };
 
-    // const handleModalClose = () => {
-    //     setModalIsOpen(false);
-    // };
+    const handleModalClose = () => {
+        setModalIsOpen(false);
+    };
 
     const handleEditModalOpen = (
         id,
@@ -158,6 +161,19 @@ export const Words = () => {
     ) => {
         setEditWord({id, word, description, translation});
         setEditModalIsOpen(true);
+    };
+
+    const handleEditModalClose = () => {
+        setEditModalIsOpen(false);
+    };
+
+    const handleDeleteModalOpen = (id) => {
+        setDeleteWord(id);
+        setDeleteModalIsOpen(true);
+    };
+
+    const handleDeleteModalClose = () => {
+        setDeleteModalIsOpen(false);
     };
 
     return (
@@ -280,7 +296,9 @@ export const Words = () => {
                                         </button>
                                         <button
                                             onClick={() =>
-                                                handleDeleteWord(uniqueWord._id)
+                                                handleDeleteModalOpen(
+                                                    uniqueWord._id
+                                                )
                                             }
                                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                                         >
@@ -291,7 +309,8 @@ export const Words = () => {
                             ))}
                 </tbody>
             </table>
-            {/* <Modal
+
+            <Modal
                 isOpen={modalIsOpen}
                 onRequestClose={handleModalClose}
                 style={customStyles}
@@ -365,6 +384,8 @@ export const Words = () => {
                     </button>
                 </form>
             </Modal>
+
+            {/* modal edit  */}
             <Modal
                 isOpen={editModalIsOpen}
                 onRequestClose={handleEditModalClose}
@@ -417,15 +438,15 @@ export const Words = () => {
                     </div>
                     <div className="mb-2">
                         <label
-                            htmlFor="spanish"
+                            htmlFor="translation"
                             className="block text-gray-700 font-bold mb-2"
                         >
                             Spanish Translation:
                         </label>
                         <input
                             type="text"
-                            id="spanish"
-                            name="spanish"
+                            id="translation"
+                            name="translation"
                             value={editWord.translation}
                             onChange={handleEditInputChange}
                             className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
@@ -459,7 +480,12 @@ export const Words = () => {
                     Are you sure you want to delete this word?
                 </p>
                 <div className="text-center">
-                    <button onClick={() => handleDeleteWord(deleteWord)} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button> 
+                    <button
+                        onClick={() => handleDeleteWord(deleteWord)}
+                        className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                    >
+                        Delete
+                    </button>
                     <button
                         onClick={handleDeleteModalClose}
                         className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
@@ -467,7 +493,7 @@ export const Words = () => {
                         Cancel
                     </button>
                 </div>
-            </Modal> */}
+            </Modal>
         </div>
     );
 };
