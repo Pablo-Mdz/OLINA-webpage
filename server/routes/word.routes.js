@@ -7,7 +7,7 @@ const Word = require("../models/Word")
 
 const path = 'word'
 //create post
-router.post(`/${path}/word`, (req, res) => {
+router.post(`/${path}`, (req, res) => {
 
     const { word, description, translation } = req.body
     console.log("words hh", req.body)

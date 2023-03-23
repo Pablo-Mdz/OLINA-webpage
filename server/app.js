@@ -25,7 +25,8 @@ const gallery = require("./routes/gallery.routes");
 app.use("/api/gallery", gallery);
 
 const word = require("./routes/word.routes");
-app.use("/word", word);
+app.use("/", word);
+// console.log('test word',word)
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);
