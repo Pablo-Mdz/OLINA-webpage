@@ -84,6 +84,7 @@ export const Words = () => {
                     // author: "",
                     // createdAt: "",
                 });
+                
             })
             .catch((error) => {
                 console.log("post doesn't work", error);
