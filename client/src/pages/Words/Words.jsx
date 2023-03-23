@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useParams} from "react";
 import axios from "axios";
 import Modal from "react-modal";
 
@@ -27,6 +27,7 @@ Modal.setAppElement("#root");
 
 export const Words = () => {
     const [words, setWords] = useState([]);
+
     const [newWord, setNewWord] = useState({
         word: "",
         description: "",
@@ -48,34 +49,28 @@ export const Words = () => {
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
 
-    // useEffect(() => {
-    //     //connect with DB
-    //     axios
-    //         .get("/pages/Words/Words")
-    //         .then((response) => {
-    //             setWords(response.data);
-    //         })
-    //         .catch((error) => {
-    //             console.log(error);
-    //         });
-    // }, []);
-
-    const handleInputChange = (event) => {
-        const {name, value} = event.target;
-        setNewWord({...newWord, [name]: value});
+    const GetWords = () => {
+        axios
+            .get(`${API_URL}/word`)
+            .then((response) => {
+                setWords(response.data);
+                // console.log('this is the response of get',response.data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
-    const handleEditInputChange = (event) => {
-        const {name, value} = event.target;
-        setEditWord({...editWord, [name]: value});
-    };
+    useEffect(() => {
+        GetWords();
+    }, []);
 
     const handleAddWord = (event) => {
         event.preventDefault();
         axios
             .post(`${API_URL}/word`, newWord)
             .then((response) => {
-                console.log("esta es la respuesta", response);
+                console.log("esta es la respuesta de post", response);
                 setWords([...words, response.data]);
                 setNewWord({
                     word: "",
@@ -89,8 +84,15 @@ export const Words = () => {
                 console.log("post doesn't work", error);
             });
     };
+    const handleInputChange = (event) => {
+        const {name, value} = event.target;
+        setNewWord({...newWord, [name]: value});
+    };
 
-    // console.log(newWord);
+    const handleEditInputChange = (event) => {
+        const {name, value} = event.target;
+        setEditWord({...editWord, [name]: value});
+    };
 
     // const {word, description, translation} = event.target;
     // setNewWord({
@@ -101,74 +103,61 @@ export const Words = () => {
 
     const handleEditWord = (event) => {
         event.preventDefault();
-        // axios
-        //     .put(`/api/words/words${editWord.id}`, editWord)
-        //     .then((response) => {
-        //         setWords(
-        //             words.map((word) =>
-        //                 word._id === response.data._id ? response.data : word
-        //             )
-        //         );
-        //         setEditWord({
-        //             id: "",
-        //             word: "",
-        //             description: "",
-        //             translation: "",
-        //             author: "",
-        //             createdAt: "",
-        //         });
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
+        axios
+            .put(`${API_URL}/word/${editWord.id}`, editWord)
+            .then((response) => {
+                setWords(
+                    words.map((word) =>
+                        word._id === response.data._id ? response.data : word
+                    )
+                );
+                setEditWord({
+                    id: "",
+                    word: "",
+                    description: "",
+                    translation: "",
+                    // author: "",
+                    // createdAt: "",
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    // const {id} = useParams();
+    const handleDeleteWord = (id) => {
+        // event.preventDefault();
+        axios
+            .delete(`${API_URL}/word/${id}/delete`)
+            .then((response) => {
+                setWords(
+                    words.filter((word) => word._id !== response.data._id)
+                );
+                setDeleteWord("");
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     };
 
-    const handleDeleteWord = (event) => {
-        event.preventDefault();
-        // axios
-        //     .delete(`/API_URL/Words/Words/${deleteWord}`)
-        //     .then((response) => {
-        //         setWords(
-        //             words.filter((word) => word._id !== response.data._id)
-        //         );
-        //         setDeleteWord("");
-        //     })
-        //     .catch((error) => {
-        //         console.log(error);
-        //     });
-    };
+    // const handleModalOpen = () => {
+    //     setModalIsOpen(true);
+    // };
 
-    const handleModalOpen = () => {
-        setModalIsOpen(true);
-    };
-
-    const handleModalClose = () => {
-        setModalIsOpen(false);
-    };
+    // const handleModalClose = () => {
+    //     setModalIsOpen(false);
+    // };
 
     const handleEditModalOpen = (
         id,
         word,
         description,
-        translation,
-        author,
-        createdAt
+        translation
+        // author,
+        // createdAt
     ) => {
-        setEditWord({id, word, description, translation, author, createdAt});
+        setEditWord({id, word, description, translation});
         setEditModalIsOpen(true);
-    };
-
-    const handleEditModalClose = () => {
-        setEditModalIsOpen(false);
-    };
-
-    const handleDeleteModalOpen = (id) => {
-        setDeleteWord(id);
-        setDeleteModalIsOpen(true);
-    };
-
-    const handleDeleteModalClose = () => {
-        setDeleteModalIsOpen(false);
     };
 
     return (
@@ -246,47 +235,60 @@ export const Words = () => {
                         <th className="text-left px-4 py-2">Actions</th>
                     </tr>
                 </thead>
+
+                {/*
+                search bar 
+                 <input
+                placeholder="Search by name or type of food "
+                type="text"
+                value={words}
+                onChange={(e) => {
+                    setWords(e.target.value);
+                }}
+                className=" w-2/5 border rounded border-gray-400 h-10 focus:outline-none pl-4 pr-8 text-gray-700 text-sm text-gray-500"
+            /> */}
                 <tbody>
-                    {words
-                        .sort((a, b) => new Date(b.date) - new Date(a.date))
-                        .map((word) => (
-                            <tr key={word._id}>
-                                <td className="border px-4 py-2">
-                                    {word.word}
-                                </td>
-                                <td className="border px-4 py-2">
-                                    {word.description}
-                                </td>
-                                <td className="border px-4 py-2">
-                                    {word.translation}
-                                </td>
-                                <td className="border px-4 py-2">
-                                    <button
-                                        onClick={() =>
-                                            handleEditModalOpen(
-                                                word._id,
-                                                word.word,
-                                                word.description,
-                                                word.translation
-                                                // word.author,
-                                                // word.createdAt
-                                            )
-                                        }
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                                    >
-                                        Edit
-                                    </button>
-                                    {/* <button
-                                        onClick={() =>
-                                            handleDeleteModalOpen(word._id)
-                                        }
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                    >
-                                        Delete
-                                    </button> */}
-                                </td>
-                            </tr>
-                        ))}
+                    {words &&
+                        words
+                            // .sort((a, b) => new Date(b.date) - new Date(a.date))
+                            .map((uniqueWord) => (
+                                <tr key={uniqueWord._id}>
+                                    <td className="border px-4 py-2">
+                                        {uniqueWord.word}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                        {uniqueWord.description}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                        {uniqueWord.translation}
+                                    </td>
+                                    <td className="border px-4 py-2">
+                                        <button
+                                            onClick={() =>
+                                                handleEditModalOpen(
+                                                    uniqueWord._id,
+                                                    uniqueWord.word,
+                                                    uniqueWord.description,
+                                                    uniqueWord.translation
+                                                    // word.author,
+                                                    // word.createdAt
+                                                )
+                                            }
+                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                                        >
+                                            Edit
+                                        </button>
+                                        <button
+                                            onClick={() =>
+                                                handleDeleteWord(uniqueWord._id)
+                                            }
+                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                                        >
+                                            Delete
+                                        </button>
+                                    </td>
+                                </tr>
+                            ))}
                 </tbody>
             </table>
             {/* <Modal
@@ -457,7 +459,7 @@ export const Words = () => {
                     Are you sure you want to delete this word?
                 </p>
                 <div className="text-center">
-                    {/*<button onClick={() => handleDeleteWord(deleteWordId)} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button> }
+                    <button onClick={() => handleDeleteWord(deleteWord)} className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button> 
                     <button
                         onClick={handleDeleteModalClose}
                         className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
