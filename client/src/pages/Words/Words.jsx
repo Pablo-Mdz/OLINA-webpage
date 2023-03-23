@@ -73,24 +73,24 @@ export const Words = () => {
     const handleAddWord = (event) => {
         event.preventDefault();
         axios
-            .post(`/word/word`, newWord)
+            .post(`${API_URL}/word`, newWord)
             .then((response) => {
                 console.log("esta es la respuesta", response);
-                // setWords([...words, response.data]);
-                // setNewWord({
-                //     word: "",
-                //     description: "",
-                //     translation: "",
-                //     author: "",
-                //     createdAt: "",
-                // });
+                setWords([...words, response.data]);
+                setNewWord({
+                    word: "",
+                    description: "",
+                    translation: "",
+                    // author: "",
+                    // createdAt: "",
+                });
             })
             .catch((error) => {
                 console.log("post doesn't work", error);
             });
     };
 
-    console.log(newWord);
+    // console.log(newWord);
 
     // const {word, description, translation} = event.target;
     // setNewWord({
