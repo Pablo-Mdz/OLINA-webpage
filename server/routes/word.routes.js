@@ -8,63 +8,69 @@ const Word = require("../models/Word")
 const path = 'word'
 
 //get read words 
+
 router.get(`/${path}`, (req, res) => {
     console.log('first')
     Word.find()
-        .then(Word => res.json(Word))
-        // , user: req.session.user
+        .then(words => res.json(words))
         .catch(err => console.log(err))
-    // , { user: req.session.user }
 });
+
 
 
 //create new word
 router.post(`/${path}`, (req, res) => {
-    const { word, description, translation } = req.body
-    console.log("words", req.body)
-    Word.create({
-        word,
-        description,
-        translation,
-        // author,
-        // createdAt,
-    })
-        .then(Words => res.json(Words))
-        .catch(err => res.status)
+    console.log("new word", req.body);
+    Word.create(req.body)
+        .then((Words) => res.json(Words))
+        .catch((err) => res.status);
 });
 
 
 
-//delete word form list
-router.delete(`/${path}/:id`, (req, res) => {
+// edit post Word working
+router.post(`/${path}/:id/edit`, (req, res) => {
     const id = req.params.id
-    Word.findByIdAndRemove(id)
-        .then(deletedWord => {
-            res.json(deletedWord)
+    const updateData = req.body.editWord
+    const user = req.body.user
+    console.log("this is id:", id)
+    console.log("this is all the data:", updateData)
+
+    Word.findById(id)
+        .then((response) => {
+
+            if (user == response.author.id) {
+                Word.findByIdAndUpdate(id, updateData, { new: true })
+                    .then(() => {
+                        res.json("data updated")
+                    })
+                    .catch(err => console.log(err))
+            } else {
+                res.json("you can not modify this word, you don't have access")
+            }
+        }).catch(err => console.log(err))
+})
+
+//delete word form list
+router.post(`/${path}/:id`, (req, res) => {
+    const id = req.params.id
+    const user = req.body.user
+    Word.findById(id)
+        .then(response => {
+            console.log("responseee: ", req.body)
+            console.log('response!', user)
+            if (user == response.author.id) {
+                Word.findByIdAndRemove(id)
+                    .then((deleted) => {
+                        res.json(deleted)
+                    })
+            }
+            else {
+                res.json("you can not modify this word, you don't have access")
+            }
         })
         .catch(err => console.log(err))
 });
-
-
-
-
-//edit post Word
-router.post(`/${path}/:id/edit`, async (req, res) => {
-    const id = req.params.id
-    const updateData = req.body // asumiendo que el cliente está enviando los datos de edición en el cuerpo de la solicitud POST
-    try {
-        const event = await Word.findByIdAndUpdate(id, updateData, { new: true }) // actualiza el objeto Word en la base de datos y devuelve la versión actualizada
-        res.json(event)
-        // { user: req.session.user, Word }
-    } catch (err) {
-        console.log(err)
-    }
-})
-
-
-
-
-
 
 
 module.exports = router;
