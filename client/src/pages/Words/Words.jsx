@@ -71,7 +71,6 @@ export const Words = () => {
         axios
             .post(`${API_URL}/word`, newWord)
             .then((response) => {
-                // console.log("esta es la respuesta de post", response);
                 setWords([...words, response.data]);
                 setNewWord({
                     word: "",
@@ -95,13 +94,6 @@ export const Words = () => {
         const {name, value} = event.target;
         setEditWord({...editWord, [name]: value});
     };
-
-    // const {word, description, translation} = event.target;
-    // setNewWord({
-    //     ...newWord,
-    //     [word]: description,
-    // });
-    // console.log(event)
 
     const handleEditWord = () => {
         // event.preventDefault();
@@ -136,7 +128,7 @@ export const Words = () => {
                     words.filter((word) => word._id !== response.data._id)
                 );
                 setDeleteWord("");
-                handleDeleteModalClose()
+                handleDeleteModalClose();
             })
             .catch((error) => {
                 console.log(error);
@@ -175,6 +167,24 @@ export const Words = () => {
     const handleDeleteModalClose = () => {
         setDeleteModalIsOpen(false);
     };
+    
+    //search bar
+    const [search, setSearch] = useState("");
+
+    const filtered = words.filter((oneData) => {
+        if (!oneData.word) {
+            return false
+        } else if (!oneData.translation) {
+            return true;
+        } else {
+            return (
+                oneData.word && oneData.word.toLowerCase().includes(search.toLowerCase()) ||
+                oneData.translation && oneData.translation.toLowerCase().includes(search.toLowerCase())
+              );
+              
+        }
+    });
+
 
     return (
         <div className="mx-auto max-w-md">
@@ -240,6 +250,22 @@ export const Words = () => {
                     Add Word
                 </button>
             </form>
+            <label
+                        htmlFor="description"
+                        className="block text-gray-700 font-bold mb-2"
+                    >
+                        SEARCH BAR
+                    </label>
+            <input
+                    placeholder="Search by name or trnslation"
+                    type="text"
+                    value={search}
+                    onChange={(e) => {
+                        setSearch(e.target.value);
+                    }}
+                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                    
+                />
             <table className="table-auto w-full">
                 <thead>
                     <tr>
@@ -250,24 +276,11 @@ export const Words = () => {
                         </th>
                         <th className="text-left px-4 py-2">Actions</th>
                     </tr>
-                </thead>
-
-                {/*
-                search bar 
-                 <input
-                placeholder="Search by name or type of food "
-                type="text"
-                value={words}
-                onChange={(e) => {
-                    setWords(e.target.value);
-                }}
-                className=" w-2/5 border rounded border-gray-400 h-10 focus:outline-none pl-4 pr-8 text-gray-700 text-sm text-gray-500"
-            /> */}
+                </thead>         
                 <tbody>
-                    {words &&
-                        words
+                    {filtered &&
+                        filtered.map((uniqueWord) => (
                             // .sort((a, b) => new Date(b.date) - new Date(a.date))
-                            .map((uniqueWord) => (
                                 <tr key={uniqueWord._id}>
                                     <td className="border px-4 py-2">
                                         {uniqueWord.word}
