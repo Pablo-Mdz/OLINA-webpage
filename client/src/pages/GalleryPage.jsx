@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { AuthContext } from "../context/auth.context";
 import { Link } from "react-router-dom";
+import DeletePicture from "../components/Gallery/DeletePicture";
 
 
 export default function GalleryPage() {
@@ -23,16 +24,16 @@ export default function GalleryPage() {
         <section className="overflow-hidden text-gray-700 mb-32">
           <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
             <div className="flex flex-wrap -m-1 md:-m-2">
-              {gallery.map((item) => (
-                <div className="flex flex-wrap w-1/3" key={item._id}>
+              {gallery.map((picture) => (
+                <div className="flex flex-wrap w-1/3" key={picture._id}>
                   <div className="w-full p-1 md:p-2">
                     <img
                       alt="gallery"
                       className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
-                      src={item.imgUrl}
+                      src={picture.imgUrl}
                     />
                   </div>
-                  
+                  <DeletePicture id={picture._id} />
                 </div>
               ))}
             </div>
