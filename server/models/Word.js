@@ -15,16 +15,16 @@ const DictionarySchema = new Schema(
         translation: {
             type: String,
         },
-        // author: {
-        //     id: {
-        //         type: Schema.Types.ObjectId,
-        //         ref: "User"
-        //     },
-        // },
-        // createdAt: {
-        //     type: Date,
-        //     default: Date.now
-        // }
+        author: {
+            id: {
+                type: Schema.Types.ObjectId,
+                ref: "User"
+            },
+        },
+        createdAt: {
+            type: Date,
+            default: Date.now
+        }
     }, {
     timestamps: true,
 }

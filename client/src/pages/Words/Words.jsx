@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
 import Modal from "react-modal";
-import {useNavigate} from "react-router-dom";
+import {AuthContext} from "../../context/auth.context";
+import {useNavigate, useParams} from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005";
 const customStyles = {
@@ -28,13 +29,15 @@ Modal.setAppElement("#root");
 export const Words = () => {
     const [words, setWords] = useState([]);
     const navigate = useNavigate();
+    const {user} = useContext(AuthContext);
+    const {id} = useParams();
 
     const [newWord, setNewWord] = useState({
         word: "",
         description: "",
         translation: "",
-        // author: "",
-        // createdAt: "",
+        author: "",
+        createdAt: "",
     });
 
     const [editWord, setEditWord] = useState({
@@ -42,9 +45,9 @@ export const Words = () => {
         word: "",
         description: "",
         translation: "",
-        // author: "",
-        // createdAt: "",
+        createdAt: "",
     });
+    console.log(editWord.author);
     const [deleteWord, setDeleteWord] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
@@ -67,17 +70,20 @@ export const Words = () => {
 
     //add words
     const handleAddWord = () => {
-        // event.preventDefault();
+        const newWordWithAuthor = {
+            ...newWord,
+            author: {id: user},
+        };
         axios
-            .post(`${API_URL}/word`, newWord)
+            .post(`${API_URL}/word`, newWordWithAuthor)
             .then((response) => {
                 setWords([...words, response.data]);
                 setNewWord({
                     word: "",
                     description: "",
                     translation: "",
-                    // author: "",
-                    // createdAt: "",
+                    author: {id: user},
+                    createdAt: "",
                 });
             })
             .catch((error) => {
@@ -98,7 +104,10 @@ export const Words = () => {
     const handleEditWord = () => {
         // event.preventDefault();
         axios
-            .post(`${API_URL}/word/${editWord.id}/edit`, editWord)
+            .post(`${API_URL}/word/${editWord.id}/edit`, {
+                editWord,
+                user: user._id,
+            })
             .then((response) => {
                 setWords(
                     words.map((word) =>
@@ -110,8 +119,7 @@ export const Words = () => {
                     word: "",
                     description: "",
                     translation: "",
-                    // author: "",
-                    // createdAt: "",
+                    createdAt: "",
                 });
             })
             .catch((error) => {
@@ -122,7 +130,7 @@ export const Words = () => {
     const handleDeleteWord = (id) => {
         // event.preventDefault();
         axios
-            .delete(`${API_URL}/word/${id}`)
+            .post(`${API_URL}/word/${id}`, {user: user._id})
             .then((response) => {
                 setWords(
                     words.filter((word) => word._id !== response.data._id)
@@ -147,11 +155,18 @@ export const Words = () => {
         id,
         word,
         description,
-        translation
-        // author,
-        // createdAt
+        translation,
+        author,
+        createdAt
     ) => {
-        setEditWord({id, word, description, translation});
+        setEditWord({
+            id,
+            word,
+            description,
+            translation,
+            author,
+            createdAt,
+        });
         setEditModalIsOpen(true);
     };
 
@@ -167,24 +182,28 @@ export const Words = () => {
     const handleDeleteModalClose = () => {
         setDeleteModalIsOpen(false);
     };
-    
+
     //search bar
     const [search, setSearch] = useState("");
 
     const filtered = words.filter((oneData) => {
         if (!oneData.word) {
-            return false
+            return false;
         } else if (!oneData.translation) {
             return true;
         } else {
             return (
-                oneData.word && oneData.word.toLowerCase().includes(search.toLowerCase()) ||
-                oneData.translation && oneData.translation.toLowerCase().includes(search.toLowerCase())
-              );
-              
+                (oneData.word &&
+                    oneData.word
+                        .toLowerCase()
+                        .includes(search.toLowerCase())) ||
+                (oneData.translation &&
+                    oneData.translation
+                        .toLowerCase()
+                        .includes(search.toLowerCase()))
+            );
         }
     });
-
 
     return (
         <div className="mx-auto max-w-md">
@@ -251,21 +270,20 @@ export const Words = () => {
                 </button>
             </form>
             <label
-                        htmlFor="description"
-                        className="block text-gray-700 font-bold mb-2"
-                    >
-                        SEARCH BAR
-                    </label>
+                htmlFor="description"
+                className="block text-gray-700 font-bold mb-2"
+            >
+                SEARCH BAR
+            </label>
             <input
-                    placeholder="Search by name or trnslation"
-                    type="text"
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                    }}
-                    className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                    
-                />
+                placeholder="Search by name or translation"
+                type="text"
+                value={search}
+                onChange={(e) => {
+                    setSearch(e.target.value);
+                }}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+            />
             <table className="table-auto w-full">
                 <thead>
                     <tr>
@@ -276,50 +294,50 @@ export const Words = () => {
                         </th>
                         <th className="text-left px-4 py-2">Actions</th>
                     </tr>
-                </thead>         
+                </thead>
                 <tbody>
                     {filtered &&
                         filtered.map((uniqueWord) => (
                             // .sort((a, b) => new Date(b.date) - new Date(a.date))
-                                <tr key={uniqueWord._id}>
-                                    <td className="border px-4 py-2">
-                                        {uniqueWord.word}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                        {uniqueWord.description}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                        {uniqueWord.translation}
-                                    </td>
-                                    <td className="border px-4 py-2">
-                                        <button
-                                            onClick={() =>
-                                                handleEditModalOpen(
-                                                    uniqueWord._id,
-                                                    uniqueWord.word,
-                                                    uniqueWord.description,
-                                                    uniqueWord.translation
-                                                    // word.author,
-                                                    // word.createdAt
-                                                )
-                                            }
-                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                                        >
-                                            Edit
-                                        </button>
-                                        <button
-                                            onClick={() =>
-                                                handleDeleteModalOpen(
-                                                    uniqueWord._id
-                                                )
-                                            }
-                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                                        >
-                                            Delete
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            <tr key={uniqueWord._id}>
+                                <td className="border px-4 py-2">
+                                    {uniqueWord.word}
+                                </td>
+                                <td className="border px-4 py-2">
+                                    {uniqueWord.description}
+                                </td>
+                                <td className="border px-4 py-2">
+                                    {uniqueWord.translation}
+                                </td>
+                                <td className="border px-4 py-2">
+                                    <button
+                                        onClick={() =>
+                                            handleEditModalOpen(
+                                                uniqueWord._id,
+                                                uniqueWord.word,
+                                                uniqueWord.description,
+                                                uniqueWord.translation
+                                                // word.author,
+                                                // word.createdAt
+                                            )
+                                        }
+                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                                    >
+                                        Edit
+                                    </button>
+                                    <button
+                                        onClick={() =>
+                                            handleDeleteModalOpen(
+                                                uniqueWord._id
+                                            )
+                                        }
+                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"
+                                    >
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
                 </tbody>
             </table>
 
@@ -389,6 +407,7 @@ export const Words = () => {
                     >
                         Add Word
                     </button>
+
                     <button
                         onClick={handleModalClose}
                         className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
