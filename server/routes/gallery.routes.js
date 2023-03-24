@@ -27,6 +27,19 @@ router.get("/", (req, res) => {
   });
 });
 
+router.post("/delete/:id", (req, res, next) => {
+  Gallery.findByIdAndDelete({ _id: req.params.id })
+    .then((data) => {
+      if (data.imgUrl) {
+        cloudinary.uploader.destroy(data.publicId);
+      };
+      res.status(200).json({message: 'Entry deleted'});
+    })
+    .catch(err => {
+      next(err);
+    })
+})
+
 /* router.post("/upload", uploader.single("imageURL"), (req, res, next) => {
   console.log("file is: ", req.file)
   if (!req.file) {
