@@ -4,26 +4,6 @@ import Modal from "react-modal";
 import {AuthContext} from "../../context/auth.context";
 
 const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005";
-const customStyles = {
-    overlay: {
-        backgroundColor: "rgba(0, 0, 0, 0.75)",
-    },
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        maxWidth: "400px",
-        width: "90%",
-        backgroundColor: "#f0f0f0",
-        borderRadius: "8px",
-        padding: "20px",
-    },
-};
-
-Modal.setAppElement("#root");
 
 export const Words = () => {
     const [words, setWords] = useState([]);
@@ -200,7 +180,26 @@ export const Words = () => {
     const handleDeleteModalClose = () => {
         setDeleteModalIsOpen(false);
     };
+    const customStyles = {
+        overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+        },
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            maxWidth: "400px",
+            width: "90%",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "8px",
+            padding: "20px",
+        },
+    };
 
+    Modal.setAppElement("#root");
     return (
         <div className="mx-auto max-w-md">
             <h1 className="text-center text-4xl font-bold text-violet-600 my-4">
