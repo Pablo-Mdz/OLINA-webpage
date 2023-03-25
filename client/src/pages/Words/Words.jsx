@@ -29,9 +29,12 @@ Modal.setAppElement("#root");
 export const Words = () => {
     const [words, setWords] = useState([]);
     const navigate = useNavigate();
-    const {user} = useContext(AuthContext);
+    const {user, isLoggedIn,LogOutUser} = useContext(AuthContext);
     const {id} = useParams();
-
+    const [deleteWord, setDeleteWord] = useState("");
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [editModalIsOpen, setEditModalIsOpen] = useState(false);
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const [newWord, setNewWord] = useState({
         word: "",
         description: "",
@@ -47,11 +50,16 @@ export const Words = () => {
         translation: "",
         createdAt: "",
     });
-    console.log(editWord.author);
-    const [deleteWord, setDeleteWord] = useState("");
-    const [modalIsOpen, setModalIsOpen] = useState(false);
-    const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+
+    const handleInputChange = (event) => {
+        const {name, value} = event.target;
+        setNewWord({...newWord, [name]: value});
+    };
+
+    const handleEditInputChange = (event) => {
+        const {name, value} = event.target;
+        setEditWord({...editWord, [name]: value});
+    };
 
     // get all words
     const GetWords = () => {
@@ -91,16 +99,7 @@ export const Words = () => {
             });
     };
 
-    const handleInputChange = (event) => {
-        const {name, value} = event.target;
-        setNewWord({...newWord, [name]: value});
-    };
-
-    const handleEditInputChange = (event) => {
-        const {name, value} = event.target;
-        setEditWord({...editWord, [name]: value});
-    };
-
+    //edit words
     const handleEditWord = () => {
         // event.preventDefault();
         axios
@@ -127,6 +126,7 @@ export const Words = () => {
             });
     };
 
+    //delete words
     const handleDeleteWord = (id) => {
         // event.preventDefault();
         axios
@@ -142,6 +142,31 @@ export const Words = () => {
                 console.log(error);
             });
     };
+
+
+     //search bar
+     const [search, setSearch] = useState("");
+
+     const filtered = words.filter((oneData) => {
+         if (!oneData.word) {
+             return false;
+         } else if (!oneData.translation) {
+             return true;
+         } else {
+             return (
+                 (oneData.word &&
+                     oneData.word
+                         .toLowerCase()
+                         .includes(search.toLowerCase())) ||
+                 (oneData.translation &&
+                     oneData.translation
+                         .toLowerCase()
+                         .includes(search.toLowerCase()))
+             );
+         }
+     });
+
+
 
     const handleModalOpen = () => {
         setModalIsOpen(true);
@@ -183,33 +208,15 @@ export const Words = () => {
         setDeleteModalIsOpen(false);
     };
 
-    //search bar
-    const [search, setSearch] = useState("");
-
-    const filtered = words.filter((oneData) => {
-        if (!oneData.word) {
-            return false;
-        } else if (!oneData.translation) {
-            return true;
-        } else {
-            return (
-                (oneData.word &&
-                    oneData.word
-                        .toLowerCase()
-                        .includes(search.toLowerCase())) ||
-                (oneData.translation &&
-                    oneData.translation
-                        .toLowerCase()
-                        .includes(search.toLowerCase()))
-            );
-        }
-    });
+   
 
     return (
         <div className="mx-auto max-w-md">
             <h1 className="text-center text-4xl font-bold text-violet-600 my-4">
                 Word List
             </h1>
+            {isLoggedIn && ( 
+                <>
             <form onSubmit={handleAddWord} className="my-4">
                 <div className="mb-2">
                     <label
@@ -269,6 +276,7 @@ export const Words = () => {
                     Add Word
                 </button>
             </form>
+            </>)}
             <label
                 htmlFor="description"
                 className="block text-gray-700 font-bold mb-2"
@@ -310,6 +318,8 @@ export const Words = () => {
                                     {uniqueWord.translation}
                                 </td>
                                 <td className="border px-4 py-2">
+                                {isLoggedIn && ( 
+                <>
                                     <button
                                         onClick={() =>
                                             handleEditModalOpen(
@@ -335,6 +345,7 @@ export const Words = () => {
                                     >
                                         Delete
                                     </button>
+                                    </>)}
                                 </td>
                             </tr>
                         ))}
