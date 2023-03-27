@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const gallerySchema = new Schema(
   {
@@ -10,9 +10,9 @@ const gallerySchema = new Schema(
   },
   {
     timestamps: true,
-  }
+  },
 );
 
-const Gallery = model("Gallery", gallerySchema);
+const Gallery = model('Gallery', gallerySchema);
 
 module.exports = Gallery;

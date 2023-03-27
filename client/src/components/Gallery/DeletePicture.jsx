@@ -4,7 +4,7 @@ import React from 'react';
 export default function DeletePicture({ id }) {
     const handleSubmit = e => {
         e.preventDefault();
-        axios.post(`http://localhost:5005/api/gallery/delete/${id}`)
+        axios.post(`/api/gallery/delete/${id}`)
             .then(response => {
                 console.log(response)
                 window.location.reload(false);

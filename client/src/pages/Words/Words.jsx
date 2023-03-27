@@ -2,39 +2,17 @@ import React, {useState, useEffect, useContext} from "react";
 import axios from "axios";
 import Modal from "react-modal";
 import {AuthContext} from "../../context/auth.context";
-import {useNavigate, useParams} from "react-router-dom";
 
 const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005";
-const customStyles = {
-    overlay: {
-        backgroundColor: "rgba(0, 0, 0, 0.75)",
-    },
-    content: {
-        top: "50%",
-        left: "50%",
-        right: "auto",
-        bottom: "auto",
-        marginRight: "-50%",
-        transform: "translate(-50%, -50%)",
-        maxWidth: "400px",
-        width: "90%",
-        backgroundColor: "#f0f0f0",
-        borderRadius: "8px",
-        padding: "20px",
-    },
-};
-
-Modal.setAppElement("#root");
 
 export const Words = () => {
     const [words, setWords] = useState([]);
-    const navigate = useNavigate();
-    const {user, isLoggedIn,LogOutUser} = useContext(AuthContext);
-    const {id} = useParams();
+    const {user, isLoggedIn} = useContext(AuthContext);
     const [deleteWord, setDeleteWord] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [editModalIsOpen, setEditModalIsOpen] = useState(false);
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const [search, setSearch] = useState("");
     const [newWord, setNewWord] = useState({
         word: "",
         description: "",
@@ -42,7 +20,6 @@ export const Words = () => {
         author: "",
         createdAt: "",
     });
-
     const [editWord, setEditWord] = useState({
         id: "",
         word: "",
@@ -143,34 +120,30 @@ export const Words = () => {
             });
     };
 
+    //search bar
 
-     //search bar
-     const [search, setSearch] = useState("");
+    const filtered = words.filter((oneData) => {
+        if (!oneData.word) {
+            return false;
+        } else if (!oneData.translation) {
+            return true;
+        } else {
+            return (
+                (oneData.word &&
+                    oneData.word
+                        .toLowerCase()
+                        .includes(search.toLowerCase())) ||
+                (oneData.translation &&
+                    oneData.translation
+                        .toLowerCase()
+                        .includes(search.toLowerCase()))
+            );
+        }
+    });
 
-     const filtered = words.filter((oneData) => {
-         if (!oneData.word) {
-             return false;
-         } else if (!oneData.translation) {
-             return true;
-         } else {
-             return (
-                 (oneData.word &&
-                     oneData.word
-                         .toLowerCase()
-                         .includes(search.toLowerCase())) ||
-                 (oneData.translation &&
-                     oneData.translation
-                         .toLowerCase()
-                         .includes(search.toLowerCase()))
-             );
-         }
-     });
-
-
-
-    const handleModalOpen = () => {
-        setModalIsOpen(true);
-    };
+    // const handleModalOpen = () => {
+    //     setModalIsOpen(true);
+    // };
 
     const handleModalClose = () => {
         setModalIsOpen(false);
@@ -207,76 +180,94 @@ export const Words = () => {
     const handleDeleteModalClose = () => {
         setDeleteModalIsOpen(false);
     };
+    const customStyles = {
+        overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+        },
+        content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            maxWidth: "400px",
+            width: "90%",
+            backgroundColor: "#f0f0f0",
+            borderRadius: "8px",
+            padding: "20px",
+        },
+    };
 
-   
-
+    Modal.setAppElement("#root");
     return (
         <div className="mx-auto max-w-md">
             <h1 className="text-center text-4xl font-bold text-violet-600 my-4">
                 Word List
             </h1>
-            {isLoggedIn && ( 
+            {isLoggedIn && (
                 <>
-            <form onSubmit={handleAddWord} className="my-4">
-                <div className="mb-2">
-                    <label
-                        htmlFor="word"
-                        className="block text-gray-700 font-bold mb-2"
-                    >
-                        Word:
-                    </label>
-                    <input
-                        type="text"
-                        id="word"
-                        name="word"
-                        value={newWord.word}
-                        onChange={handleInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                    />
-                </div>
-                <div className="mb-2">
-                    <label
-                        htmlFor="description"
-                        className="block text-gray-700 font-bold mb-2"
-                    >
-                        Description:
-                    </label>
-                    <textarea
-                        type="text"
-                        id="description"
-                        name="description"
-                        value={newWord.description}
-                        onChange={handleInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                    />
-                </div>
-                <div className="mb-2">
-                    <label
-                        htmlFor="translation"
-                        className="block text-gray-700 font-bold mb-2"
-                    >
-                        Spanish Translation :
-                    </label>
-                    <input
-                        type="text"
-                        id="translation"
-                        name="translation"
-                        value={newWord.translation}
-                        onChange={handleInputChange}
-                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        required
-                    />
-                </div>
-                <button
-                    type="submit"
-                    className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                >
-                    Add Word
-                </button>
-            </form>
-            </>)}
+                    <form onSubmit={handleAddWord} className="my-4">
+                        <div className="mb-2">
+                            <label
+                                htmlFor="word"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Word:
+                            </label>
+                            <input
+                                type="text"
+                                id="word"
+                                name="word"
+                                value={newWord.word}
+                                onChange={handleInputChange}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label
+                                htmlFor="description"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Description:
+                            </label>
+                            <textarea
+                                type="text"
+                                id="description"
+                                name="description"
+                                value={newWord.description}
+                                onChange={handleInputChange}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                            />
+                        </div>
+                        <div className="mb-2">
+                            <label
+                                htmlFor="translation"
+                                className="block text-gray-700 font-bold mb-2"
+                            >
+                                Spanish Translation :
+                            </label>
+                            <input
+                                type="text"
+                                id="translation"
+                                name="translation"
+                                value={newWord.translation}
+                                onChange={handleInputChange}
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                        >
+                            Add Word
+                        </button>
+                    </form>
+                </>
+            )}
             <label
                 htmlFor="description"
                 className="block text-gray-700 font-bold mb-2"
@@ -300,7 +291,11 @@ export const Words = () => {
                         <th className="text-left px-4 py-2">
                             Spanish Translation
                         </th>
-                        <th className="text-left px-4 py-2">Actions</th>
+                        {isLoggedIn && (
+                            <>
+                                <th className="text-left px-4 py-2">Actions</th>
+                            </>
+                        )}
                     </tr>
                 </thead>
                 <tbody>
@@ -318,34 +313,35 @@ export const Words = () => {
                                     {uniqueWord.translation}
                                 </td>
                                 <td className="border px-4 py-2">
-                                {isLoggedIn && ( 
-                <>
-                                    <button
-                                        onClick={() =>
-                                            handleEditModalOpen(
-                                                uniqueWord._id,
-                                                uniqueWord.word,
-                                                uniqueWord.description,
-                                                uniqueWord.translation
-                                                // word.author,
-                                                // word.createdAt
-                                            )
-                                        }
-                                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                                    >
-                                        Edit
-                                    </button>
-                                    <button
-                                        onClick={() =>
-                                            handleDeleteModalOpen(
-                                                uniqueWord._id
-                                            )
-                                        }
-                                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"
-                                    >
-                                        Delete
-                                    </button>
-                                    </>)}
+                                    {isLoggedIn && (
+                                        <>
+                                            <button
+                                                onClick={() =>
+                                                    handleEditModalOpen(
+                                                        uniqueWord._id,
+                                                        uniqueWord.word,
+                                                        uniqueWord.description,
+                                                        uniqueWord.translation
+                                                        // word.author,
+                                                        // word.createdAt
+                                                    )
+                                                }
+                                                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    handleDeleteModalOpen(
+                                                        uniqueWord._id
+                                                    )
+                                                }
+                                                className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
+                                    )}
                                 </td>
                             </tr>
                         ))}
