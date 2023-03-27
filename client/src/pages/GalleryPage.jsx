@@ -11,7 +11,7 @@ export default function GalleryPage() {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/gallery")
+      .get("/api/gallery")
       .then((response) => {
         setGallery(response.data);
       })

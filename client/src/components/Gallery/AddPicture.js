@@ -29,7 +29,7 @@ export default function AddPicture() {
         };
         if (data.url.length > 1) {
           axios
-            .post(`http://localhost:5005/api/gallery/add-photo`, requestBody)
+            .post(`/api/gallery/add-photo`, requestBody)
             .then((response) => {
               /* if (response) {
                 Swal.fire({

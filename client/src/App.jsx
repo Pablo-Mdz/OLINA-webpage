@@ -12,6 +12,9 @@ import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
 import GalleryPage from "./pages/GalleryPage";
 import AddPicture from "./components/Gallery/AddPicture";
+import TopicPage from "./pages/TopicPage";
+import CreateAPost from "./components/Blog/CreateAPost";
+import CreateATopic from "./components/Topic/CreateATopic";
 
 const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005"
 
@@ -42,6 +45,11 @@ function App() {
         <Route path="/gallery" element={<GalleryPage  />} />
         <Route path="/gallery/add-picture" element={<AddPicture  />} />
         <Route path="*" element={<Navigate to="/" />} />
+
+        <Route path="/topic/:id" element={<TopicPage  />} />
+        <Route path="/create" element={<CreateAPost  />} />
+        <Route path="/create-topic" element={<CreateATopic  />} />
+
 
         <Route
           path="/profile"
