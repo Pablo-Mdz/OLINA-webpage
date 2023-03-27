@@ -6,12 +6,12 @@ import DeletePicture from "../components/Gallery/DeletePicture";
 
 
 export default function GalleryPage() {
-  const { isLoggedIn } = useContext(AuthContext);  
+  const { isLoggedIn, user } = useContext(AuthContext);  
   const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
     axios
-      .get("http://localhost:5005/api/gallery")
+      .get("/api/gallery")
       .then((response) => {
         setGallery(response.data);
       })

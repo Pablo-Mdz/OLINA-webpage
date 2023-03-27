@@ -29,6 +29,12 @@ const Navbar = () => {
                                 Gallery
                             </Link>
                             <Link
+                                to="/topic/:id"
+                                className="ml-4 text-white hover:text-gray-300"
+                            >
+                                Topics
+                            </Link>
+                            <Link
                                 to="/word"
                                 className="ml-4 text-white hover:text-gray-300"
                             >
@@ -146,6 +152,12 @@ const Navbar = () => {
                         className="block text-white hover:text-gray-300"
                     >
                         Gallery
+                    </Link>
+                    <Link
+                        to="/topic/:id"
+                        className="ml-4 text-white hover:text-gray-300"
+                    >
+                        Topics
                     </Link>
                     <Link
                         to="/dictionary"

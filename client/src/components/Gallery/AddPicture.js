@@ -22,14 +22,14 @@ export default function AddPicture() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log("DATA: ", data);
         const requestBody = {
           publicId: data.public_id,
           imgUrl: data.url,
         };
         if (data.url.length > 1) {
           axios
-            .post(`http://localhost:5005/api/gallery/add-photo`, requestBody)
+            .post(`/api/gallery/add-photo`, requestBody)
             .then((response) => {
               /* if (response) {
                 Swal.fire({
