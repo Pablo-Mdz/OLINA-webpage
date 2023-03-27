@@ -8,7 +8,7 @@ export default function CreateATopic() {
     event.preventDefault();
     const requestBody = { title };
     const storedToken = localStorage.getItem("authToken");
-    axios.post(`http://localhost:5005/api/topic/`, requestBody, { headers: { Authorization: `Bearer ${storedToken}`}})
+    axios.post(`/api/topic/`, requestBody, { headers: { Authorization: `Bearer ${storedToken}`}})
         .then(response => {
             console.log(response);
             setTitle(title);

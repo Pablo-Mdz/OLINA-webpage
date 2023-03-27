@@ -22,7 +22,7 @@ export default function AddPicture() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        //console.log("DATA: ", data);
         const requestBody = {
           publicId: data.public_id,
           imgUrl: data.url,
