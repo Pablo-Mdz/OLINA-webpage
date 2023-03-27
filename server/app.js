@@ -24,6 +24,9 @@ app.use("/auth", authRoutes);
 const gallery = require("./routes/gallery.routes");
 app.use("/api/gallery", gallery);
 
+const topic = require("./routes/topic.routes");
+app.use("/api/topic", topic);
+
 const word = require("./routes/word.routes");
 app.use("/", word);
 // console.log('test word',word)

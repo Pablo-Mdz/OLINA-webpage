@@ -8,8 +8,14 @@ import {Words} from "./pages/Words/Words";
 import Navbar from "./components/Navbar/Navbar";
 import IsPrivate from "./components/IsPrivate/IsPrivate";
 import IsAnon from "./components/IsAnon/IsAnon";
+import GalleryPage from "./pages/GalleryPage";
+import AddPicture from "./components/Gallery/AddPicture";
+import TopicPage from "./pages/TopicPage";
+import CreateAPost from "./components/Blog/CreateAPost";
+import CreateATopic from "./components/Topic/CreateATopic";
 
 function App() {
+
     return (
         <div className="App">
             <Navbar />
@@ -46,6 +52,7 @@ function App() {
             </Routes>
         </div>
     );
+
 }
 
 export default App;
