@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 const { Schema } = mongoose;
 
-const blogPostSchema = new Schema({
+const PostSchema = new Schema({
   title: String, 
   author: { type: Schema.Types.ObjectId, ref: 'User'},
   body: String,
@@ -10,6 +10,6 @@ const blogPostSchema = new Schema({
   topic: { type: Schema.Types.ObjectId, ref: 'Topic'},
 });
 
-const BlogPost = model("BlogPost", blogPostSchema);
+const Post = model("Post", PostSchema);
 
-module.exports = BlogPost;
+module.exports = Post;

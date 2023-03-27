@@ -29,7 +29,7 @@ Modal.setAppElement("#root");
 export const Words = () => {
     const [words, setWords] = useState([]);
     const navigate = useNavigate();
-    const {user, isLoggedIn,LogOutUser} = useContext(AuthContext);
+    const {user, isLoggedIn, logOutUser} = useContext(AuthContext);
     const {id} = useParams();
     const [deleteWord, setDeleteWord] = useState("");
     const [modalIsOpen, setModalIsOpen] = useState(false);
