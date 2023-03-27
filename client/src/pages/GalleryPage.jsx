@@ -6,7 +6,7 @@ import DeletePicture from "../components/Gallery/DeletePicture";
 
 
 export default function GalleryPage() {
-  const { isLoggedIn } = useContext(AuthContext);  
+  const { isLoggedIn, user } = useContext(AuthContext);  
   const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
