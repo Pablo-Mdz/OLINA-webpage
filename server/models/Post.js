@@ -1,9 +1,4 @@
-<<<<<<< HEAD
 const { Schema, model } = require("mongoose");
-=======
-import mongoose from 'mongoose';
-const { Schema } = mongoose;
->>>>>>> master
 
 const PostSchema = new Schema({
   title: String, 
