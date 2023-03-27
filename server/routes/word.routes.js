@@ -50,7 +50,7 @@ router.post(`/${path}/:id/edit`, (req, res) => {
             }
         }).catch(err => console.log(err))
 })
-
+//change to test
 //delete word form list
 router.post(`/${path}/:id`, (req, res) => {
     const id = req.params.id
