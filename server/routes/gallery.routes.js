@@ -1,11 +1,17 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const Gallery = require("../models/Gallery");
-const { uploader, cloudinary } = require("../config/cloudinary");
+const Gallery = require('../models/Gallery');
+const { uploader, cloudinary } = require('../config/cloudinary');
 
-router.post("/add-photo", uploader.single("gallery"), (req, res, next) => {
+router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
   const { imgUrl, publicId } = req.body;
+<<<<<<< HEAD
   //console.log("REQUEST BODY: ", req.body)
+=======
+
+  console.log('REQUEST BODY: ', req.body);
+
+>>>>>>> master
   Gallery.create({
     imgUrl,
     publicId,
@@ -17,28 +23,28 @@ router.post("/add-photo", uploader.single("gallery"), (req, res, next) => {
     })
     .catch((err) => {
       console.log(err);
-      res.status(500).json({ message: "Internal Server Error" });
+      res.status(500).json({ message: 'Internal Server Error' });
     });
 });
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   Gallery.find().then((gallery) => {
     res.status(200).json(gallery);
   });
 });
 
-router.post("/delete/:id", (req, res, next) => {
+router.post('/delete/:id', (req, res, next) => {
   Gallery.findByIdAndDelete({ _id: req.params.id })
     .then((data) => {
       if (data.imgUrl) {
         cloudinary.uploader.destroy(data.publicId);
-      };
-      res.status(200).json({message: 'Entry deleted'});
+      }
+      res.status(200).json({ message: 'Entry deleted' });
     })
-    .catch(err => {
+    .catch((err) => {
       next(err);
-    })
-})
+    });
+});
 
 /* router.post("/upload", uploader.single("imageURL"), (req, res, next) => {
   console.log("file is: ", req.file)
@@ -60,7 +66,7 @@ router.post('/add-picture', (req, res) => {
   .catch(err => {
     res.status(500).json({ message: "Internal Server Error" });
   })
-})  */ 
+})  */
 
 /* router.post("/add-picture", uploader.single("gallery-image"), (req, res) => {
   const { imageURL, publicId } = req.body;
