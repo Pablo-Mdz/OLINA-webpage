@@ -23,7 +23,7 @@ export default function TopicPage() {
   
   return (
     <>
-    <div>TopicPage</div>
+    <div>Topic Page</div>
     <Post />
     
       <Link to="/create-topic" className="">Create a topic</Link>
