@@ -9,7 +9,7 @@ export default function TopicPage() {
     <>
     <div>TopicPage</div>
     <Post />
-    <Link to="/create-topic">Create a topic</Link>
+    <Link to="/create-topic" className="">Create a topic</Link>
     </>
   )
 }

@@ -19,7 +19,7 @@ function AuthProviderWrapper(props) {
 		const storedToken = localStorage.getItem('authToken');
 		if (storedToken) {
 			return axios.get(
-                '/api/auth/verify',
+                'http://localhost:5005/api/auth/verify',
 				{ headers: { Authorization: `Bearer ${storedToken}` } }
 			)
 				.then(response => {
