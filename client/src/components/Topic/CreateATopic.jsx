@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { Navigate } from 'react-router-dom';
 
 export default function CreateATopic() {
   const [title, setTitle] = useState("");
+
+  //const navigate = Navigate();
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -12,6 +15,7 @@ export default function CreateATopic() {
         .then(response => {
             console.log(response);
             setTitle(title);
+            //navigate("/topic/:id")
         })
         .catch(err => console.log(err));
   }

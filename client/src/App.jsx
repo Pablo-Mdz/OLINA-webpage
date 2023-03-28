@@ -1,5 +1,5 @@
 import "./App.css";
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "./pages/HomePage/HomePage";
 import ProfilePage from "./pages/ProfilePage/ProfilePage";
 import SignupPage from "./pages/SignupPage/SignupPage";
@@ -23,6 +23,12 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/word" element={<Words />} />
+                <Route path="/gallery" element={<GalleryPage  />} />
+                <Route path="/gallery/add-picture" element={<AddPicture  />} />
+                <Route path="/topic/:id" element={<TopicPage  />} />
+                <Route path="/create" element={<CreateAPost  />} />
+                <Route path="/create-topic" element={<CreateATopic  />} />
+                <Route path="*" element={<Navigate to="/" />} />
 
                 <Route
                     path="/profile"
