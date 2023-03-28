@@ -18,12 +18,8 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Name is required.'],
     },
-<<<<<<< HEAD
     topics: [{type: Schema.Types.ObjectId, ref: 'Topic'}],
     posts: [{type: Schema.Types.ObjectId, ref: 'Post'}]
-=======
-    topics: [{type: Schema.Types.ObjectId, ref: 'Topic'}]
->>>>>>> master
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`
