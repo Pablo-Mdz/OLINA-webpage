@@ -76,8 +76,13 @@ router.post('/login', (req, res, next) => {
         const payload = { _id, email, name };
 
         const authToken = jwt.sign(payload, process.env.TOKEN_SECRET, {
+<<<<<<< HEAD
+          algorithm: "HS256",
+          expiresIn: "24h",
+=======
           algorithm: 'HS256',
           expiresIn: '6h',
+>>>>>>> master
         });
 
         res.status(200).json({ authToken: authToken });
@@ -89,7 +94,16 @@ router.post('/login', (req, res, next) => {
 });
 
 // GET  /auth/verify  -  Used to verify JWT stored on the client
+<<<<<<< HEAD
+router.get("/verify", isAuthenticated, (req, res, next) => {
+  // If JWT token is valid the payload gets decoded by the
+  // isAuthenticated middleware and is made available on `req.payload`
+  console.log(`req.payload`, req.payload);
+
+  // Send back the token payload object containing the user data
+=======
 router.get('/verify', isAuthenticated, (req, res, next) => {
+>>>>>>> master
   res.status(200).json(req.payload);
 });
 

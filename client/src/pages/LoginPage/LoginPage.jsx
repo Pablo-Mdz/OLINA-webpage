@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/auth.context";
 import authService from "../../services/auth.service";
+import axios from "axios";
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -11,7 +12,7 @@ function LoginPage() {
 
   const navigate = useNavigate();
 
-  const { storeToken, authenticateUser } = useContext(AuthContext);
+  const { storeToken, verifyStoredToken } = useContext(AuthContext);
 
   const handleEmail = (e) => setEmail(e.target.value);
   const handlePassword = (e) => setPassword(e.target.value);
@@ -21,10 +22,10 @@ function LoginPage() {
     const requestBody = { email, password };
 
     // Send a request to the server using axios
-    /* 
-    axios.post(`${process.env.REACT_APP_SERVER_URL}/auth/login`)
-      .then((response) => {})
-    */
+     
+    /* axios.post(`api/auth/login`)
+      .then((response) => {}) */
+   
 
     // Or using a service
     authService
@@ -33,12 +34,17 @@ function LoginPage() {
         // If the POST request is successful store the authentication token,
         // after the token is stored authenticate the user
         // and at last navigate to the home page
-        storeToken(response.data.authToken);
-        authenticateUser();
-        navigate("/");
+        const token = response.data.authToken;
+
+            storeToken(token);
+            verifyStoredToken(token)
+                .then(() => {
+                    navigate('/')
+                })
       })
       .catch((error) => {
         // If the request resolves with an error, set the error message in the state
+        console.log("ERROR: ", error);
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
