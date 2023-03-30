@@ -23,12 +23,10 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
-router.get("/details/:id", (req, res) => {
-  const topicId = req.params.id;
-  console.log("req.params.id: ", req.params.id)
-  Topic.findById(topicId.trim())
-    .then(topicFromDB => {
-      res.json({ topic: topicFromDB });
+router.get("/list-topics", (req, res) => {
+  Topic.find({})
+    .then(topicsFromDB => {
+      res.json({ topics: topicsFromDB });
     })
     .catch(err => console.log(err));
 })

@@ -25,7 +25,7 @@ function App() {
                 <Route path="/word" element={<Words />} />
                 <Route path="/gallery" element={<GalleryPage  />} />
                 <Route path="/gallery/add-picture" element={<AddPicture  />} />
-                <Route path="/topic/:id" element={<TopicPage  />} />
+                <Route path="/topics" element={<TopicPage  />} />
                 <Route path="/create" element={<CreateAPost  />} />
                 <Route path="/create-topic" element={<CreateATopic  />} />
                 <Route path="*" element={<Navigate to="/" />} />

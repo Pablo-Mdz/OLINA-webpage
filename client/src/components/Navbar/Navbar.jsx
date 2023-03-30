@@ -29,7 +29,7 @@ const Navbar = () => {
                                 Gallery
                             </Link>
                             <Link
-                                to="/topic/:id"
+                                to="/topics"
                                 className="ml-4 text-white hover:text-gray-300"
                             >
                                 Topics
@@ -154,7 +154,7 @@ const Navbar = () => {
                         Gallery
                     </Link>
                     <Link
-                        to="/topic/:id"
+                        to="/topics"
                         className="ml-4 text-white hover:text-gray-300"
                     >
                         Topics
