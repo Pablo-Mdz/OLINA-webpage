@@ -23,6 +23,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/word" element={<Words />} />
+                <Route path="/gallery" element={<GalleryPage />} />
 
                 <Route
                     path="/profile"
