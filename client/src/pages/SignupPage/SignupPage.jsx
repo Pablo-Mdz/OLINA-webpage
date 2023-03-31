@@ -117,7 +117,7 @@ function SignupPage() {
                   to="/login"
                   className="font-medium text-gray-700 hover:text-gray-600"
                 >
-                  Already have account?
+                  Already have account? Login
                 </Link>
               </div>
             </div>
