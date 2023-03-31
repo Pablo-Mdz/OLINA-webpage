@@ -9,7 +9,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => setIsOpen(!isOpen);
-    const {isLoggedIn, user, logOutUser} = useContext(AuthContext);
+    const {isLoggedIn, user, logoutUser} = useContext(AuthContext);
     return (
         <nav className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -71,7 +71,7 @@ const Navbar = () => {
                             {isLoggedIn && (
                                 <>
                                  <Link
-                                        onClick={logOutUser}
+                                        onClick={logoutUser}
                                         className="ml-4 text-white hover:text-gray-300"
                                     >
                                         Logout
