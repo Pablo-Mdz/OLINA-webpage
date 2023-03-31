@@ -1,23 +1,23 @@
 import { useState } from 'react';
-import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_SERVER_URL || "http://localhost:5005";
+const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
 export default function AddPicture() {
-  const [image, setImage] = useState("");
-  const [setErrorMessage] = useState("");
+  const [image, setImage] = useState('');
+  const [setErrorMessage] = useState('');
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("file", image);
-    data.append("upload_preset", "auh8nzbq");
-    data.append("cloud_name", "be-chef");
-    fetch("https://api.cloudinary.com/v1_1/be-chef/image/upload", {
-      method: "post",
+    data.append('file', image);
+    data.append('upload_preset', 'auh8nzbq');
+    data.append('cloud_name', 'be-chef');
+    fetch('https://api.cloudinary.com/v1_1/be-chef/image/upload', {
+      method: 'post',
       body: data,
     })
       .then((response) => response.json())
@@ -28,10 +28,8 @@ export default function AddPicture() {
           imgUrl: data.url,
         };
         if (data.url.length > 1) {
-          axios
-            .post(`/api/gallery/add-photo`, requestBody)
-            .then((response) => {
-              /* if (response) {
+          axios.post(`/api/gallery/add-photo`, requestBody).then((response) => {
+            /* if (response) {
                 Swal.fire({
                   icon: "success",
                   title: "The picture has been saved",
@@ -39,15 +37,15 @@ export default function AddPicture() {
                   timer: 500,
                 });
               } */
-              navigate('/gallery')
-            });
+            navigate('/gallery');
+          });
         }
       })
       .catch((err) => {
         const errorDescription = err.response.data.message;
         setErrorMessage(errorDescription);
       });
-    setImage("");
+    setImage('');
   };
 
   return (
@@ -105,5 +103,5 @@ export default function AddPicture() {
         </form>
       </div>
     </>
-  )
+  );
 }

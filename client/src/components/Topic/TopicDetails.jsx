@@ -9,8 +9,7 @@ export default function TopicDetails() {
   const params = useParams()
   const id = params.id;
 
-
-  const [topic, setTopic] = useState("");
+  const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
 
   console.log(posts);

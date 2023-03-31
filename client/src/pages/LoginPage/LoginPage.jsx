@@ -1,13 +1,12 @@
-import "./LoginPage.css";
-import { useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../../context/auth.context";
-import authService from "../../services/auth.service";
-
+import './LoginPage.css';
+import { useState, useContext } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../context/auth.context';
+import authService from '../../services/auth.service';
 
 function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
@@ -22,31 +21,28 @@ function LoginPage() {
     const requestBody = { email, password };
 
     // Send a request to the server using axios
-     
+
     /* axios.post(`api/auth/login`)
       .then((response) => {}) */
-   
 
     // Or using a service
     authService
       .login(requestBody)
       .then((response) => {
-        console.log("response: ", response)
+        console.log('response: ', response);
         // If the POST request is successful store the authentication token,
         // after the token is stored authenticate the user
         // and at last navigate to the home page
         const token = response.data.authToken;
         storeToken(token);
-        verifyStoredToken(token)
-        console.log("token: ",token)
-                .then(() => {
-                    navigate('/')
-                })
+        verifyStoredToken(token);
+        console.log('token: ', token).then(() => {
+          navigate('/');
+        });
       })
       .catch((error) => {
-        
         // If the request resolves with an error, set the error message in the state
-        console.log("ERROR: ", error);
+        console.log('ERROR: ', error);
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
@@ -102,7 +98,7 @@ function LoginPage() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Don't have an account yet?</p>
-      <Link to={"/signup"}> Sign Up</Link>
+      <Link to={'/signup'}> Sign Up</Link>
     </div>
     </>
   );

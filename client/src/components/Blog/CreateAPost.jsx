@@ -4,13 +4,13 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 export default function CreateAPost({ posts, setPosts }) {
   const [title, setTitle] = useState('');
-  const [body, setBody] = useState("");
+  const [body, setBody] = useState('');
 
   const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
 
-  const handleSubmit = event => {
+  const handleSubmit = (event) => {
     event.preventDefault();
     const requestBody = { title, body, topicId: id };
     const storedToken = localStorage.getItem("authToken");
@@ -36,7 +36,7 @@ export default function CreateAPost({ posts, setPosts }) {
             id="title"
             type="text"
             value={title}
-            onChange={e => setTitle(e.target.value)}
+            onChange={(e) => setTitle(e.target.value)}
           />
         </div>
         <div className="mb-4">
@@ -48,7 +48,7 @@ export default function CreateAPost({ posts, setPosts }) {
             id="body"
             type="text"
             value={body}
-            onChange={e => setBody(e.target.value)}
+            onChange={(e) => setBody(e.target.value)}
           />
         </div>
         <div className="flex items-center justify-between">
@@ -61,5 +61,5 @@ export default function CreateAPost({ posts, setPosts }) {
         </div>
       </form>
     </div>
-  )
+  );
 }
