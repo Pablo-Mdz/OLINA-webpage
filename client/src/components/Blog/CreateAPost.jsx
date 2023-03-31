@@ -1,23 +1,24 @@
-import { useState} from 'react';
+import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
-export default function CreateAPost() {
+export default function CreateAPost({ posts, setPosts }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState("");
 
   const navigate = useNavigate();
+  const params = useParams();
+  const id = params.id;
 
   const handleSubmit = event => {
     event.preventDefault();
-    const requestBody = { title, body };
+    const requestBody = { title, body, topicId: id };
     const storedToken = localStorage.getItem("authToken");
     axios.post(`/api/post/`, requestBody, { headers: { Authorization: `Bearer ${storedToken}`}})
         .then(response => {
             console.log(response.data);
             setTitle(title);
             setBody(body);
-            navigate("/blogs")
         })
         .catch(err => console.log(err));
   }
