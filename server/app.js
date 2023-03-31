@@ -27,6 +27,9 @@ app.use("/api/gallery", gallery);
 const topic = require("./routes/topic.routes");
 app.use("/api/topic", topic);
 
+const post = require("./routes/post.routes");
+app.use("/api/post", post);
+
 const word = require("./routes/word.routes");
 app.use("/", word);
 // console.log('test word',word)
