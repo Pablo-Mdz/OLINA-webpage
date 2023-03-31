@@ -114,10 +114,10 @@ function SignupPage() {
             <div className="flex items-center justify-between">
               <div className="text-sm">
                 <Link
-                  to="/signup"
+                  to="/login"
                   className="font-medium text-gray-700 hover:text-gray-600"
                 >
-                  Don't have an account? Sign up
+                  Already have account?
                 </Link>
               </div>
             </div>
