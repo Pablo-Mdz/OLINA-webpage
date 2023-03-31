@@ -1,12 +1,12 @@
-import "./SignupPage.css";
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import authService from "../../services/auth.service";
+import './SignupPage.css';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import authService from '../../services/auth.service';
 
 function SignupPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [name, setName] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
 
   const navigate = useNavigate();
@@ -36,7 +36,7 @@ function SignupPage() {
       .signup(requestBody)
       .then((response) => {
         // If the POST request is successful redirect to the login page
-        navigate("/login");
+        navigate('/login');
       })
       .catch((error) => {
         // If the request resolves with an error, set the error message in the state
@@ -70,7 +70,7 @@ function SignupPage() {
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
       <p>Already have account?</p>
-      <Link to={"/login"}> Login</Link>
+      <Link to={'/login'}> Login</Link>
     </div>
   );
 }
