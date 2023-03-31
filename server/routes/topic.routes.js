@@ -23,9 +23,16 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
-router.get("/details/:id", (req, res, next) => {
-  console.log(req.params)
+router.get("/details/:id", (req, res) => {
   const topicId = req.params.id;
+  Topic.findById(topicId) 
+    .populate({
+      path: "posts",
+    })
+    .then(topicFromDB => {
+      res.json({ topic: topicFromDB })
+    })
+    .catch(err => console.log(err))
 });
 
 router.get("/list-topics", (req, res) => {

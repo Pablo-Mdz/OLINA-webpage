@@ -8,23 +8,24 @@ router.post("/", isAuthenticated, (req, res) => {
     console.log('this is req.body of post:', req.body)
     console.log('this is req.payload._id of post:', req.payload._id);
     const authorId = req.payload._id;
-    const { title, body } = req.body;
+    const { title, body, topicId } = req.body;
     Post.create({
         title: title,
         body,
         author: authorId
     })
       .then(newPost => {
-        console.log("newPost: ", newPost)
-        User.findByIdAndUpdate( authorId, {$push: { posts: newPost._id}})
-          .then(updatedUser => {
-            console.log("updatedUser: ", updatedUser)
-            res.json({ newPost: newPost });
+        Topic.findByIdAndUpdate(topicId, {$push: { posts: newPost._id}})
+          .then(updatedTopic => {
+            User.findByIdAndUpdate( authorId, {$push: { posts: newPost._id}})
+            .then(updatedUser => {
+              res.json({ newPost: newPost });
+            })
           })
           .catch(err => console.log(err));
       })
 });
 
-//here i need to get topicID from req.body and update Topic.findByIdAndUpdate()
+
 
 module.exports = router;
