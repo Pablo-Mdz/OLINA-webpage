@@ -23,6 +23,11 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
+router.get("/details/:id", (req, res, next) => {
+  console.log(req.params)
+  const topicId = req.params.id;
+});
+
 router.get("/list-topics", (req, res) => {
   Topic.find({})
     .then(topicsFromDB => {

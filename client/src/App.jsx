@@ -13,6 +13,7 @@ import AddPicture from "./components/Gallery/AddPicture";
 import TopicPage from "./pages/TopicPage";
 import CreateAPost from "./components/Blog/CreateAPost";
 import CreateATopic from "./components/Topic/CreateATopic";
+import TopicDetails from "./components/Topic/TopicDetails";
 
 function App() {
 
@@ -26,35 +27,28 @@ function App() {
                 <Route path="/gallery" element={<GalleryPage  />} />
                 <Route path="/gallery/add-picture" element={<AddPicture  />} />
                 <Route path="/topics" element={<TopicPage  />} />
-                <Route path="/create" element={<CreateAPost  />} />
+                <Route path="/topics/:id" element={<TopicDetails  />} />
+                <Route path="/create-post" element={<CreateAPost  />} />
                 <Route path="/create-topic" element={<CreateATopic  />} />
                 <Route path="*" element={<Navigate to="/" />} />
 
-                <Route
-                    path="/profile"
-                    element={
-                        <IsPrivate>
-                            <ProfilePage />
-                        </IsPrivate>
-                    }
-                />
+                <Route path="/profile" element={
+                  <IsPrivate>
+                        <ProfilePage />
+                    </IsPrivate>
+                }/>
 
-                <Route
-                    path="/signup"
-                    element={
-                        <IsAnon>
-                            <SignupPage />
-                        </IsAnon>
-                    }
-                />
-                <Route
-                    path="/login"
-                    element={
-                        <IsAnon>
-                            <LoginPage />
-                        </IsAnon>
-                    }
-                />
+                <Route path="/signup" element={
+                  <IsAnon>
+                      <SignupPage />
+                  </IsAnon>
+                }/>
+
+                <Route path="/login" element={
+                  <IsAnon>
+                      <LoginPage />
+                  </IsAnon>
+                }/>
             </Routes>
         </div>
     );
