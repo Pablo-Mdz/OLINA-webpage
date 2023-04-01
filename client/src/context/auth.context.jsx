@@ -5,65 +5,67 @@ import {useNavigate} from "react-router-dom";
 const AuthContext = React.createContext();
 
 function AuthProviderWrapper(props) {
-    const [user, setUser] = useState(null);
-    const [isLoading, setIsLoading] = useState(false);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-    const storeToken = (token) => {
-        localStorage.setItem("authToken", token);
-    };
+  const navigate = useNavigate();
 
-    const verifyStoredToken = () => {
-        const storedToken = localStorage.getItem("authToken");
-        if (storedToken) {
-            return axios
-                .get("http://localhost:5005/auth/verify", {
-                    headers: {Authorization: `Bearer ${storedToken}`},
-                })
-                .then((response) => {
-                    const user = response.data;
-                    setUser(user);
-                    setIsLoggedIn(true);
-                    setIsLoading(false);
-                })
-                .catch((err) => {
-                    setUser(null);
-                    setIsLoggedIn(false);
-                    setIsLoading(false);
-                });
-        } else {
-            setIsLoading(false);
-        }
-    };
+  const storeToken = (token) => {
+    localStorage.setItem('authToken', token);
+  };
 
-    const logoutUser = () => {
-        localStorage.removeItem("authToken");
+  const verifyStoredToken = () => {
+    const storedToken = localStorage.getItem('authToken');
+    if (storedToken) {
+      return axios
+        .get('http://localhost:5005/auth/verify', {
+          headers: { Authorization: `Bearer ${storedToken}` },
+        })
+        .then((response) => {
+          const user = response.data;
+          setUser(user);
+          setIsLoggedIn(true);
+          setIsLoading(false);
+        })
+        .catch((err) => {
+          setUser(null);
+          setIsLoggedIn(false);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  };
 
-        setUser(null);
-        setIsLoggedIn(false);
-        navigate("/");
-    };
+  const logoutUser = () => {
+    localStorage.removeItem('authToken');
 
-    useEffect(() => {
-        verifyStoredToken();
-    }, []);
+    setUser(null);
+    setIsLoggedIn(false);
+    navigate('/');
+  };
 
-    return (
-        <AuthContext.Provider
-            value={{
-                isLoggedIn,
-                isLoading,
-                user,
-                storeToken,
-                verifyStoredToken,
-                logoutUser,
-            }}
-        >
-            {props.children}
-        </AuthContext.Provider>
-    );
+  useEffect(() => {
+    verifyStoredToken();
+  }, []);
+
+  return (
+    <AuthContext.Provider
+      value={{
+        isLoggedIn,
+        isLoading,
+        user,
+        storeToken,
+        verifyStoredToken,
+        logoutUser,
+      }}
+    >
+      {props.children}
+    </AuthContext.Provider>
+  );
 }
 
-export {AuthProviderWrapper, AuthContext};
+export { AuthProviderWrapper, AuthContext };
+
