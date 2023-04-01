@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const AuthContext = React.createContext();
 
 function AuthProviderWrapper(props) {
+
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -67,3 +68,4 @@ function AuthProviderWrapper(props) {
 }
 
 export { AuthProviderWrapper, AuthContext };
+

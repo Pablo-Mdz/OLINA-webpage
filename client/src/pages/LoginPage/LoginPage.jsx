@@ -29,18 +29,22 @@ function LoginPage() {
     authService
       .login(requestBody)
       .then((response) => {
+
         console.log('response: ', response);
+
         // If the POST request is successful store the authentication token,
         // after the token is stored authenticate the user
         // and at last navigate to the home page
         const token = response.data.authToken;
         storeToken(token);
+
         verifyStoredToken(token);
         console.log('token: ', token).then(() => {
           navigate('/');
         });
       })
       .catch((error) => {
+        
         // If the request resolves with an error, set the error message in the state
         console.log('ERROR: ', error);
         const errorDescription = error.response.data.message;

@@ -24,6 +24,7 @@ export default function CreateATopic() {
   };
 
   return (
+
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
       <h3 className="text-lg font-medium mb-4">Title your topic</h3>
       <form onSubmit={handleSubmit}>
@@ -50,4 +51,5 @@ export default function CreateATopic() {
       </form>
     </div>
   );
+
 }
