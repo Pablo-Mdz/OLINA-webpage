@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": " nodemon server.js",
-    "dev": "nodemon server.js"
+    "start": "nodemon server.js",
+    "dev": "nodemon server.js",
+    "prepare": "husky install"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
