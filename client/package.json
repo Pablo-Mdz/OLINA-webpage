@@ -63,8 +63,21 @@
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^14.4.3",
     "babel-plugin-named-exports-order": "^0.0.2",
+    "husky": "^8.0.3",
+    "lint-staged": "^12.3.4",
     "prop-types": "^15.8.1",
     "tailwindcss": "^3.2.7",
     "webpack": "^5.77.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
