@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../context/auth.context';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
 
