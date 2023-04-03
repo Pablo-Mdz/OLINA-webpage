@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../context/auth.context';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from "../Blog/CreateAPost";
 import EditPostCard from '../Blog/EditPostCard';
@@ -16,7 +15,6 @@ export default function TopicDetails() {
 
   const handleEdit = (post) => {
     setPostBeingEdited(post);
-    //console.log("post being edited: ", post)
   }
 
   console.log(posts);
@@ -27,10 +25,23 @@ export default function TopicDetails() {
             setTopic(response?.data?.topic);
             setPosts(response?.data?.topic?.posts)
         })
+        .catch(err => console.log(err))
   }, []);
 
   const cancelEditing = () => {
     setPostBeingEdited({});
+  }
+
+
+  const postId = postBeingEdited?._id
+  console.log("postId: ", postId)
+
+  const deletePost = () => {
+    axios.post(`/api/post/delete/${postId}`)
+      .then(() => {
+        setPosts(posts.filter(post => post._id !== postBeingEdited._id));
+      })
+      .catch(err => console.log(err))
   }
 
   return (
@@ -42,6 +53,7 @@ export default function TopicDetails() {
        <EditPostCard 
         post={post}
         onCancel={cancelEditing}
+        onDelete={deletePost}
         /> :
        <PostCard 
           post={post} 

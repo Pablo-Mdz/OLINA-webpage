@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-
-export default function EditPostCard({ post: initialPost, onCancel }) {
+export default function EditPostCard({ post: initialPost, onCancel, onDelete }) {
   const [post, setPost] = useState(initialPost);
+
 
   const id = initialPost._id;
 
@@ -27,7 +27,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
         const { post } = response.data;
         setPost(post);
       })
-  }, [])
+  }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -35,8 +35,10 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
     axios.put(`/api/post/${id}`, requestBody)
       .then(response => {
         console.log(response)
+        window.location.reload(false);
       })
-  }
+  };
+  
 
   return (
     <form 
@@ -64,6 +66,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
        <br />
        <button className='bg-green-500'>Save</button>
        <button onClick={onCancel} className='bg-red-800'>Cancel</button>
+       <button onClick={onDelete} className='bg-yellow-500'>Delete</button>
     </form>
   )
 }

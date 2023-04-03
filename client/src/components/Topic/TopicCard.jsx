@@ -1,9 +1,7 @@
-import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { AuthContext } from '../../context/auth.context';
+
 
 export default function TopicCard({ topic }) {
-  const { user } = useContext(AuthContext);
 
   const date = new Date(topic.createdAt).toLocaleString();
 
@@ -35,7 +33,7 @@ export default function TopicCard({ topic }) {
       <div className="flex items-center mt-4">
         <img className="w-10 h-10 rounded-full mr-4" src="" alt="" />
         <div className="text-sm">
-          <p className="text-gray-900 leading-none">Created by: {user.name} </p>
+          <p className="text-gray-900 leading-none">Created by: {topic.author} </p>
           <p className="text-gray-600">{date}</p>
         </div>
       </div>
