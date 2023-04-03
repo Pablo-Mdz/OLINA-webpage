@@ -4,6 +4,7 @@ import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from "../Blog/CreateAPost";
+import EditPostCard from '../Blog/EditPostCard';
 
 export default function TopicDetails() {
   const params = useParams()
@@ -11,6 +12,12 @@ export default function TopicDetails() {
 
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
+  const [postBeingEdited, setPostBeingEdited] = useState({});
+
+  const handleEdit = (post) => {
+    setPostBeingEdited(post);
+    //console.log("post being edited: ", post)
+  }
 
   console.log(posts);
 
@@ -20,14 +27,31 @@ export default function TopicDetails() {
             setTopic(response?.data?.topic);
             setPosts(response?.data?.topic?.posts)
         })
-  }, [])
+  }, []);
+
+  const cancelEditing = () => {
+    setPostBeingEdited({});
+  }
 
   return (
     <>
      <h1>{topic.title}</h1>
      {posts.map(post => (
-       <PostCard key={post._id} post={post} />
-      ))}
+      <div key={post._id}>
+       {postBeingEdited === post ?
+       <EditPostCard 
+        post={post}
+        onCancel={cancelEditing}
+        /> :
+       <PostCard 
+          post={post} 
+          onEdit={handleEdit}
+       /> }
+       </div>
+      ))
+      
+      }
+
      <CreateAPost setPosts={setPosts} posts={posts} />
     </>
   )
