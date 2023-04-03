@@ -3,15 +3,17 @@ import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
 
+
+
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
 export const Words = () => {
   const [words, setWords] = useState([]);
   const { user, isLoggedIn } = useContext(AuthContext);
   const [deleteWord, setDeleteWord] = useState('');
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [editModalIsOpen, setEditModalIsOpen] = useState(false);
-  const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
   const [search, setSearch] = useState('');
   const [newWord, setNewWord] = useState({
     word: '',
@@ -118,6 +120,15 @@ export const Words = () => {
       });
   };
 
+  const handleDeleteModalOpen = (id) => {
+    setDeleteWord(id);
+    setDeleteModalIsOpen(true);
+  };
+
+  const handleDeleteModalClose = () => {
+    setDeleteModalIsOpen(false);
+  };
+
   //search bar
 
   const filtered = words.filter((oneData) => {
@@ -135,9 +146,9 @@ export const Words = () => {
     }
   });
 
-  // const handleModalOpen = () => {
-  //     setModalIsOpen(true);
-  // };
+//   const handleModalOpen = () => {
+//     setModalIsOpen(true);
+//   };
 
   const handleModalClose = () => {
     setModalIsOpen(false);
@@ -166,14 +177,6 @@ export const Words = () => {
     setEditModalIsOpen(false);
   };
 
-  const handleDeleteModalOpen = (id) => {
-    setDeleteWord(id);
-    setDeleteModalIsOpen(true);
-  };
-
-  const handleDeleteModalClose = () => {
-    setDeleteModalIsOpen(false);
-  };
   const customStyles = {
     overlay: {
       backgroundColor: 'rgba(0, 0, 0, 0.75)',

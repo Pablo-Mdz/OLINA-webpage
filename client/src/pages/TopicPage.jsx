@@ -23,8 +23,29 @@ export default function TopicPage() {
 
   return (
     <>
-      <h1>Topic Page</h1>
-      {/* <Post /> */}
+      <div className="p-8">
+        <h1 className="text-3xl font-bold mb-8">Topic Page</h1>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8  ">
+          {/* <Post /> */}
+          {TopicsSortedByDate.sort(
+            (a, b) => Date(b.createdAt) - Date(a.createdAt),
+          ).map((topic) => (
+            <div className='transform h-42  duration-500 hover:shadow-xl'> 
+            <TopicCard  key={topic._id} topic={topic} />
+                  </div>
+          ))}
+        </div>
+
+        <Link
+          to="/create-topic"
+          className="bg-blue-500 text-white px-4 py-2 rounded mt-8 inline-block"
+        >
+          Create a topic
+        </Link>
+      </div>
+      {/* <h1>Topic Page</h1>
+  
 
       {TopicsSortedByDate.sort(
         (a, b) => Date(b.createdAt) - Date(a.createdAt),
@@ -34,7 +55,7 @@ export default function TopicPage() {
 
       <Link to="/create-topic" className="">
         Create a topic
-      </Link>
+      </Link> */}
     </>
   );
 }
