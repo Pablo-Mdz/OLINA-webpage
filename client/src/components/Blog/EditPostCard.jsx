@@ -4,13 +4,11 @@ import axios from 'axios';
 
 export default function EditPostCard({ post: initialPost, onCancel }) {
   const [post, setPost] = useState(initialPost);
-  //console.log("POST: ", post);
 
   const id = initialPost._id;
 
   const handleChange = event => {
     const { name, value } = event.target;
-    //console.log(event.target)
 
     const updatedValue = value;
 
@@ -21,7 +19,6 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
     setPost(prev => {
      return {...prev, ...change}
     });
-    //console.log("check if updated: ", post);
   };
 
   useEffect(() => {
