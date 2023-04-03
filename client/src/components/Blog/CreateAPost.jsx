@@ -16,9 +16,10 @@ export default function CreateAPost({ posts, setPosts }) {
     const storedToken = localStorage.getItem("authToken");
     axios.post(`/api/post/`, requestBody, { headers: { Authorization: `Bearer ${storedToken}`}})
         .then(response => {
-            console.log(response.data);
+            console.log("response",response.data);
             setTitle(title);
             setBody(body);
+            navigate("/topics");
         })
         .catch(err => console.log(err));
   }
@@ -55,6 +56,7 @@ export default function CreateAPost({ posts, setPosts }) {
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
             type="submit"
+            
           >
             Add a new post
           </button>

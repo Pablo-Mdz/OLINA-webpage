@@ -16,7 +16,7 @@ export default function CreateATopic() {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        console.log(response);
+        // console.log(response);
         setTitle(title);
         navigate('/topics');
       })
