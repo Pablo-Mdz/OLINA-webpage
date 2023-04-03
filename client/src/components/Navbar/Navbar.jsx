@@ -9,7 +9,7 @@ const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const toggleMenu = () => setIsOpen(!isOpen);
-    const {isLoggedIn, user, logoutUser} = useContext(AuthContext);
+    const {isLoggedIn, logoutUser} = useContext(AuthContext);
     return (
         <nav className="bg-gray-800">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -41,7 +41,7 @@ const Navbar = () => {
                                 Dictionary
                             </Link>
                             <Link
-                                to="/contact"
+                                to="/contactMe"
                                 className="ml-4 text-white hover:text-gray-300"
                             >
                                 Contact
