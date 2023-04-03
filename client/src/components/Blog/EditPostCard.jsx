@@ -37,7 +37,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
     const requestBody = { post }
     axios.put(`/api/post/${id}`, requestBody)
       .then(response => {
-        console.log(response)
+        console.log(response.data)
       })
   }
 
