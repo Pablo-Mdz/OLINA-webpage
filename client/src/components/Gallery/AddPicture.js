@@ -2,7 +2,6 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
 export default function AddPicture() {
   const [image, setImage] = useState('');
@@ -28,17 +27,10 @@ export default function AddPicture() {
           imgUrl: data.url,
         };
         if (data.url.length > 1) {
-          axios.post(`/api/gallery/add-photo`, requestBody).then((response) => {
-            /* if (response) {
-                Swal.fire({
-                  icon: "success",
-                  title: "The picture has been saved",
-                  showConfirmButton: false,
-                  timer: 500,
-                });
-              } */
-            navigate('/gallery');
-          });
+          axios.post(`/api/gallery/add-photo`, requestBody)
+            .then((response) => {
+              navigate('/gallery');
+            });
         }
       })
       .catch((err) => {
