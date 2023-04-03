@@ -34,7 +34,7 @@ router.get("/:id", (req, res) => {
       res.status(200).json(post);
     })
     .catch(err => console.log(err));
-})
+});
 
 
 router.put("/:id", (req, res) => {
@@ -44,6 +44,16 @@ router.put("/:id", (req, res) => {
   Post.findByIdAndUpdate(req.params.id, { title, body }, { new: true })
     .then(updatedPost => {
       res.status(200).json(updatedPost);
+    })
+    .catch(err => console.log(err));
+});
+
+router.post("/delete/:postId", (res, req) => {
+  const postID = req.params.postId;
+  console.log("req.params: ", req.params)
+  Post.findByIdAndDelete(postID)
+    .then(() => {
+      res.status(200).json({ message: "Post deleted" })
     })
     .catch(err => console.log(err));
 })
