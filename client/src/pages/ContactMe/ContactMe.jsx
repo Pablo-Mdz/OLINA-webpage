@@ -39,7 +39,7 @@ export const ContactMe = () => {
             {/* Name */}
           </label>
           <input
-            id="fname"
+            id="name"
             name="firstname"
             type="text"
             className="w-full border border-gray-400 py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
@@ -55,7 +55,7 @@ export const ContactMe = () => {
             {/* Email */}
           </label>
           <input
-            id="mailid"
+            id="email"
             name="email"
             type="email"
             className="w-full border border-gray-400 py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
@@ -71,7 +71,7 @@ export const ContactMe = () => {
             {/* Message */}
           </label>
           <textarea
-            id="msg"
+            id="message"
             name="message"
             rows="4"
             className="w-full border border-gray-400 py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
