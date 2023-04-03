@@ -38,10 +38,10 @@ router.get("/:id", (req, res) => {
 
 
 router.put("/:id", (req, res) => {
-  console.log(req.params);
   const { post } = req.body;
   Post.findByIdAndUpdate(req.params.postId, { post }, { new: true })
     .then(updatedPost => {
+      console.log("UPDATED POST", updatedPost)
       res.status(200).json(updatedPost);
     })
     .catch(err => console.log(err));
