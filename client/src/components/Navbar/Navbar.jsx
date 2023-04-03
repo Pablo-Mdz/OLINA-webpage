@@ -84,9 +84,6 @@ const Navbar = () => {
               <span className="sr-only">Open main menu</span>
               {/*
                 Icon when menu is closed.
-
-                Heroicon name: outline/menu
-
                 Menu open: "hidden", Menu closed: "block"
               */}
               <svg
@@ -106,9 +103,6 @@ const Navbar = () => {
               </svg>
               {/*
                 Icon when menu is open.
-
-                Heroicon name: outline/x
-
                 Menu open: "block", Menu closed: "hidden"
               */}
               <svg
@@ -132,7 +126,6 @@ const Navbar = () => {
       </div>
       {/*
         Mobile menu, toggle classNamees based on menu state.
-
         Open: "block", closed: "hidden"
       */}
       <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
@@ -149,7 +142,10 @@ const Navbar = () => {
           >
             Dictionary
           </Link>
-          <Link to="/contact" className="block text-white hover:text-gray-300">
+          <Link
+            to="/contact-me"
+            className="block text-white hover:text-gray-300"
+          >
             Contact
           </Link>
           <Link to="/about" className="block text-white hover:text-gray-300">

@@ -30,7 +30,7 @@ function App() {
         <Route path="/topics/:id" element={<TopicDetails />} />
         <Route path="/create-post" element={<CreateAPost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
-        <Route path='/contact-me' element={<ContactMe />} />
+        <Route path="/contact-me" element={<ContactMe />} />
         <Route path="*" element={<Navigate to="/" />} />
 
         <Route
