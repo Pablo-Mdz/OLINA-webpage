@@ -26,9 +26,10 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
-router.get("/id", (req, res) => {
+router.get("/:id", (req, res) => {
   const postId = req.params.id;
   Post.findById(postId)
+    .populate("author")
     .then(post => {
       res.status(200).json(post);
     })
@@ -36,7 +37,7 @@ router.get("/id", (req, res) => {
 })
 
 
-router.put("/id", (req, res) => {
+router.put("/:id", (req, res) => {
   console.log(req.params);
   const { post } = req.body;
   Post.findByIdAndUpdate(req.params.postId, { post }, { new: true })
