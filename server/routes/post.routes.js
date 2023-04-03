@@ -26,5 +26,26 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
+router.get("/:id", (req, res) => {
+  const postId = req.params.id;
+  Post.findById(postId)
+    .populate("author")
+    .then(post => {
+      res.status(200).json(post);
+    })
+    .catch(err => console.log(err));
+})
+
+
+router.put("/:id", (req, res) => {
+  const { post } = req.body;
+  const title = post.title
+  const body = post.body
+  Post.findByIdAndUpdate(req.params.id, { title, body }, { new: true })
+    .then(updatedPost => {
+      res.status(200).json(updatedPost);
+    })
+    .catch(err => console.log(err));
+})
 
 module.exports = router;

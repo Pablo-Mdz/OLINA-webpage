@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function CreateAPost({ posts, setPosts }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
 
