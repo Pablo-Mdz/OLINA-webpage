@@ -51,7 +51,11 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
       <input 
         type="text" 
         name='title'
+<<<<<<< HEAD
         value={post?.title}
+=======
+        value={post.title}
+>>>>>>> master
         onChange={handleChange}
        />
        <br />
@@ -60,7 +64,11 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
        <input 
         type="text" 
         name='body'
+<<<<<<< HEAD
         value={post?.body}
+=======
+        value={post.body}
+>>>>>>> master
         onChange={handleChange}
        />
 
