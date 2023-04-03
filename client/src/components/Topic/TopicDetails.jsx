@@ -16,7 +16,7 @@ export default function TopicDetails() {
 
   const handleEdit = (post) => {
     setPostBeingEdited(post);
-    //console.log("post being edited: ", post)
+    console.log("post being edited: ", post)
   }
 
   console.log(posts);
