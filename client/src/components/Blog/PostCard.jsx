@@ -21,7 +21,7 @@ export default function PostCard({ onEdit, post }) {
       <div className="flex items-center mt-4">
         <img className="w-10 h-10 rounded-full mr-4" src="" alt="" />
         <div className="text-sm">
-          <p className="text-gray-900 leading-none">Created by: {user.name} </p>
+          <p className="text-gray-900 leading-none">Created by: {user?.name} </p>
           <p className="text-gray-600">{date}</p>
         </div>
       </div>
