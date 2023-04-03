@@ -6,7 +6,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
   const [post, setPost] = useState(initialPost);
   //console.log("POST: ", post);
 
-  const id = post._id;
+  const id = initialPost._id;
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -51,7 +51,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
       <input 
         type="text" 
         name='title'
-        value={post.title}
+        value={post?.title}
         onChange={handleChange}
        />
        <br />
@@ -60,7 +60,7 @@ export default function EditPostCard({ post: initialPost, onCancel }) {
        <input 
         type="text" 
         name='body'
-        value={post.body}
+        value={post?.body}
         onChange={handleChange}
        />
 
