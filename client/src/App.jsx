@@ -14,6 +14,7 @@ import TopicPage from './pages/TopicPage';
 import CreateAPost from './components/Blog/CreateAPost';
 import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
+import { ContactMe } from './pages/ContactMe/ContactMe';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
         <Route path="/topics/:id" element={<TopicDetails />} />
         <Route path="/create-post" element={<CreateAPost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
+        <Route path="/contact-me" element={<ContactMe />} />
         <Route path="*" element={<Navigate to="/" />} />
 
         <Route
