@@ -14,6 +14,8 @@ import TopicPage from './pages/TopicPage';
 import CreateAPost from './components/Blog/CreateAPost';
 import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
+import { AboutMe } from './pages/AboutMe/AboutMe';
+import { ContactMe } from './pages/ContactMe/ContactMe';
 
 function App() {
   return (
@@ -22,6 +24,8 @@ function App() {
 
       <Routes>
         <Route path="/" element={<HomePage />} />
+        <Route path='/about' element={<AboutMe />} />
+        <Route path='/contact' element={<ContactMe />} />
         <Route path="/word" element={<Words />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/gallery/add-picture" element={<AddPicture />} />

@@ -41,6 +41,12 @@ const Navbar = () => {
                                 Dictionary
                             </Link>
                             <Link
+                                to="/create-post"
+                                className="ml-4 text-white hover:text-gray-300"
+                            >
+                                Create Post
+                            </Link>
+                            <Link
                                 to="/contact"
                                 className="ml-4 text-white hover:text-gray-300"
                             >

@@ -7,7 +7,7 @@ import CreateAPost from "../Blog/CreateAPost";
 import EditPostCard from '../Blog/EditPostCard';
 
 export default function TopicDetails() {
-  const params = useParams()
+  const params = useParams();
   const id = params.id;
 
   const [topic, setTopic] = useState('');
@@ -35,7 +35,18 @@ export default function TopicDetails() {
 
   return (
     <>
-     <h1>{topic.title}</h1>
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-4">{topic.title}</h1>
+        <div className=" sm:grid-cols-2 md:grid-cols-3 gap-4 flex items-center justify-around ">
+          {posts.map((post) => (
+            <PostCard className='flex items-center justify-around ' key={post._id} post={post} />
+          ))}
+        </div>
+        <div className="mt-8">
+          <CreateAPost setPosts={setPosts} posts={posts} />
+        </div>
+      </div>
+       <h1>{topic.title}</h1>
      {posts.map(post => (
       <div key={post._id}>
        {postBeingEdited === post ?
@@ -54,5 +65,5 @@ export default function TopicDetails() {
 
      <CreateAPost setPosts={setPosts} posts={posts} />
     </>
-  )
+  );
 }
