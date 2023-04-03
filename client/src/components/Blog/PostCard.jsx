@@ -1,15 +1,11 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 
-export default function PostCard({ onEdit, post }) {
+export default function PostCard({ post }) {
   const { user } = useContext(AuthContext);
   //console.log(post)
 
   const date = new Date(post.createdAt).toLocaleString();
-
-  const handleEditClick = (postBeingEdited) => {
-    onEdit(postBeingEdited);
-  }
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-slate-200">
@@ -25,12 +21,6 @@ export default function PostCard({ onEdit, post }) {
           <p className="text-gray-600">{date}</p>
         </div>
       </div>
-      <button 
-        onClick={() => handleEditClick(post)} 
-        className='bg-cyan-500'
-      >
-        Edit
-      </button>
     </div>
   );
 }

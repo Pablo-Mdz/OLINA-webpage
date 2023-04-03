@@ -26,24 +26,5 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
-router.get("/id", (req, res) => {
-  const postId = req.params.id;
-  Post.findById(postId)
-    .then(post => {
-      res.status(200).json(post);
-    })
-    .catch(err => console.log(err));
-})
-
-
-router.put("/id", (req, res) => {
-  console.log(req.params);
-  const { post } = req.body;
-  Post.findByIdAndUpdate(req.params.postId, { post }, { new: true })
-    .then(updatedPost => {
-      res.status(200).json(updatedPost);
-    })
-    .catch(err => console.log(err));
-})
 
 module.exports = router;

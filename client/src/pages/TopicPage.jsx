@@ -2,10 +2,12 @@ import { useState, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
+import Post from '../components/Blog/Post';
 import TopicCard from '../components/Topic/TopicCard';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
+  const [posts, setPosts] = useState([]);
 
   const { isLoggedIn, user } = useContext(AuthContext);
 
@@ -21,6 +23,8 @@ export default function TopicPage() {
 
   return (
     <>
+      <h1>Topic Page</h1>
+      {/* <Post /> */}
 
       {TopicsSortedByDate.sort(
         (a, b) => Date(b.createdAt) - Date(a.createdAt),
