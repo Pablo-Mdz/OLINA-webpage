@@ -18,7 +18,6 @@ export const ContactMe = () => {
       .then(
         (result) => {
           console.log(result.text);
-          // console.log("message sent")
         },
         (error) => {
           console.log(error.text);
@@ -37,7 +36,7 @@ export const ContactMe = () => {
             htmlFor="name"
             className="block text-gray-700 font-medium mb-2"
           >
-            Name
+            {/* Name */}
           </label>
           <input
             id="fname"
@@ -53,7 +52,7 @@ export const ContactMe = () => {
             htmlFor="email"
             className="block text-gray-700 font-medium mb-2"
           >
-            Email
+            {/* Email */}
           </label>
           <input
             id="mailid"
@@ -69,7 +68,7 @@ export const ContactMe = () => {
             htmlFor="message"
             className="block text-gray-700 font-medium mb-2"
           >
-            Message
+            {/* Message */}
           </label>
           <textarea
             id="msg"
