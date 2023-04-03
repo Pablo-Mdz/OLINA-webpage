@@ -1,12 +1,11 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function CreateAPost({ posts, setPosts }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-  const navigate = useNavigate();
   const params = useParams();
   const id = params.id;
 
@@ -16,9 +15,10 @@ export default function CreateAPost({ posts, setPosts }) {
     const storedToken = localStorage.getItem("authToken");
     axios.post(`/api/post/`, requestBody, { headers: { Authorization: `Bearer ${storedToken}`}})
         .then(response => {
-            console.log(response.data);
+            console.log(response.data.newPost);
             setTitle(title);
             setBody(body);
+            window.location.reload(false);
         })
         .catch(err => console.log(err));
   }
