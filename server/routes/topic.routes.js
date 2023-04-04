@@ -4,8 +4,6 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const User = require('../models/User');
 
 router.post("/", isAuthenticated, (req, res) => {
-    console.log('this is req.body of topic:', req.body)
-    console.log('this is req.payload._id of topic:', req.payload._id);
     const authorId = req.payload._id;
     const { title } = req.body;
     Topic.create({
@@ -13,11 +11,14 @@ router.post("/", isAuthenticated, (req, res) => {
         author: authorId
     })
       .then(newTopic => {
-        console.log("newTopic: ", newTopic)
         User.findByIdAndUpdate( authorId, {$push: { topics: newTopic._id}})
           .then(updatedUser => {
-            console.log("updatedUser: ", updatedUser)
-            res.json({ newTopic: newTopic });
+            Topic.findById(newTopic._id)
+                .populate("author")
+                .then(populatedTopic => {
+                  res.json(populatedTopic);
+                  console.log("populated topic: ", populatedTopic)
+                })
           })
           .catch(err => console.log(err));
       })
@@ -30,6 +31,7 @@ router.get("/details/:id", (req, res) => {
       path: "posts",
     })
     .then(topicFromDB => {
+      console.log("topicFromDB: ", topicFromDB)
       res.json({ topic: topicFromDB })
     })
     .catch(err => console.log(err))
