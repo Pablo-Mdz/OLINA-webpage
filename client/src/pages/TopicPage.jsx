@@ -1,13 +1,13 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../context/auth.context';
+// import { AuthContext } from '../context/auth.context';
 import TopicCard from '../components/Topic/TopicCard';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
 
-  const { isLoggedIn, user } = useContext(AuthContext);
+//   const { isLoggedIn, user } = useContext(AuthContext);
 
 
   useEffect(() => {
