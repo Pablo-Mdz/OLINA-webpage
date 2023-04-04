@@ -20,7 +20,7 @@ export default function PostCard({ onEdit, post }) {
   <div className="flex items-center mt-4">
     {/* <img className="w-10 h-10 rounded-full mr-4" src={user.avatar} alt={`${user.name}'s avatar`} /> */}
     <div className="text-sm">
-      <p className="text-gray-900 font-medium">Created by {user.name}</p>
+      {/* <p className="text-gray-900 font-medium">Created by {user.name}</p> */}
       <p className="text-gray-600">{new Date(date).toLocaleDateString()}</p>
     </div>
   </div>

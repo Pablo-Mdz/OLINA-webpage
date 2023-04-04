@@ -4,6 +4,8 @@ import axios from 'axios';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
 import EditPostCard from '../Blog/EditPostCard';
+import { Link } from 'react-router-dom';
+
 
 export default function TopicDetails() {
   const params = useParams();
@@ -56,6 +58,9 @@ export default function TopicDetails() {
           </div>
         ))}
       </div>
+      <Link to="/topics" className="bg-cyan-500 text-white font-medium px-4 py-2 rounded-full mt-4">return to topics</Link>
+
+        
       <CreateAPost setPosts={setPosts} posts={posts} />
 
     </>
