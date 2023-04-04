@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
+// import {handleDeleteWord} from './DeleteWord';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
