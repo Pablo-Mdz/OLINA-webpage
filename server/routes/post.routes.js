@@ -26,8 +26,8 @@ router.post("/", isAuthenticated, (req, res) => {
       })
 });
 
-router.get("/:id", (req, res) => {
-  const postId = req.params.id;
+router.get("/:postId", (req, res) => {
+  const postId = req.params.postId;
   Post.findById(postId)
     .populate("author")
     .then(post => {
@@ -37,23 +37,20 @@ router.get("/:id", (req, res) => {
 });
 
 
-router.put("/:id", (req, res) => {
-  const { post } = req.body;
-  const title = post.title
-  const body = post.body
-  Post.findByIdAndUpdate(req.params.id, { title, body }, { new: true })
+router.put("/:postId", (req, res) => {
+  const { title, body } = req.body;
+  Post.findByIdAndUpdate(req.params.postId, { title, body }, { new: true })
     .then(updatedPost => {
       res.status(200).json(updatedPost);
     })
     .catch(err => console.log(err));
 });
 
-router.post("/delete/:postId", (res, req) => {
+router.delete("/:postId", (req, res) => {
   const postID = req.params.postId;
-  console.log("req.params: ", req.params)
   Post.findByIdAndDelete(postID)
     .then(() => {
-      res.status(200).json({ message: "Post deleted" })
+      res.status(200).json({message: 'Post deleted'})
     })
     .catch(err => console.log(err));
 })
