@@ -1,46 +1,42 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-export default function EditPostCard({ post: initialPost, onCancel, onDelete }) {
-  const [post, setPost] = useState(initialPost);
+export default function EditPostCard({ postBeingEdited: initialPost, onCancel }) {
+  const [title, setTitle] = useState(initialPost.title);
+  const [body, setBody] = useState(initialPost.body);
 
+  
 
-  const id = initialPost._id;
-
-  const handleChange = event => {
-    const { name, value } = event.target;
-
-    const updatedValue = value;
-
-    const change = {
-      [name]: updatedValue,
-    };
-
-    setPost(prev => {
-     return {...prev, ...change}
-    });
-  };
+  const postId = initialPost?._id;
 
   useEffect(() => {
-    axios.get(`/api/post/${id}`)
+    axios.get(`/api/post/${postId}`)
       .then(response => {
-        const { post } = response.data;
-        setPost(post);
+        const { title, body } = response.data;
+        setTitle(title);
+        setBody(body)
       })
   }, []);
 
   const handleSubmit = event => {
     event.preventDefault();
-    const requestBody = { post }
-    axios.put(`/api/post/${id}`, requestBody)
+    const requestBody = { title, body }
+    axios.put(`/api/post/${postId}`, requestBody)
       .then(response => {
-        console.log(response)
         window.location.reload(false);
       })
   };
   
+  const deletePost = () => {
+    axios.delete(`/api/post/${postId}`)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch(err => console.log(err))
+  }
 
   return (
+    <>
     <form 
       onSubmit={handleSubmit} 
       className="max-w-sm rounded overflow-hidden shadow-lg bg-slate-200"
@@ -50,8 +46,8 @@ export default function EditPostCard({ post: initialPost, onCancel, onDelete }) 
       <input 
         type="text" 
         name='title'
-        value={post?.title}
-        onChange={handleChange}
+        value={title}
+        onChange={e => setTitle(e.target.value)}
        />
        <br />
        <label>Post Body:</label>
@@ -59,14 +55,16 @@ export default function EditPostCard({ post: initialPost, onCancel, onDelete }) 
        <input 
         type="text" 
         name='body'
-        value={post?.body}
-        onChange={handleChange}
+        value={body}
+        onChange={e => setBody(e.target.value)}
        />
 
        <br />
        <button className='bg-green-500'>Save</button>
-       <button onClick={onCancel} className='bg-red-800'>Cancel</button>
-       <button onClick={onDelete} className='bg-yellow-500'>Delete</button>
     </form>
+    
+    <button onClick={onCancel} className='bg-red-800'>Cancel</button>
+    <button onClick={deletePost} className='bg-yellow-500'>Delete</button>
+    </>
   )
 }
