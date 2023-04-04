@@ -19,7 +19,11 @@ router.post("/", isAuthenticated, (req, res) => {
           .then(updatedTopic => {
             User.findByIdAndUpdate( authorId, {$push: { posts: newPost._id}})
             .then(updatedUser => {
-              res.json({ newPost: newPost });
+              Post.findById(newPost._id)
+                .populate("author")
+                .then(populatedPost => {
+                  res.json(populatedPost);
+                })
             })
           })
           .catch(err => console.log(err));

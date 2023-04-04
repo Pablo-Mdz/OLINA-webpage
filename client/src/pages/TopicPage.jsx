@@ -9,6 +9,7 @@ export default function TopicPage() {
 
   const { isLoggedIn, user } = useContext(AuthContext);
 
+
   useEffect(() => {
     axios.get('/api/topic/list-topics').then((response) => {
       setTopics(response.data.topics);
