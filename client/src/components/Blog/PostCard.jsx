@@ -18,14 +18,13 @@ export default function PostCard({ onEdit, post }) {
   </div>
   
   <div className="flex items-center mt-4">
-    {/* <img className="w-10 h-10 rounded-full mr-4" src={user.avatar} alt={`${user.name}'s avatar`} /> */}
     <div className="text-sm">
-      {/* <p className="text-gray-900 font-medium">Created by {user.name}</p> */}
-      <p className="text-gray-600">{new Date(date).toLocaleDateString()}</p>
+      <p className="text-gray-900 font-medium">Created by {user?.name}</p>
+      <p className="text-gray-600">Date: {new Date(date).toLocaleDateString()}</p>
     </div>
   </div>
   
-  <button onClick={() => handleEditClick(post)} className="bg-cyan-500 text-white font-medium px-4 py-2 rounded-full mt-4">
+  <button onClick={() => handleEditClick(post)} className="bg-cyan-500 text-white font-medium px-4 py-2 my-2 rounded-full mt-4">
     Edit
   </button>
 </div>
