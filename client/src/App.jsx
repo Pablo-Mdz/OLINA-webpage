@@ -15,6 +15,7 @@ import CreateAPost from './components/Blog/CreateAPost';
 import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
 import { ContactMe } from './pages/ContactMe/ContactMe';
+import { AboutMe } from './pages/AboutMe/AboutMe';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="/create-post" element={<CreateAPost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
         <Route path="/contact-me" element={<ContactMe />} />
+        <Route path="/about" element={<AboutMe />} />
         <Route path="*" element={<Navigate to="/" />} />
 
         <Route

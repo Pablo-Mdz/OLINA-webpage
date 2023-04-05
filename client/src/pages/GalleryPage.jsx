@@ -1,11 +1,11 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/auth.context';
+// import { AuthContext } from '../context/auth.context';
 import { Link } from 'react-router-dom';
 import DeletePicture from '../components/Gallery/DeletePicture';
 
 export default function GalleryPage() {
-  const { isLoggedIn, user } = useContext(AuthContext);
+//   const { isLoggedIn, user } = useContext(AuthContext);
   const [gallery, setGallery] = useState([]);
 
   useEffect(() => {
