@@ -54,11 +54,11 @@ export default function TopicDetails() {
                 onCancel={cancelEditing}
               />
             ) : (
-              <PostCard post={post} onEdit={handleEdit} />
+              <PostCard  post={post} onEdit={handleEdit} />
             )}
-            <div className="p-6">
-              <p className="text-gray-800 text-base">Date: {post.createdAt}</p>
-            </div>
+            {/* <div className="p-6">
+              <p className="text-gray-800 text-base">Date: {new Date(post.createdAt).toLocaleDateString('es-ES')}</p>
+            </div> */}
           </div>
       ))}
       </div>
