@@ -1,15 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
 import EditPostCard from '../Blog/EditPostCard';
 import { Link } from 'react-router-dom';
+import {AuthContext} from "../../context/auth.context";
 
 export default function TopicDetails() {
   const params = useParams();
   const id = params.id;
 
+  const {isLoggedIn, user} = useContext(AuthContext);
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
   const [postBeingEdited, setPostBeingEdited] = useState({});
@@ -59,10 +61,11 @@ export default function TopicDetails() {
               <p className="text-gray-800 text-base">Date: {post.createdAt}</p>
             </div>
           </div>
-        ))}
+      ))}
       </div>
-
-      <CreateAPost setPosts={setPosts} posts={posts} />
+      {isLoggedIn && topic.author === user._id &&(
+          <CreateAPost setPosts={setPosts} posts={posts} />
+          )}
     </>
   );
 }

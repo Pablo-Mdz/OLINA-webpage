@@ -2,10 +2,9 @@ import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 
 export default function PostCard({ onEdit, post }) {
-  const { user } = useContext(AuthContext);
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   const date = new Date(post.createdAt).toLocaleString();
-
   const handleEditClick = (postBeingEdited) => {
     onEdit(postBeingEdited);
   };
@@ -25,13 +24,14 @@ export default function PostCard({ onEdit, post }) {
           </p>
         </div>
       </div>
-
-      <button
-        onClick={() => handleEditClick(post)}
-        className="bg-cyan-500 text-white font-medium px-4 py-2 my-2 rounded-full mt-4"
-      >
-        Edit
-      </button>
+      {isLoggedIn && post.author === user._id && (
+        <button
+          onClick={() => handleEditClick(post)}
+          className="bg-cyan-500 text-white font-medium px-4 py-2 my-2 rounded-full mt-4"
+        >
+          Edit
+        </button>
+      )}
     </div>
   );
 }
