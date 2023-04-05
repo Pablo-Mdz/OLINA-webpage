@@ -17,7 +17,7 @@ export default function TopicPage() {
   );
 
   return (
-    <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4">
+    <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
       <div className="md:w-1/4 bg-[#9f1ee8] bg-opacity-25">
         {TopicsSortedByDate.map((topic) => (
           <button
