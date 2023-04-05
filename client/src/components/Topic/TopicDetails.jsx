@@ -34,7 +34,7 @@ export default function TopicDetails() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 font-pop">{topic.title}</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 font-pop mt-6">TOPIC: {topic.title}</h1>
       <Link
         to="/topics"
         className="bg-blue-500 text-white font-medium px-4 py-2 rounded-full my-4"

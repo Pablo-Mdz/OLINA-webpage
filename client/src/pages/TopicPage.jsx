@@ -22,7 +22,7 @@ export default function TopicPage() {
         {TopicsSortedByDate.map((topic) => (
           <button
             key={topic._id}
-            className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900"
+            className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900 my-2"
           >
            <Link className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900" to={`/topics/${topic._id}`} >{topic.title}</Link>  
           </button>
