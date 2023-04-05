@@ -12,6 +12,8 @@ export default function TopicPage() {
     });
   }, []);
 
+  
+
   const TopicsSortedByDate = topics.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );

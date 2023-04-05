@@ -3,11 +3,12 @@ import { AuthContext } from '../../context/auth.context';
 
 export default function PostCard({ onEdit, post }) {
   const { isLoggedIn, user } = useContext(AuthContext);
-
   const date = new Date(post.createdAt).toLocaleString();
   const handleEditClick = (postBeingEdited) => {
     onEdit(postBeingEdited);
   };
+
+ 
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-[#9f1ee8] bg-opacity-25 ">
@@ -18,7 +19,9 @@ export default function PostCard({ onEdit, post }) {
 
       <div className="flex items-center mt-4">
         <div className="text-sm">
-          <p className="text-gray-900 font-medium">Created by {user?.name}</p>
+          <p className="text-gray-900 font-medium">
+            Created by: {post.author.name}
+          </p>
           <p className="text-gray-600">
             Date: {new Date(date).toLocaleDateString()}
           </p>

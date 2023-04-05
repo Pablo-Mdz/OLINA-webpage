@@ -36,7 +36,7 @@ export default function CreateAPost({ posts, setPosts, setEditorHtml }) {
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
         <br />
-      <h3 className="text-2xl  font-medium mb-4">Create a new post</h3>
+      <h3 className="text-2xl  font-medium mb-4">Create a new post related to this topic</h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
