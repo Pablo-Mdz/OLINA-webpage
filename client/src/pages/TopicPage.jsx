@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-// import TopicCard from '../components/Topic/TopicCard';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
-  const [topicBeingEdited, setTopicBeingEdited] = useState({});
 
   useEffect(() => {
     axios.get('/api/topic/list-topics').then((response) => {
