@@ -37,6 +37,7 @@ export default function EditPostCard({ postBeingEdited: initialPost, onCancel })
       .catch(err => console.log(err))
   }
 
+
   const handleEditorChange = (content) => {
     setBody(content);
   };

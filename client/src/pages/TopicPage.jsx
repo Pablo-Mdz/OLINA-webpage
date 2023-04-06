@@ -5,14 +5,13 @@ import axios from 'axios';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
+  const [topicBeingEdited, setTopicBeingEdited] = useState({});
 
   useEffect(() => {
     axios.get('/api/topic/list-topics').then((response) => {
-      setTopics(response.data.topics);
+      setTopics(response.data.topics).catch((err) => console.log(err));
     });
   }, []);
-
-  
 
   const TopicsSortedByDate = topics.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
@@ -22,12 +21,19 @@ export default function TopicPage() {
     <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
       <div className="md:w-1/4 bg-[#9f1ee8] bg-opacity-25">
         {TopicsSortedByDate.map((topic) => (
-          <button
-            key={topic._id}
-            className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900 my-2"
-          >
-           <Link className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900" to={`/topics/${topic._id}`} >{topic.title}</Link>  
-          </button>
+          <div key={topic._id}>
+            <button
+              key={topic._id}
+              className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900 my-2"
+            >
+              <Link
+                className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900"
+                to={`/topics/${topic._id}`}
+              >
+                {topic.title}
+              </Link>
+            </button>
+          </div>
         ))}
         <Link
           to="/create-topic"
@@ -39,7 +45,6 @@ export default function TopicPage() {
     </div>
   );
 }
-
 
 // original code saved because the new go directly to /create-topic
 
