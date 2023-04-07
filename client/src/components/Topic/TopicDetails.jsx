@@ -60,11 +60,8 @@ export default function TopicDetails() {
                 onCancel={cancelEditing}
               />
             ) : (
-              <PostCard className="py-2" post={post} onEdit={handleEditPost} />
+              <PostCard post={post} onEdit={handleEditPost} />
             )}
-            {/* <div className="p-6">
-              <p className="text-gray-800 text-base">Date: {new Date(post.createdAt).toLocaleDateString('es-ES')}</p>
-            </div> */}
           </div>
         ))}
       </div>

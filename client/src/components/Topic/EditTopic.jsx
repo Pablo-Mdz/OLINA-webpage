@@ -12,7 +12,9 @@ const EditTopic = ({ topic, onCancel }) => {
     const requestBody = { title };
     axios
       .put(`/api/topic/details/${topic?._id}`, requestBody)
-      .then((response) => {});
+      .then((response) => {
+        console.log('Edited:', response);
+      });
   };
 
   const deletePost = () => {
