@@ -8,8 +8,6 @@ export default function PostCard({ onEdit, post }) {
     onEdit(postBeingEdited);
   };
 
- 
-
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-[#9f1ee8] bg-opacity-25 ">
       <div className="px-6 py-4">
@@ -23,11 +21,11 @@ export default function PostCard({ onEdit, post }) {
             Created by: {post.author.name}
           </p>
           <p className="text-gray-600">
-            Date: {new Date(date).toLocaleDateString()}
+            Date: {new Date(date).toLocaleDateString('es-ES')}
           </p>
         </div>
       </div>
-      {isLoggedIn && post.author === user._id && (
+      {isLoggedIn && post.author._id === user._id && (
         <button
           onClick={() => handleEditClick(post)}
           className="bg-cyan-500 text-white font-medium px-4 py-2 my-2 rounded-full mt-4"

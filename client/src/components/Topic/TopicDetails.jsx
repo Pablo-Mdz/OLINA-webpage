@@ -1,21 +1,22 @@
 import { useState, useEffect, useContext } from 'react';
-import { useParams,Link } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import axios from 'axios';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
 import EditPostCard from '../Blog/EditPostCard';
-import {AuthContext} from "../../context/auth.context";
+import { AuthContext } from '../../context/auth.context';
+import EditTopic from './EditTopic';
 
 export default function TopicDetails() {
   const params = useParams();
   const id = params.id;
 
-  const {isLoggedIn} = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
   const [postBeingEdited, setPostBeingEdited] = useState({});
 
-  const handleEdit = (post) => {
+  const handleEditPost = (post) => {
     setPostBeingEdited(post);
   };
 
@@ -35,13 +36,18 @@ export default function TopicDetails() {
 
   return (
     <>
-      <h1 className="text-3xl font-bold text-gray-800 mb-8 font-pop mt-6">TOPIC: {topic.title}</h1>
+      <h1 className="text-3xl font-bold text-gray-800 mb-8 font-pop mt-6">
+        TOPIC: {topic.title}
+      </h1>
+      <EditTopic topic={topic} />
+      <div className="flex px-1 justify-items-end "></div>
       <Link
         to="/topics"
         className="bg-blue-500 text-white font-medium px-4 py-2 rounded-full my-4"
       >
         return to topics
       </Link>
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
         {posts.map((post) => (
           <div
@@ -54,17 +60,12 @@ export default function TopicDetails() {
                 onCancel={cancelEditing}
               />
             ) : (
-              <PostCard post={post} onEdit={handleEdit} />
+              <PostCard post={post} onEdit={handleEditPost} />
             )}
-            <div className="p-6">
-              <p className="text-gray-800 text-base">Date: {post.createdAt}</p>
-            </div>
           </div>
-      ))}
+        ))}
       </div>
-      {isLoggedIn  &&(
-          <CreateAPost setPosts={setPosts} posts={posts} />
-          )}
+      {isLoggedIn && <CreateAPost setPosts={setPosts} posts={posts} />}
     </>
   );
 }
