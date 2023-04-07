@@ -15,6 +15,20 @@ export default function TopicDetails() {
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
   const [postBeingEdited, setPostBeingEdited] = useState({});
+  const [search, setSearch] = useState("");
+ 
+
+  const filteredPost = posts.filter(post => { 
+    if (post.body.toLowerCase().includes(search.toLowerCase()) ||
+        post.title.toLowerCase().includes(search.toLowerCase())) {
+      return true;
+    }
+  });
+
+  const postSortedByDate = filteredPost.sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  );
+
 
   const handleEditPost = (post) => {
     setPostBeingEdited(post);
@@ -28,7 +42,7 @@ export default function TopicDetails() {
         setPosts(response?.data?.topic?.posts);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, search]);
 
   const cancelEditing = () => {
     setPostBeingEdited({});
@@ -47,9 +61,22 @@ export default function TopicDetails() {
       >
         return to topics
       </Link>
+      <label
+        htmlFor="description"
+        className="block text-gray-700 font-bold mb-2"
+      >
+        SEARCH BAR
+      </label>
+      <input
+        placeholder="Search by keywords.."
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+      />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
-        {posts.map((post) => (
+        {postSortedByDate.map((post) => (
           <div
             key={post._id}
             className="bg-white rounded-lg shadow-lg overflow-hidden"
