@@ -1,6 +1,24 @@
-import React from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/auth.context';
+import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
+import axios from 'axios';
+
 
 export const AboutMe = () => {
+  const { isLoggedIn } = useContext(AuthContext);
+  const [ aboutMeInfo, setAboutMeInfo] = useState([]);
+
+  useEffect(() => {
+    axios.get(`/api/about-me`)
+      .then(response => { 
+        console.log(response)
+        setAboutMeInfo(response.data)
+      })
+      .catch(err => console.log(err))
+  }, [])
+
+
+
   return (
     <div>
       <section className="bg-violet-400 py-16 px-4">
@@ -8,18 +26,9 @@ export const AboutMe = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <h2 className="text-3xl font-bold mb-4">About me</h2>
-              <p className="text-white mb-8">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris
-                ac leo sit amet enim faucibus blandit. Integer euismod, eros
-                quis egestas feugiat, tortor quam consectetur justo, quis
-                facilisis sapien enim a neque.
-              </p>
-              <p className="text-white mb-8">
-                Integer nec lorem vitae est luctus ullamcorper euismod sit amet
-                odio. Maecenas malesuada enim in purus tempus, vitae lacinia ex
-                porttitor. Etiam lacinia eros id quam interdum, sit amet
-                ultrices magna viverra.
-              </p>
+              <p className="text-white mb-8">{aboutMeInfo.map(aboutMe => (
+                <p>{aboutMe.textBody}</p>
+              ))}</p>
             </div>
             <div>
               <img
@@ -31,6 +40,9 @@ export const AboutMe = () => {
           </div>
         </div>
       </section>
+      {isLoggedIn && 
+        <CreateAboutMe />
+      }
     </div>
   );
 };
