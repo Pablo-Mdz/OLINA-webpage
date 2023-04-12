@@ -32,9 +32,12 @@ export default function TopicDetails({ id }) {
       .then((response) => {
         setTopic(response?.data?.topic);
         setPosts(response?.data?.topic?.posts);
+        console.log('afrer set axios');
       })
       .catch((err) => console.log(err));
   }, [id, search]);
+  console.log('id', id);
+  console.log('post be edited', postBeingEdited);
 
   const cancelEditing = () => {
     setPostBeingEdited({});
@@ -78,7 +81,7 @@ export default function TopicDetails({ id }) {
           </div>
         ))}
       </div>
-      {isLoggedIn && <CreateAPost setPosts={setPosts} posts={posts} />}
+      {isLoggedIn && <CreateAPost id={id} setPosts={setPosts} posts={posts} />}
     </div>
   );
 }
