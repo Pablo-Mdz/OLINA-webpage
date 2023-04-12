@@ -63,15 +63,13 @@ export default function CreateAPost({ posts, setPosts, setEditorHtml }) {
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto "
             type="submit"
           >
             Add a new post
           </button>
         </div>
       </form>
-      <h3 className="text-lg font-medium mb-4">Preview your post here</h3>
-      <div dangerouslySetInnerHTML={{ __html: body }}></div>
     </div>
   );
 }
