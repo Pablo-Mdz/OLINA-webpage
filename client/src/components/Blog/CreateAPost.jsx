@@ -1,16 +1,12 @@
 import { useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-export default function CreateAPost({ posts, setPosts, setEditorHtml }) {
+export default function CreateAPost({ id }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
- 
 
-  const params = useParams();
-  const id = params.id;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,15 +24,16 @@ export default function CreateAPost({ posts, setPosts, setEditorHtml }) {
       })
       .catch((err) => console.log(err));
   };
-    const handleEditorChange = (content) => {
-      setBody(content);
-    };
-  
+  const handleEditorChange = (content) => {
+    setBody(content);
+  };
 
   return (
     <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
-        <br />
-      <h3 className="text-2xl  font-medium mb-4">Create a new post related to this topic</h3>
+      <br />
+      <h3 className="text-2xl  font-medium mb-4">
+        Create a new post related to this topic
+      </h3>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
@@ -54,24 +51,17 @@ export default function CreateAPost({ posts, setPosts, setEditorHtml }) {
           <label className="block text-gray-700 font-bold mb-2" htmlFor="body">
             Body:
           </label>
-          <ReactQuill
-            theme="snow"
-            onChange={handleEditorChange}
-            value={body}
-            
-          />
+          <ReactQuill theme="snow" onChange={handleEditorChange} value={body} />
         </div>
         <div className="flex items-center justify-between">
           <button
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto "
             type="submit"
           >
             Add a new post
           </button>
         </div>
       </form>
-      <h3 className="text-lg font-medium mb-4">Preview your post here</h3>
-      <div dangerouslySetInnerHTML={{ __html: body }}></div>
     </div>
   );
 }
