@@ -44,7 +44,7 @@ export default function TopicDetails({ id }) {
   };
 
   return (
-    <div className="topic-details-container">
+    <div className="topic-details-container w-screen">
       <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6">
         TOPIC: {topic.title}
       </h1>
@@ -64,11 +64,11 @@ export default function TopicDetails({ id }) {
         className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
         {postSortedByDate.map((post) => (
           <div
             key={post._id}
-            className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-105 transition duration-300"
+            // className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-102 transition duration-300"
           >
             {postBeingEdited === post ? (
               <EditPostCard
@@ -81,7 +81,10 @@ export default function TopicDetails({ id }) {
           </div>
         ))}
       </div>
+      <div className=''>
       {isLoggedIn && <CreateAPost id={id} setPosts={setPosts} posts={posts} />}
+      </div>
     </div>
   );
 }
+

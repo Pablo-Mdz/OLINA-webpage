@@ -16,6 +16,7 @@ import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
 import { ContactMe } from './pages/ContactMe/ContactMe';
 import { AboutMe } from './pages/AboutMe/AboutMe';
+import { SinglePost } from './components/Blog/SinglePost';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/topics" element={<TopicPage />} />
         <Route path="/topics/:id" element={<TopicDetails />} />
         <Route path="/create-post" element={<CreateAPost />} />
+        <Route path="/post/:id" element={<SinglePost/>} />
         <Route path="/create-topic" element={<CreateATopic />} />
         <Route path="/contact-me" element={<ContactMe />} />
         <Route path="/about" element={<AboutMe />} />
