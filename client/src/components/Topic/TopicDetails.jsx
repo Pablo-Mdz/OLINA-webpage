@@ -2,18 +2,14 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
-import EditPostCard from '../Blog/EditPostCard';
 import { AuthContext } from '../../context/auth.context';
 
 export default function TopicDetails({ id }) {
   const { isLoggedIn } = useContext(AuthContext);
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
-  const [postBeingEdited, setPostBeingEdited] = useState({});
   const [search, setSearch] = useState('');
 
-
-  
   const filteredPost = posts.filter(
     (post) =>
       post.body.toLowerCase().includes(search.toLowerCase()) ||
@@ -24,25 +20,15 @@ export default function TopicDetails({ id }) {
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );
 
-  const handleEditPost = (post) => {
-    setPostBeingEdited(post);
-  };
-
   useEffect(() => {
     axios
       .get(`/api/topic/details/${id}`)
       .then((response) => {
         setTopic(response?.data?.topic);
         setPosts(response?.data?.topic?.posts);
-        
       })
       .catch((err) => console.log(err));
   }, [id, search]);
-
-
-  const cancelEditing = () => {
-    setPostBeingEdited({});
-  };
 
   return (
     <div className="topic-details-container w-full px-4">
@@ -66,16 +52,7 @@ export default function TopicDetails({ id }) {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0">
         {postSortedByDate.map((post) => (
-          <div key={post._id}>
-            {postBeingEdited === post ? (
-              <EditPostCard
-                postBeingEdited={postBeingEdited}
-                onCancel={cancelEditing}
-              />
-            ) : (
-              <PostCard post={post} onEdit={handleEditPost} />
-            )}
-          </div>
+          <div key={post._id}>{post && <PostCard post={post} />}</div>
         ))}
       </div>
       <div className="">
