@@ -1,15 +1,16 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
 export default function CreateAboutMe() {
-  const [aboutMe, setAboutMe] = useState("");
+  const [aboutMe, setAboutMe] = useState();
+
 
   const handleSubmit = event => {
     event.preventDefault();
     const requestBody = { aboutMe };
     axios.post(`/api/about-me`, requestBody)
         .then(response => {
-            console.log(response);
+           window.location.reload(false);
         })
         .catch((err) => console.log(err));
   }
@@ -19,18 +20,17 @@ export default function CreateAboutMe() {
       <section className="bg-violet-400 py-16 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <h2 className="text-2xl mb-4">Add About me</h2>
-            </div>
             <form 
                 onSubmit={handleSubmit}
-                className="text-white mb-8">
+                className="mb-8">
              <textarea 
                 value={aboutMe}
                 onChange={(e) => setAboutMe(e.target.value)}
+                className="h-80 w-full border border-gray-400 py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
              />
              <br />
-             <button>Add About Me</button>
+             <button
+              className='px-4 py-1 border-2 border-gray-900 rounded uppercase font-medium text-xs'>Add About Me</button>
             </form>
           </div>
         </div>
