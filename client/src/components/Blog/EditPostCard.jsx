@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import { useNavigate } from 'react-router-dom';
 export default function EditPostCard({
   postBeingEdited: initialPost,
   onCancel,
 }) {
   const [title, setTitle] = useState(initialPost.title);
   const [body, setBody] = useState(initialPost.body);
-
+  const navigate = useNavigate();
   const postId = initialPost?._id;
 
   useEffect(() => {
@@ -32,7 +32,8 @@ export default function EditPostCard({
     axios
       .delete(`/api/post/${postId}`)
       .then(() => {
-        window.location.reload(false);
+        // window.location.reload(false);
+        navigate('/topics');
       })
       .catch((err) => console.log(err));
   };
@@ -44,7 +45,7 @@ export default function EditPostCard({
   return (
     <>
       <form onSubmit={handleSubmit}>
-        <div className="mb-4">
+        <div className="mb-4 font-pop">
           <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
             Edit Title:
           </label>
@@ -62,15 +63,16 @@ export default function EditPostCard({
           </label>
           <ReactQuill theme="snow" onChange={handleEditorChange} value={body} />
         </div>
-        <div className="flex items-center justify-between">
-          <button className="bg-green-500  text-white font-bold py-2 px-4 rounded focus:outline-none ">
+        <div className="flex items-center justify-center my-1">
+          <button className="bg-green-500  text-white font-bold py-2 px-14 rounded focus:outline-none ">
             Save
           </button>
         </div>
       </form>
+      <div className='my-1'>
       <button
         onClick={onCancel}
-        className="bg-yellow-700  text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+        className="bg-yellow-700  text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
       >
         Cancel
       </button>
@@ -80,6 +82,7 @@ export default function EditPostCard({
       >
         Delete
       </button>
+      </div>
     </>
   );
 }

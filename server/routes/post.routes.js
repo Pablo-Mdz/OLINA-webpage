@@ -10,6 +10,7 @@ router.post("/", isAuthenticated, (req, res) => {
     console.log('this is req.payload._id of post:', req.payload._id);
     const authorId = req.payload._id;
     const { title, body, topicId } = req.body;
+    console.log('topic ID',topicId)
     Post.create({
         title: title,
         body,
