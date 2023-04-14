@@ -53,7 +53,7 @@ export default function AddPicture() {
 
     return (
         <>
-            <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md mx-auto mt-6">
+            <div className="block p-6 rounded-lg shadow-lg bg-white max-w-md mx-auto mt-6 font-pop">
                 <form>
                     <div className="form-group mb-6">
                         <div className="mb-4">

@@ -28,7 +28,7 @@ const EditTopic = ({ topic, onCancel }) => {
   };
 
   return (
-    <div>
+    <div className='font-pop'>
       <form onSubmit={handleSubmitEditTopic}>
         <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
           Edit Title:
@@ -42,7 +42,7 @@ const EditTopic = ({ topic, onCancel }) => {
         />
         <button
           type="submit"
-          className="bg-green-500  text-white  w-full font-bold py-1 px-4 mt-2  rounded focus:outline-none "
+          className="bg-green-500  text-white  w-full font-bold py-1 px-4 mt-2  rounded focus:outline-none align-center "
         >
           Save
         </button>

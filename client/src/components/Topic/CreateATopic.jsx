@@ -22,7 +22,7 @@ export default function CreateATopic({ onTopicCreated, hideCreateTopic }) {
   };
 
   return (
-    <div className="bg-[#9f1ee8] bg-opacity-25 mb-4 rounded px-8 pt-3 pb-4">
+    <div className="bg-[#9f1ee8] bg-opacity-25 mb-4 rounded px-8 pt-3 pb-4 font-pop">
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <input

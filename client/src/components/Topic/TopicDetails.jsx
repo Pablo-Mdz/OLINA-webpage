@@ -41,15 +41,13 @@ export default function TopicDetails({ id }) {
 
   const cancelEditing = () => {
     setPostBeingEdited({});
-
   };
 
   return (
-    <div className="topic-details-container w-screen">
+    <div className="topic-details-container w-full px-4">
       <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6">
         TOPIC: {topic.title}
       </h1>
-      <div className="flex px-1 justify-items-end "></div>
 
       <label
         htmlFor="description"
@@ -62,15 +60,12 @@ export default function TopicDetails({ id }) {
         type="text"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+        className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6"
       />
 
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0">
         {postSortedByDate.map((post) => (
-          <div
-            key={post._id}
-            // className="bg-white rounded-lg shadow-lg overflow-hidden transform hover:scale-102 transition duration-300"
-          >
+          <div key={post._id}>
             {postBeingEdited === post ? (
               <EditPostCard
                 postBeingEdited={postBeingEdited}
@@ -82,10 +77,11 @@ export default function TopicDetails({ id }) {
           </div>
         ))}
       </div>
-      <div className=''>
-      {isLoggedIn && <CreateAPost id={id} setPosts={setPosts} posts={posts} />}
+      <div className="">
+        {isLoggedIn && (
+          <CreateAPost id={id} setPosts={setPosts} posts={posts} />
+        )}
       </div>
     </div>
   );
 }
-

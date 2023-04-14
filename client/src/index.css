@@ -3,7 +3,7 @@
 @tailwind utilities;
 @font-face {
   font-family: 'pop';
-  src: url(./../static/fonts/SearsTower.ttf);
+  src: url(./../static/fonts/josefin-slab/JosefinSlab-SemiBoldItalic.ttf);
 }
 
 body {

@@ -1,23 +1,13 @@
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/auth.context';
-import {
-  FacebookShareButton,
-  TwitterShareButton,
-  LinkedinShareButton,
-} from 'react-share';
-import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 
 export default function PostCard({ post }) {
   const { isLoggedIn, user } = useContext(AuthContext);
-  const [isCopied, setIsCopied] = useState(false);
-
+  
   const date = new Date(post.createdAt).toLocaleString();
-
-
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setIsCopied(true);
-  };
+  
+  
+  
 
   const postBodyPreview = () => {
     const words = post.body.split(' ');
@@ -44,28 +34,7 @@ export default function PostCard({ post }) {
           <p className="text-gray-600">
             Date: {new Date(date).toLocaleDateString('es-ES')}
           </p>
-          <div className="my-1 space-x-4">
-            <FacebookShareButton
-              quote={post.title}
-              url={window.location.href}
-              hashtag="#myblog"
-            >
-              <FaFacebook size={20} />
-            </FacebookShareButton>
-            <TwitterShareButton
-              title={post.title}
-              url={window.location.href}
-              via="@myblog"
-            >
-              <FaTwitter size={20} />
-            </TwitterShareButton>
-            <LinkedinShareButton>
-              <FaLinkedin size={20} />
-            </LinkedinShareButton>
-            <button onClick={copyToClipboard}>
-              {isCopied ? 'Copied!' : <FaLink />}
-            </button>
-          </div>
+          
         </div>
         <div className="absolute bottom-0  right-0 flex flex-col items-center justify-between p-3 ">
           <a
