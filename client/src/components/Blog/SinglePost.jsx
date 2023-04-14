@@ -11,8 +11,8 @@ export const SinglePost = () => {
     axios.get(`/api/post/${id}`).then((response) => {
       setPost(response);
     });
-  }, []);
-  console.log(post);
+  }, [id]);
+ 
   return (
     <div>
       <h1>{post?.data?.title}</h1>
