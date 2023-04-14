@@ -1,5 +1,4 @@
 import axios from 'axios';
-import React from 'react';
 
 export default function DeletePicture({ id }) {
   const handleSubmit = (e) => {

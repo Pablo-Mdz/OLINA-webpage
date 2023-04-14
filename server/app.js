@@ -30,6 +30,9 @@ app.use("/api/topic", topic);
 const post = require("./routes/post.routes");
 app.use("/api/post", post);
 
+const aboutMe = require("./routes/aboutMe.routes");
+app.use("/api/about-me", aboutMe);
+
 const word = require("./routes/word.routes");
 app.use("/", word);
 // console.log('test word',word)
