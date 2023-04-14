@@ -18,7 +18,7 @@ export default function PostCard({ onEdit, post }) {
     setIsCopied(true);
   };
 
-
+  
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg bg-[#9f1ee8] bg-opacity-25 ">
       <div className="px-6 py-4">
