@@ -12,6 +12,8 @@ export default function TopicDetails({ id }) {
   const [postBeingEdited, setPostBeingEdited] = useState({});
   const [search, setSearch] = useState('');
 
+
+  
   const filteredPost = posts.filter(
     (post) =>
       post.body.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,12 +34,11 @@ export default function TopicDetails({ id }) {
       .then((response) => {
         setTopic(response?.data?.topic);
         setPosts(response?.data?.topic?.posts);
-        console.log('afrer set axios');
+        
       })
       .catch((err) => console.log(err));
   }, [id, search]);
-  console.log('id', id);
-  console.log('post be edited', postBeingEdited);
+
 
   const cancelEditing = () => {
     setPostBeingEdited({});

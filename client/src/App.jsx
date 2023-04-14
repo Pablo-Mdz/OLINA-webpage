@@ -29,7 +29,7 @@ function App() {
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/gallery/add-picture" element={<AddPicture />} />
         <Route path="/topics" element={<TopicPage />} />
-        <Route path="/topics/:id" element={<TopicDetails />} />
+        <Route path="/topics/:id" element={<TopicDetails showAllPosts />} />
         <Route path="/create-post" element={<CreateAPost />} />
         <Route path="/post/:id" element={<SinglePost/>} />
         <Route path="/create-topic" element={<CreateATopic />} />
