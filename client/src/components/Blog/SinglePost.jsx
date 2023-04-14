@@ -1,135 +1,99 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
+import 'react-quill/dist/quill.snow.css';
+import { useReactToPrint } from 'react-to-print';
+import EditPostCard from './EditPostCard';
 
-export const SinglePost = () => {
+export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
+  const [postBeingEdited, setPostBeingEdited] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
   const { id } = useParams();
+  const { isLoggedIn, user } = useContext(AuthContext);
 
   useEffect(() => {
     axios.get(`/api/post/${id}`).then((response) => {
-      setPost(response);
+      setPost(response.data);
+      setPostBeingEdited(response.data);
     });
   }, [id]);
- 
-  return (
-    <div>
-      <h1>{post?.data?.title}</h1>
-    </div>
-  );
-};
 
-/* <div
-ref={componentRef}
-className="flex justify-center items-center relative bg-gray-300 pt-5 pb-10"
->
-{recipe && (
-    <div className="max-w-2xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
-        {!recipe.image && (
-            <img
-                alt="user image"
+  const handleEdit = () => {
+    setIsEditing(!isEditing);
+    setPostBeingEdited(postBeingEdited);
+  };
+
+  const componentRef = useRef();
+  const handlePrint = useReactToPrint({
+    content: () => componentRef.current,
+    documentTitle: 'Como sube y baja',
+    pageStyle: 'print',
+    onafterprint: () => alert('print success'),
+  });
+
+  const cancelEditing = () => {
+    setPostBeingEdited({});
+    handleEdit();
+  };
+
+  return (
+    <>
+      <div
+        ref={componentRef}
+        className="flex justify-center items-center relative bg-gray-200 pt-5 pb-10"
+      >
+        {postBeingEdited && (
+          <div className="max-w-2xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
+            {!post?.image && (
+              <img
+                alt="pic"
                 className="w-full h-auto  rounded-t-2xl"
-                src="https://cdn-icons-png.flaticon.com/512/1134/1134760.png"
-            />
-        )}
-        {recipe.image && (
-            <img
+                src="https://source.unsplash.com/random/500x300"
+              />
+            )}
+            {post?.image && (
+              <img
                 alt="user"
                 className="w-full h-auto  rounded-t-2xl "
-                src={recipe?.image}
-            />
-        )}
-        <div className="px-6 py-4 place-self-start">
-            <div className="font-bold text-4xl mb-2 ">
-                {recipe.name}
-            </div>
-            <h4 className="text-gray-700  text-xl">
-                <strong>Region / Country: </strong>{" "}
-                {recipe.region}
-            </h4>
-            <h4 className="text-gray-700 text-xl">
-                <strong>food Type: </strong> {recipe.type}
-            </h4>
-            <h4 className="text-gray-700 text-xl">
-                <strong>Services: </strong> {recipe.service}
-            </h4>
-            <div className="text-start  p-6">
-                <div className="grid list-inside justify-items-start text-base">
-                    <h4>
-                        <strong>Ingredients:</strong>
-                    </h4>
-                    {recipe.ingredients.length ? (
-                        recipe.ingredients.map((eachStep) => {
-                            return (
-                                <li>
-                                    {`${eachStep.quantity} ${eachStep.measure} ${eachStep.singleIngredient}`}
-                                </li>
-                            );
-                        })
-                    ) : (
-                        <h3></h3>
-                    )}
-                </div>
-
-                <h4 className="text-gray-700 text-base"> </h4>
-                <div className="grid content-start list-inside justify-items-start pt-6">
-                    <h4>
-                        <strong>Instructions:</strong>
-                    </h4>
-                    {recipe.instructions.length ? (
-                        recipe.instructions.map(
-                            (eachInstruction) => {
-                                return (
-                                    <li>{eachInstruction}</li>
-                                );
-                            }
-                        )
-                    ) : (
-                        <h3></h3>
-                    )}
-                </div>
-            </div>
-            <h4 className="text-gray-700 text-base">
-                <strong>Tips: </strong> {recipe.tips}
-            </h4>
-        </div>
-        <div className="px-6 pt-4 pb-2">
-            {!isLoggedIn ? (
-                <>
-                    <a href="/recipesHome">
-                        <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
-                            explore more recipes
-                        </span>
-                    </a>
-                </>
-            ) : (
-                <a href="/details">
-                    <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
-                        explore more recipes
-                    </span>
-                </a>
+                src={post?.image}
+              />
             )}
+            <div className="px-6 py-4 place-self-start">
+              <div className="mb-2 text-4xl font-bold ">
+                <h1>{post?.title}</h1>
+              </div>
+              <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
+            </div>
+            <a href="/topics">
+              <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
+                Return to topics
+              </span>
+            </a>
             <span
-                onClick={handlePrint}
-                className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-blue-700 hover:bg-blue-500 mr-2 mb-2 hover:text-white hover:border-transparent"
+              onClick={handlePrint}
+              className="mr-2 mb-2  inline-block rounded-full bg-gray-200 px-3 py-1 text-sm font-semibold text-blue-700 hover:border-transparent hover:bg-blue-500 hover:text-white"
             >
-                Print
+              Print
             </span>
-            /* <Link  to={`/edit/${id}`}> Edit</Link> 
-             <Link  to={`/edit/${id}`}> Edit</Link> 
-//             isLoggedIn && recipe.owner.id === user._id && (
-//                 <>
-//                     <a href="/details"></a>
-//                     <span
-//                         onClick={() => Delete(recipe._id)}
-//                         className="inline-block bg-gray-200 hover:bg-red-500 rounded-full px-3 py-1 hover:text-white text-sm font-semibold text-red-700 mr-2 mb-2 hover:border-transparent"
-//                     >
-//                         Delete
-//                     </span>
-//                 </>
-//             )}
-//         </div>
-//     </div>
-// )}
-// </div> */
+            {isLoggedIn && user?._id === post?.author?._id && (
+              <button
+                onClick={handleEdit}
+                className="bg-cyan-500 text-white font-medium px-8 py-1 my-1 rounded-full mt-2"
+              >
+                Edit
+              </button>
+            )}
+            {isEditing && (
+              <EditPostCard
+                postBeingEdited={postBeingEdited}
+                onCancel={cancelEditing}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </>
+  );
+};

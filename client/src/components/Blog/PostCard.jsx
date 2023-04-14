@@ -7,15 +7,12 @@ import {
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 
-export default function PostCard({ onEdit, post }) {
+export default function PostCard({ post }) {
   const { isLoggedIn, user } = useContext(AuthContext);
   const [isCopied, setIsCopied] = useState(false);
 
   const date = new Date(post.createdAt).toLocaleString();
 
-  const handleEditClick = (postBeingEdited) => {
-    onEdit(postBeingEdited);
-  };
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -31,7 +28,7 @@ export default function PostCard({ onEdit, post }) {
     );
   };
   return (
-    <div className="w-96 h-64 rounded overflow-hidden shadow-lg bg-opacity-25 relative">
+    <div className="w-96 h-80 rounded overflow-hidden shadow-lg bg-opacity-25 relative">
       <div className="px-6 py-4">
         <h1 className="text-2xl mb-2">{post.title}</h1>
       </div>
@@ -71,14 +68,6 @@ export default function PostCard({ onEdit, post }) {
           </div>
         </div>
         <div className="absolute bottom-0  right-0 flex flex-col items-center justify-between p-3 ">
-          {isLoggedIn && post.author._id === user._id && (
-            <button
-              onClick={() => handleEditClick(post)}
-              className="bg-cyan-500 text-white font-medium px-8 py-1 my-1 rounded-full mt-2"
-            >
-              Edit
-            </button>
-          )}
           <a
             href={`/post/${post._id}`}
             className="bg-blue-500 text-white font-medium px-2 py-1 my-1 rounded-full mt-2"

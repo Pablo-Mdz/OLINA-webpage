@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-
+import { useNavigate } from 'react-router-dom';
 export default function EditPostCard({
   postBeingEdited: initialPost,
   onCancel,
 }) {
   const [title, setTitle] = useState(initialPost.title);
   const [body, setBody] = useState(initialPost.body);
-
+  const navigate = useNavigate();
   const postId = initialPost?._id;
 
   useEffect(() => {
@@ -32,7 +32,8 @@ export default function EditPostCard({
     axios
       .delete(`/api/post/${postId}`)
       .then(() => {
-        window.location.reload(false);
+        // window.location.reload(false);
+        navigate('/topics');
       })
       .catch((err) => console.log(err));
   };

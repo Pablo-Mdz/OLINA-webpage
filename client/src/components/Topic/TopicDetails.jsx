@@ -41,6 +41,7 @@ export default function TopicDetails({ id }) {
 
   const cancelEditing = () => {
     setPostBeingEdited({});
+
   };
 
   return (
