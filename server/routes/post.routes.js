@@ -33,6 +33,17 @@ router.post("/", isAuthenticated, (req, res) => {
         })
 });
 
+router.get("/", (req, res) => {
+    Post.find()
+      .populate("author")
+      .then(posts => {
+        res.status(200).json({ posts });
+      })
+      .catch(err => console.log(err));
+  });
+  
+
+
 router.get("/:postId", (req, res) => {
     const postId = req.params.postId;
     Post.findById(postId)
