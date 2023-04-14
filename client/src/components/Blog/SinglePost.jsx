@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
@@ -6,12 +12,11 @@ import 'react-quill/dist/quill.snow.css';
 import { useReactToPrint } from 'react-to-print';
 import EditPostCard from './EditPostCard';
 import {
-    FacebookShareButton,
-    TwitterShareButton,
-    LinkedinShareButton,
-  } from 'react-share';
-  import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
-  
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+} from 'react-share';
+import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
@@ -19,8 +24,9 @@ export const SinglePost = ({ onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const { id } = useParams();
   const { isLoggedIn, user } = useContext(AuthContext);
-
+  const editPostRef = useRef(null);
   const [isCopied, setIsCopied] = useState(false);
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
     setIsCopied(true);
@@ -35,8 +41,11 @@ export const SinglePost = ({ onEdit }) => {
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
-    setPostBeingEdited(postBeingEdited);
-  };
+    if (!isEditing && editPostRef.current) {
+        editPostRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+};
+
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -51,6 +60,12 @@ export const SinglePost = ({ onEdit }) => {
     handleEdit();
   };
 
+  useLayoutEffect(() => {
+    if (isEditing && editPostRef.current) {
+      editPostRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isEditing]);
+
   return (
     <>
       <div
@@ -58,7 +73,7 @@ export const SinglePost = ({ onEdit }) => {
         className="flex justify-center items-center relative bg-gray-200 pt-5 pb-10 font-pop"
       >
         {postBeingEdited && (
-          <div className="max-w-2xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
+          <div className="max-w-4xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
             {!post?.image && (
               <img
                 alt="pic"
@@ -74,7 +89,7 @@ export const SinglePost = ({ onEdit }) => {
               />
             )}
             <div className="px-6 py-4 place-self-start">
-              <div className="mb-2 text-4xl font-bold ">
+              <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
               <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
@@ -91,40 +106,42 @@ export const SinglePost = ({ onEdit }) => {
               Print
             </span>
             <div className="my-1 space-x-4">
-            <FacebookShareButton
-              quote={post?.title}
-              url={window.location.href}
-              hashtag="#myblog"
-            >
-              <FaFacebook size={20} />
-            </FacebookShareButton>
-            <TwitterShareButton
-              title={post?.title}
-              url={window.location.href}
-              via="@myblog"
-            >
-              <FaTwitter size={20} />
-            </TwitterShareButton>
-            <LinkedinShareButton>
-              <FaLinkedin size={20} />
-            </LinkedinShareButton>
-            <button onClick={copyToClipboard}>
-              {isCopied ? 'Copied!' : <FaLink />}
-            </button>
-          </div>
+              <FacebookShareButton
+                quote={post?.title}
+                url={window.location.href}
+                hashtag="#myblog"
+              >
+                <FaFacebook size={20} />
+              </FacebookShareButton>
+              <TwitterShareButton
+                title={post?.title}
+                url={window.location.href}
+                via="@myblog"
+              >
+                <FaTwitter size={20} />
+              </TwitterShareButton>
+              <LinkedinShareButton>
+                <FaLinkedin size={20} />
+              </LinkedinShareButton>
+              <button onClick={copyToClipboard}>
+                {isCopied ? 'Copied!' : <FaLink />}
+              </button>
+            </div>
             {isLoggedIn && user?._id === post?.author?._id && (
               <button
                 onClick={handleEdit}
                 className="bg-cyan-500 text-white font-medium px-8 py-1 my-1 rounded mt-2"
               >
-               {!isEditing ? "Edit" : "finish edition"} 
+                {!isEditing ? 'Edit' : 'finish edition'}
               </button>
             )}
             {isEditing && (
-              <EditPostCard
-                postBeingEdited={postBeingEdited}
-                onCancel={cancelEditing}
-              />
+              <div ref={editPostRef}>
+                <EditPostCard
+                  postBeingEdited={postBeingEdited}
+                  onCancel={cancelEditing}
+                />
+              </div>
             )}
           </div>
         )}

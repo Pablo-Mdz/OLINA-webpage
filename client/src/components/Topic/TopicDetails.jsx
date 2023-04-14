@@ -53,7 +53,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
   
 
   return (
-    <div className="topic-details-container w-full px-4">
+    <div className="topic-details-container w-full px-4 ">
       <div className="flex justify-between items-center my-2">
       <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
           {!topic ? "ALL POSTS" :  "TOPIC:  " + topic.title}
@@ -87,7 +87,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
           <div key={post._id}>{post && <PostCard post={post} />}</div>
         ))}
       </div>
-      <div className="">
+      <div>
         {isCreating && (
           <div ref={createPostRef}>
             <CreateAPost id={id} setPosts={setPosts} posts={posts} />
