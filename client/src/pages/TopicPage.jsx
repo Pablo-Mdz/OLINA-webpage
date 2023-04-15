@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
 import TopicDetails from '../components/Topic/TopicDetails';
 import EditTopic from '../components/Topic/EditTopic';
@@ -23,8 +23,9 @@ export default function TopicPage() {
       .catch((err) => console.log(err));
   }, [refreshTopics]);
 
-  const TopicsSortedByDate = topics.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+  const TopicsSortedByDate = useMemo(
+    () => topics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)),
+    [topics],
   );
 
   const handleClickTopic = (topicId) => {

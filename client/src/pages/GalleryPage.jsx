@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
 import { Link } from 'react-router-dom';
@@ -18,16 +18,18 @@ export default function GalleryPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  const filtered = gallery.filter((oneData) => {
-    if (!oneData.title) {
-      return false;
-    } else {
-      return (
-        oneData.title &&
-        oneData.title.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-  });
+  const filtered = useMemo(() => {
+    return gallery.filter((oneData) => {
+      if (!oneData.title) {
+        return false;
+      } else {
+        return (
+          oneData.title &&
+          oneData.title.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+    });
+  }, [gallery, search]);
 
   return (
     <>
