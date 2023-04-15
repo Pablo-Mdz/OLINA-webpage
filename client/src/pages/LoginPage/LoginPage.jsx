@@ -1,4 +1,3 @@
-import './LoginPage.css';
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
@@ -21,12 +20,11 @@ function LoginPage() {
     const requestBody = { email, password };
     authService
       .login(requestBody)
-      .then((response) => {    
+      .then((response) => {
         const token = response.data.authToken;
         storeToken(token);
 
-        verifyStoredToken(token)
-        .then(() => {
+        verifyStoredToken(token).then(() => {
           navigate('/');
         });
       })

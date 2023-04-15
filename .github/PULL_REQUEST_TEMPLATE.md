@@ -1,9 +1,4 @@
----
-name: Pull Request Template
-about: Template for creating new pull requests
----
-
-## Summary
+## Description
 
 <!-- Provide a brief summary of the changes and the motivation behind them. -->
 
@@ -21,17 +16,20 @@ about: Template for creating new pull requests
 - [ ] Refactoring (no new functionality, just code cleanup/refactoring)
 - [ ] Documentation update
 
-## Testing Steps
-
-<!-- Describe the steps to test this PR and verify the changes. -->
 
 ## Screenshots (if applicable)
 
 <!-- Add any relevant screenshots or GIFs to help illustrate the changes. -->
 
-## Checklist
+## How has this PR been Tested?
 
-- [ ] I have performed a self-review of my own code
-- [ ] I have added tests that prove my fix is effective or that my feature works
-- [ ] I have added any necessary documentation (if appropriate)
+<!-- _Please delete options that are not relevant and this line_ -->
+
+- [ ] Manually
+- [ ] Unit tests
+- [ ] End-to-End tests
+
+## Any other Comments?
+
+<!-- _Remove this section if no further comments exist_ -->
 
