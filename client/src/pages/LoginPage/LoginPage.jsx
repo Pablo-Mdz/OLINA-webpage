@@ -23,6 +23,7 @@ function LoginPage() {
       .then((response) => {
         const token = response.data.authToken;
         storeToken(token);
+
         verifyStoredToken(token).then(() => {
           navigate('/');
         });

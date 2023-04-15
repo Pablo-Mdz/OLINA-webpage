@@ -7,7 +7,6 @@ export default function CreateAPost({ id }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
 
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const requestBody = { title, body, topicId: id };

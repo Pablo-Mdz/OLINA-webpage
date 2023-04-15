@@ -3,11 +3,8 @@ import { AuthContext } from '../../context/auth.context';
 
 export default function PostCard({ post }) {
   const { isLoggedIn, user } = useContext(AuthContext);
-  
+
   const date = new Date(post.createdAt).toLocaleString();
-  
-  
-  
 
   const postBodyPreview = () => {
     const words = post.body.split(' ');
@@ -34,7 +31,6 @@ export default function PostCard({ post }) {
           <p className="text-gray-600">
             Date: {new Date(date).toLocaleDateString('es-ES')}
           </p>
-          
         </div>
         <div className="absolute bottom-0  right-0 flex flex-col items-center justify-between p-3 ">
           <a

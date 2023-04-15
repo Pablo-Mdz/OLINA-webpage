@@ -28,7 +28,7 @@ const EditTopic = ({ topic, onCancel }) => {
   };
 
   return (
-    <div className='font-pop'>
+    <div className="font-pop">
       <form onSubmit={handleSubmitEditTopic}>
         <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
           Edit Title:
@@ -48,18 +48,18 @@ const EditTopic = ({ topic, onCancel }) => {
         </button>
       </form>
       <div className="flex space-x-2 mt-2">
-      <button
-        onClick={onCancel}
-        className="bg-yellow-700  text-white font-bold py-1 px-2 w-full  rounded focus:outline-none focus:shadow-outline"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={deletePost}
-        className=" bg-red-800  text-white font-bold py-1 px-2  w-full rounded focus:outline-none ml-2 "
-      >
-        Delete
-      </button>
+        <button
+          onClick={onCancel}
+          className="bg-yellow-700  text-white font-bold py-1 px-2 w-full  rounded focus:outline-none focus:shadow-outline"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={deletePost}
+          className=" bg-red-800  text-white font-bold py-1 px-2  w-full rounded focus:outline-none ml-2 "
+        >
+          Delete
+        </button>
       </div>
     </div>
   );
