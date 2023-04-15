@@ -1,45 +1,27 @@
-import './SignupPage.css';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import authService from '../../services/auth.service';
+import { useForm } from '../../hooks/useForm';
 
 function SignupPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
+  const { onInputChange, email, password, name } = useForm({
+    email: '',
+    password: '',
+    name: '',
+  });
 
   const navigate = useNavigate();
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
-  const handleName = (e) => setName(e.target.value);
-
   const handleSignupSubmit = (e) => {
     e.preventDefault();
-    // Create an object representing the request body
     const requestBody = { email, password, name };
-
-    // Send a request to the server using axios
-    /* 
-    const authToken = localStorage.getItem("authToken");
-    axios.post(
-      `${process.env.REACT_APP_SERVER_URL}/auth/signup`, 
-      requestBody, 
-      { headers: { Authorization: `Bearer ${authToken}` },
-    })
-    .then((response) => {})
-    */
-
-    // Or using a service
     authService
       .signup(requestBody)
       .then((response) => {
-        // If the POST request is successful redirect to the login page
         navigate('/login');
       })
       .catch((error) => {
-        // If the request resolves with an error, set the error message in the state
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
@@ -70,7 +52,7 @@ function SignupPage() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   value={email}
-                  onChange={handleEmail}
+                  onChange={onInputChange}
                 />
               </div>
               <div>
@@ -86,7 +68,7 @@ function SignupPage() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={password}
-                  onChange={handlePassword}
+                  onChange={onInputChange}
                 />
               </div>
               <div>
@@ -102,7 +84,7 @@ function SignupPage() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Your name"
                   value={name}
-                  onChange={handleName}
+                  onChange={onInputChange}
                 />
               </div>
             </div>
