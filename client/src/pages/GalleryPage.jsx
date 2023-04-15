@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import DeletePicture from '../components/Gallery/DeletePicture';
 
 export default function GalleryPage() {
-  const { user, isLoggedIn } = useContext(AuthContext);
+  const { isLoggedIn } = useContext(AuthContext);
   const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');
 
