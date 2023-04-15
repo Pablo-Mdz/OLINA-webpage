@@ -1,33 +1,31 @@
-import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
 import TopicDetails from '../components/Topic/TopicDetails';
 import EditTopic from '../components/Topic/EditTopic';
 import CreateATopic from '../components/Topic/CreateATopic';
 import { AuthContext } from '../context/auth.context';
+import { useFetch } from '../hooks/useFetch';
+import Loading from '../components/Loading/Loading';
 
 export default function TopicPage() {
-  const [topics, setTopics] = useState([]);
-  const [selectedTopicId, setSelectedTopicId] = useState("all");
+  const [selectedTopicId, setSelectedTopicId] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [refreshTopics, setRefreshTopics] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
+  const { data, isLoading, hasError } = useFetch('/api/topic/list-topics');
 
+  if (isLoading) {
+    return <h1>{Loading}</h1>;
+  }
 
-  useEffect(() => {
-    axios
-      .get('/api/topic/list-topics')
-      .then((response) => {
-        setTopics(response.data.topics);
-        setRefreshTopics();
-      })
-      .catch((err) => console.log(err));
-  }, [refreshTopics]);
+  if (hasError) {
+    return <h1>Error loading topics</h1>;
+  }
 
-  const TopicsSortedByDate = topics.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-  );
+  const TopicsSortedByDate =
+    !!data &&
+    data.topics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const handleClickTopic = (topicId) => {
     setSelectedTopicId(topicId);
@@ -63,7 +61,11 @@ export default function TopicPage() {
               </button>
               {isLoggedIn && topic.author._id === user.id && (
                 <button className="mx-2" onClick={() => editTitle(topic)}>
-                  <img src="/editIcon.png" alt="Edit icon" className="inline w-8 h-8 ml-1" />
+                  <img
+                    src="/editIcon.png"
+                    alt="Edit icon"
+                    className="inline w-8 h-8 ml-1"
+                  />
                 </button>
               )}
               {/* veryfy author not working <check populate> */}
@@ -88,8 +90,9 @@ export default function TopicPage() {
           />
         )}
       </div>
-      {selectedTopicId !== null ? <TopicDetails id={selectedTopicId} selectedTopicId={selectedTopicId} /> : null}
-
+      {selectedTopicId !== null ? (
+        <TopicDetails id={selectedTopicId} selectedTopicId={selectedTopicId} />
+      ) : null}
     </div>
   );
 }

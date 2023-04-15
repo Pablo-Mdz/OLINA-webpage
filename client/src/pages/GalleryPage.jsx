@@ -3,22 +3,24 @@ import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
 import { Link } from 'react-router-dom';
 import DeletePicture from '../components/Gallery/DeletePicture';
+import { useFetch } from '../hooks/useFetch';
+import Loading from '../components/Loading/Loading';
 
 export default function GalleryPage() {
   const { isLoggedIn } = useContext(AuthContext);
-  const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    axios
-      .get('/api/gallery')
-      .then((response) => {
-        setGallery(response.data);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+  const { data, isLoading, hasError } = useFetch('/api/gallery');
 
-  const filtered = gallery.filter((oneData) => {
+  if (isLoading) {
+    return <h1>{Loading}</h1>;
+  }
+
+  if (hasError) {
+    return <h1>Error loading pictures</h1>;
+  }
+
+  const filtered = data.filter((oneData) => {
     if (!oneData.title) {
       return false;
     } else {
@@ -31,7 +33,7 @@ export default function GalleryPage() {
 
   return (
     <>
-      {gallery ? (
+      {data ? (
         <section className="overflow-hidden text-gray-700 mb-32">
           <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
             <input
