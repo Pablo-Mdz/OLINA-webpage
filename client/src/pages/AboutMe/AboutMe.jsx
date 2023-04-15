@@ -3,20 +3,20 @@ import { AuthContext } from '../../context/auth.context';
 import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
 import DeleteAboutMe from '../../components/AboutMe/DeleteAboutMe';
-import aboutMe from "../../images/aboutMeLogo.jpg"
-
+import aboutMe from '../../images/aboutMeLogo.jpg';
 
 export const AboutMe = () => {
   const { isLoggedIn } = useContext(AuthContext);
-  const [ aboutMes, setAboutMes] = useState([]);
+  const [aboutMes, setAboutMes] = useState([]);
 
   useEffect(() => {
-    axios.get(`/api/about-me`)
-      .then(response => { 
-        setAboutMes(response.data)
+    axios
+      .get(`/api/about-me`)
+      .then((response) => {
+        setAboutMes(response.data);
       })
-      .catch(err => console.log(err))
-  }, [])
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div>
@@ -26,15 +26,13 @@ export const AboutMe = () => {
             <div>
               <h2 className="text-3xl font-bold mb-4">About me</h2>
               <div className="text-white mb-8">
-                {aboutMes.map(aboutMe => (
+                {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                     <p>{aboutMe.textBody}</p>
-                
-                     {isLoggedIn && 
-                       <DeleteAboutMe 
-                          key={aboutMe._id} 
-                          aboutMe={aboutMe} />
-                     }
+                    <p>{aboutMe.textBody}</p>
+
+                    {isLoggedIn && (
+                      <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
+                    )}
                   </div>
                 ))}
               </div>
@@ -49,9 +47,7 @@ export const AboutMe = () => {
           </div>
         </div>
       </section>
-      {isLoggedIn && 
-        <CreateAboutMe />
-      }
+      {isLoggedIn && <CreateAboutMe />}
     </div>
   );
 };

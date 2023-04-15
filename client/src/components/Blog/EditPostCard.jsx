@@ -69,19 +69,19 @@ export default function EditPostCard({
           </button>
         </div>
       </form>
-      <div className='my-1'>
-      <button
-        onClick={onCancel}
-        className="bg-yellow-700  text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={deletePost}
-        className=" bg-red-800  text-white font-bold py-2 px-4 rounded focus:outline-none ml-2 "
-      >
-        Delete
-      </button>
+      <div className="my-1">
+        <button
+          onClick={onCancel}
+          className="bg-yellow-700  text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={deletePost}
+          className=" bg-red-800  text-white font-bold py-2 px-4 rounded focus:outline-none ml-2 "
+        >
+          Delete
+        </button>
       </div>
     </>
   );
