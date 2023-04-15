@@ -1,4 +1,10 @@
-import { useState, useEffect, useContext, useRef, useLayoutEffect } from 'react';
+import {
+  useState,
+  useEffect,
+  useContext,
+  useRef,
+  useLayoutEffect,
+} from 'react';
 import axios from 'axios';
 import PostCard from '../Blog/PostCard';
 import CreateAPost from '../Blog/CreateAPost';
@@ -42,7 +48,6 @@ export default function TopicDetails({ id, selectedTopicId }) {
 
   const handleCreatePost = () => {
     setIsCreating(!isCreating);
-    
   };
 
   useLayoutEffect(() => {
@@ -50,13 +55,12 @@ export default function TopicDetails({ id, selectedTopicId }) {
       createPostRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [isCreating]);
-  
 
   return (
     <div className="topic-details-container w-full px-4">
       <div className="flex justify-between items-center my-2">
-      <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
-          {!topic ? "ALL POSTS" :  "TOPIC:  " + topic.title}
+        <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
+          {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}
         </h1>
 
         {isLoggedIn && selectedTopicId !== 'all' && (
