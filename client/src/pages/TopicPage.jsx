@@ -13,7 +13,6 @@ export default function TopicPage() {
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  console.log('refresh topic', refreshTopics);
   useEffect(() => {
     axios
       .get('/api/topic/list-topics')

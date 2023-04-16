@@ -22,10 +22,10 @@ export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
   const [postBeingEdited, setPostBeingEdited] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const { id } = useParams();
+  const [isCopied, setIsCopied] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
   const editPostRef = useRef(null);
-  const [isCopied, setIsCopied] = useState(false);
+  const { id } = useParams();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);

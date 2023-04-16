@@ -7,47 +7,46 @@ export default function CreateAPost({ id }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [image, setImage] = useState('');
+  const [setErrorMessage] = useState('');
 
-  const uploadImage = async () => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     const data = new FormData();
     data.append('file', image);
     data.append('upload_preset', 'auh8nzbq');
     data.append('cloud_name', 'be-chef');
 
-    const response = await fetch(
-      'https://api.cloudinary.com/v1_1/be-chef/image/upload',
-      {
-        method: 'post',
-        body: data,
-      },
-    );
-
-    const jsonResponse = await response.json();
-    return {
-      imgUrl: jsonResponse.url,
-      publicId: jsonResponse.public_id,
-    };
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    const { imgUrl, publicId } = await uploadImage();
-
-    const requestBody = { title, body, topicId: id, imgUrl, publicId };
-    const storedToken = localStorage.getItem('authToken');
-
-    axios
-      .post(`/api/post/`, requestBody, {
-        headers: { Authorization: `Bearer ${storedToken}` },
+    fetch('https://api.cloudinary.com/v1_1/be-chef/image/upload', {
+      method: 'post',
+      body: data,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        const storedToken = localStorage.getItem('authToken');
+        const requestBody = {
+          title: title,
+          body: body,
+          topicId: data.topic,
+          publicId: data.public_id,
+          imgUrl: data.url,
+        };
+        if (data.url.length > 1) {
+          axios
+            .post(`/api/post/`, requestBody, {
+              headers: { Authorization: `Bearer ${storedToken}` },
+            })
+            .then((response) => {
+              console.log(response.data.newPost);
+              setTitle(title);
+              setBody(body);
+              window.location.reload(false);
+            });
+        }
       })
-      .then((response) => {
-        console.log(response.data.newPost);
-        setTitle(title);
-        setBody(body);
-        window.location.reload(false);
-      })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        const errorDescription = err.response.data.message;
+        setErrorMessage(errorDescription);
+      });
 
     setImage('');
   };
@@ -64,7 +63,10 @@ export default function CreateAPost({ id }) {
         </h3>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="title">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="title"
+            >
               Title:
             </label>
             <input
@@ -73,17 +75,29 @@ export default function CreateAPost({ id }) {
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="body">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="body"
+            >
               Body:
             </label>
-            <ReactQuill theme="snow" style={{ height: '300px' }} onChange={handleEditorChange} value={body} />
+            <ReactQuill
+              theme="snow"
+              style={{ height: '300px' }}
+              onChange={handleEditorChange}
+              value={body}
+            />
           </div>
           <div className="mb-4">
-          <br />
-            <label className="block text-gray-700 font-bold mb-2" htmlFor="image">
+            <br />
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="image"
+            >
               Image:
             </label>
             <input
@@ -91,6 +105,7 @@ export default function CreateAPost({ id }) {
               id="image"
               type="file"
               onChange={(e) => setImage(e.target.files[0])}
+              required
             />
           </div>
           <div className="flex">
@@ -105,5 +120,4 @@ export default function CreateAPost({ id }) {
       </div>
     </div>
   );
-  
 }
