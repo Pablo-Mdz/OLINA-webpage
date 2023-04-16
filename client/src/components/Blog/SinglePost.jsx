@@ -74,18 +74,18 @@ export const SinglePost = ({ onEdit }) => {
       >
         {postBeingEdited && (
           <div className="max-w-4xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
-            {!post?.image && (
+            {!post?.imgUrl && (
               <img
                 alt="pic"
                 className="w-full h-auto  rounded-t-2xl"
-                src="https://source.unsplash.com/random/500x300"
+                src="https://picsum.photos/500/300"
               />
             )}
-            {post?.image && (
+            {post?.imgUrl && (
               <img
                 alt="user"
                 className="w-full h-auto  rounded-t-2xl "
-                src={post?.image}
+                src={post?.imgUrl}
               />
             )}
             <div className="px-6 py-4 place-self-start">

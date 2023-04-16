@@ -20,7 +20,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
   const postSortedByDate = filteredPost.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );
-  console.log(posts);
+  
   useEffect(() => {
     if (id === 'all') {
       axios
