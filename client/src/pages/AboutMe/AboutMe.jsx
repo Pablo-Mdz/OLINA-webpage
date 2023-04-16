@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../context/auth.context';
 import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
@@ -19,7 +20,10 @@ export const AboutMe = () => {
   }, []);
 
   return (
-    <div>
+    <>
+      <Helmet>
+        <title>Olina - Blog | About Me</title>
+      </Helmet>
       <section className="bg-violet-400 py-16 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -48,6 +52,6 @@ export const AboutMe = () => {
         </div>
       </section>
       {isLoggedIn && <CreateAboutMe />}
-    </div>
+    </>
   );
 };

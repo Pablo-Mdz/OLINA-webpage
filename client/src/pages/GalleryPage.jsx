@@ -1,4 +1,5 @@
 import { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import { AuthContext } from '../context/auth.context';
 import { Link } from 'react-router-dom';
@@ -31,6 +32,25 @@ export default function GalleryPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Olina - Blog | Gallery</title>
+        <meta
+          name="description"
+          content="Discover Olina's gallery, where you'll find a collection of images and photos related to our blog."
+        />
+        <meta property="og:title" content="Olina - Blog | Gallery" />
+        <meta
+          property="og:description"
+          content="Discover Olina's gallery, where you'll find a collection of images and photos related to our blog."
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://example.com/gallery" />
+        <meta
+          property="og:image"
+          content="https://example.com/featured-image.jpg"
+        />
+      </Helmet>
+
       {gallery ? (
         <section className="overflow-hidden text-gray-700 mb-32">
           <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
