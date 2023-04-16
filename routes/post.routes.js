@@ -67,10 +67,11 @@ router.put("/:postId", (req, res) => {
         .catch(err => console.log(err));
 });
 
-router.delete("/:postId", (req, res) => {
+router.post("/:postId", (req, res) => {
     const postID = req.params.postId;
+    console.log('post Id to delete',postID)
     Post.findByIdAndDelete(postID)
-        .then(() => {
+        .then((data) => {
             if (data.imgUrl) {
                 cloudinary.uploader.destroy(data.publicId);
             }
@@ -80,4 +81,5 @@ router.delete("/:postId", (req, res) => {
 })
 
 
+  
 module.exports = router;
