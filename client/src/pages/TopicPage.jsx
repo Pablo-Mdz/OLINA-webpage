@@ -13,7 +13,9 @@ export default function TopicPage() {
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  const { data, isLoading, hasError } = useFetch('/api/topic/list-topics');
+  const { data, isLoading, hasError } = useFetch('/api/topic/list-topics', [
+    refreshTopics,
+  ]);
 
   if (isLoading) {
     return <h1>{Loading}</h1>;
@@ -41,7 +43,7 @@ export default function TopicPage() {
     setAddTopic(true);
   };
   const handleTopicCreated = () => {
-    setRefreshTopics(true);
+    setRefreshTopics((prevState) => !prevState);
   };
   const hideCreateTopic = () => {
     setAddTopic(false);
