@@ -17,7 +17,7 @@ export default function PostCard({ post }) {
           <div className="px-6 py-4">
             <h1 className="text-2xl mb-2">{post.title}</h1>
           </div>
-          <div className="align-start">
+          <div className="align-start mx-2 my-4">
             <div dangerouslySetInnerHTML={{ __html: postBodyPreview() }}></div>
           </div>
           <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3">
@@ -25,7 +25,7 @@ export default function PostCard({ post }) {
               <p className="text-gray-900 font-medium">
                 Created by: {post.author.name}
               </p>
-              <p className="text-gray-600">
+              <p className="text-gray-600 my-2">
                 Date: {new Date(date).toLocaleDateString('es-ES')}
               </p>
             </div>
