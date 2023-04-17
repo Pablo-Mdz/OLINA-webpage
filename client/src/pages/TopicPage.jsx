@@ -7,13 +7,11 @@ import { AuthContext } from '../context/auth.context';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
-  const [selectedTopicId, setSelectedTopicId] = useState("all");
+  const [selectedTopicId, setSelectedTopicId] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [refreshTopics, setRefreshTopics] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
-
-
 
   useEffect(() => {
     axios
@@ -51,7 +49,7 @@ export default function TopicPage() {
 
   return (
     <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
-      <div className="md:w-1/4 bg-[#9f1ee8] bg-opacity-50">
+      <div className="md:w-1/5 bg-[#9f1ee8] bg-opacity-50">
         {TopicsSortedByDate.map((topic) => (
           <div key={topic._id} className="flex flex-col mb-2 ml-1">
             <div className="flex justify-between">
@@ -63,7 +61,11 @@ export default function TopicPage() {
               </button>
               {isLoggedIn && topic.author._id === user.id && (
                 <button className="mx-2" onClick={() => editTitle(topic)}>
-                  <img src="/editIcon.png" alt="Edit icon" className="inline w-8 h-8 ml-1" />
+                  <img
+                    src="/editIcon.png"
+                    alt="Edit icon"
+                    className="inline w-8 h-8 ml-1"
+                  />
                 </button>
               )}
               {/* veryfy author not working <check populate> */}
@@ -88,8 +90,9 @@ export default function TopicPage() {
           />
         )}
       </div>
-      {selectedTopicId !== null ? <TopicDetails id={selectedTopicId} selectedTopicId={selectedTopicId} /> : null}
-
+      {selectedTopicId !== null ? (
+        <TopicDetails id={selectedTopicId} selectedTopicId={selectedTopicId} />
+      ) : null}
     </div>
   );
 }

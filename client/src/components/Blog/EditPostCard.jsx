@@ -23,18 +23,22 @@ export default function EditPostCard({
   const handleSubmit = (event) => {
     event.preventDefault();
     const requestBody = { title, body };
-    axios.put(`/api/post/${postId}`, requestBody).then((response) => {
-      window.location.reload(false);
-    });
+    axios
+      .put(`/api/post/${postId}`, requestBody)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   const deletePost = () => {
     axios
-      .delete(`/api/post/${postId}`)
-      .then(() => {
-        // window.location.reload(false);
-        navigate('/topics');
+      .post(`/api/post/${postId}`)
+      .then((response) => {
+        console.log(response)
+        window.location.reload(false);
       })
+      .then(navigate('/topics'))
       .catch((err) => console.log(err));
   };
 
@@ -69,19 +73,19 @@ export default function EditPostCard({
           </button>
         </div>
       </form>
-      <div className='my-1'>
-      <button
-        onClick={onCancel}
-        className="bg-yellow-700  text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
-      >
-        Cancel
-      </button>
-      <button
-        onClick={deletePost}
-        className=" bg-red-800  text-white font-bold py-2 px-4 rounded focus:outline-none ml-2 "
-      >
-        Delete
-      </button>
+      <div className="my-1">
+        <button
+          onClick={onCancel}
+          className="bg-yellow-700  text-white font-bold py-2 px-2 rounded focus:outline-none focus:shadow-outline"
+        >
+          Cancel
+        </button>
+        <button
+          onClick={deletePost}
+          className=" bg-red-800  text-white font-bold py-2 px-4 rounded focus:outline-none ml-2 "
+        >
+          Delete
+        </button>
       </div>
     </>
   );

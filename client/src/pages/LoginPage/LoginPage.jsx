@@ -2,18 +2,18 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import authService from '../../services/auth.service';
+import { useForm } from '../../hooks/useForm';
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState(undefined);
-
-  const navigate = useNavigate();
+  const { onInputChange, email, password } = useForm({
+    email: '',
+    password: '',
+  });
 
   const { storeToken, verifyStoredToken } = useContext(AuthContext);
 
-  const handleEmail = (e) => setEmail(e.target.value);
-  const handlePassword = (e) => setPassword(e.target.value);
+  const navigate = useNavigate();
 
   const handleLoginSubmit = (e) => {
     e.preventDefault();
@@ -21,9 +21,8 @@ function LoginPage() {
     authService
       .login(requestBody)
       .then((response) => {
-        const token = response.data.authToken;
+        const token = response.data.authToken
         storeToken(token);
-
         verifyStoredToken(token).then(() => {
           navigate('/');
         });
@@ -34,7 +33,7 @@ function LoginPage() {
         setErrorMessage(errorDescription);
       });
   };
-
+  
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
@@ -60,7 +59,7 @@ function LoginPage() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
                   value={email}
-                  onChange={handleEmail}
+                  onChange={onInputChange}
                 />
               </div>
               <div>
@@ -76,7 +75,7 @@ function LoginPage() {
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
                   value={password}
-                  onChange={handlePassword}
+                  onChange={onInputChange}
                 />
               </div>
             </div>
@@ -95,7 +94,6 @@ function LoginPage() {
                 </Link>
               </div>
             </div>
-
             <div>
               <button
                 type="submit"

@@ -1,13 +1,10 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../../context/auth.context';
+import React from 'react';
 
 export default function PostCard({ post }) {
-  const { isLoggedIn, user } = useContext(AuthContext);
-  
+
+//   const { isLoggedIn, user } = useContext(AuthContext);
+
   const date = new Date(post.createdAt).toLocaleString();
-  
-  
-  
 
   const postBodyPreview = () => {
     const words = post.body.split(' ');
@@ -18,33 +15,42 @@ export default function PostCard({ post }) {
     );
   };
   return (
-    <div className="w-96 h-80 rounded overflow-hidden shadow-lg bg-opacity-25 relative">
-      <div className="px-6 py-4">
-        <h1 className="text-2xl mb-2">{post.title}</h1>
-      </div>
-      <div className="align-start">
-        <div dangerouslySetInnerHTML={{ __html: postBodyPreview() }}></div>
-      </div>
-      <div className="flex items-center m-2"></div>
-      <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3">
-        <div className="text-sm">
-          <p className="text-gray-900 font-medium">
-            Created by: {post.author.name}
-          </p>
-          <p className="text-gray-600">
-            Date: {new Date(date).toLocaleDateString('es-ES')}
-          </p>
-          
+    <>
+      <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex" >
+        <div className="w-1/2 relative z-10">
+          <div className="px-6 py-4">
+            <h1 className="text-2xl mb-2">{post.title}</h1>
+          </div>
+          <div className="align-start mx-2 my-4">
+            <div dangerouslySetInnerHTML={{ __html: postBodyPreview() }}></div>
+          </div>
+          <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3">
+            <div className="text-sm">
+              <p className="text-gray-900 font-medium">
+                Created by: {post.author.name}
+              </p>
+              <p className="text-gray-600 my-2">
+                Date: {new Date(date).toLocaleDateString('es-ES')}
+              </p>
+            </div>
+          </footer>
         </div>
-        <div className="absolute bottom-0  right-0 flex flex-col items-center justify-between p-3 ">
+        <div
+          className="w-1/2 h-full bg-cover bg-no-repeat bg-center bg-opacity-75 relative"
+          style={{
+            backgroundImage: `url(${
+              post.imgUrl ? post.imgUrl : 'https://picsum.photos/500/300'
+            })`,
+          }}
+        >
           <a
             href={`/post/${post._id}`}
-            className="bg-blue-500 text-white font-medium px-2 py-1 my-1 rounded-full mt-2"
+            className="bg-blue-500 text-white font-medium px-2 py-1 my-1 rounded-full mt-2 absolute bottom-3 right-3"
           >
             Read more
           </a>
         </div>
-      </footer>
-    </div>
+      </div>
+    </>
   );
 }
