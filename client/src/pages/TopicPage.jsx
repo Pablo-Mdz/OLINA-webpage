@@ -49,7 +49,7 @@ export default function TopicPage() {
 
   return (
     <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
-     <div className="md:w-1/5 bg-violetPro bg-opacity-50 !important">
+      <div className="md:w-1/5 bg-[#9f1ee8] bg-opacity-50">
         {TopicsSortedByDate.map((topic) => (
           <div key={topic._id} className="flex flex-col mb-2 ml-1">
             <div className="flex justify-between">

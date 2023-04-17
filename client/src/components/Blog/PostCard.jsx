@@ -1,6 +1,9 @@
 import React from 'react';
 
 export default function PostCard({ post }) {
+
+//   const { isLoggedIn, user } = useContext(AuthContext);
+
   const date = new Date(post.createdAt).toLocaleString();
 
   const postBodyPreview = () => {
@@ -11,7 +14,6 @@ export default function PostCard({ post }) {
       (words.length > maxLength ? '...' : '')
     );
   };
-
   return (
     <>
       <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex">
