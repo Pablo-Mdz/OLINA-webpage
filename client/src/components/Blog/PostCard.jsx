@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PostCard({ post }) {
 
-  const { isLoggedIn, user } = useContext(AuthContext);
+//   const { isLoggedIn, user } = useContext(AuthContext);
 
   const date = new Date(post.createdAt).toLocaleString();
 
