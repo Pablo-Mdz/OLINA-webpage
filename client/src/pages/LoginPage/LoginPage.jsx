@@ -21,8 +21,11 @@ function LoginPage() {
     authService
       .login(requestBody)
       .then((response) => {
-        const token = response.data.authToken
+
+        const token = response.data.authToken;
         storeToken(token);
+
+
         verifyStoredToken(token).then(() => {
           navigate('/');
         });

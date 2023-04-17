@@ -9,7 +9,8 @@ export default function CreateAPost({ id }) {
   const [image, setImage] = useState('');
   const [setErrorMessage] = useState('');
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
+
     event.preventDefault();
     const data = new FormData();
     data.append('file', image);
