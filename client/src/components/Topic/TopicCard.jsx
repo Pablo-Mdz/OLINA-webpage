@@ -1,18 +1,18 @@
 import { Link } from 'react-router-dom';
 
-
 export default function TopicCard({ topic }) {
-
   const date = new Date(topic.createdAt).toLocaleString();
-  console.log(topic.author.name)
+  console.log(topic.author.name);
 
   return (
     <div className="max-w-sm rounded overflow-hidden shadow-lg">
-    
-    <div className="px-6 py-4">
-      <div className="font-bold text-xl mb-2">{topic.title}</div>
-    </div>
-    <Link to={`/topics/${topic._id}`} className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+      <div className="px-6 py-4">
+        <div className="font-bold text-xl mb-2">{topic.title}</div>
+      </div>
+      <Link
+        to={`/topics/${topic._id}`}
+        className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+      >
         Read more
         <svg
           aria-hidden="true"
@@ -31,7 +31,9 @@ export default function TopicCard({ topic }) {
       <div className="flex items-center mt-4">
         <img className="w-10 h-10 rounded-full mr-4" src="" alt="" />
         <div className="text-sm">
-          <p className="text-gray-900 leading-none">Created by: {topic?.author?.name} </p>
+          <p className="text-gray-900 leading-none">
+            Created by: {topic?.author?.name}{' '}
+          </p>
           <p className="text-gray-600">{date}</p>
         </div>
       </div>

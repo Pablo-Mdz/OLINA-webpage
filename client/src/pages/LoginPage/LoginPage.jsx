@@ -21,8 +21,16 @@ function LoginPage() {
     authService
       .login(requestBody)
       .then((response) => {
+<<<<<<< HEAD
         const token = response.data.authToken
         storeToken(token);
+=======
+
+        const token = response.data.authToken;
+        storeToken(token);
+
+
+>>>>>>> origin/master
         verifyStoredToken(token).then(() => {
           navigate('/');
         });

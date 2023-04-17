@@ -1,7 +1,11 @@
 import React from 'react';
 
 export default function PostCard({ post }) {
+
+  const { isLoggedIn, user } = useContext(AuthContext);
+
   const date = new Date(post.createdAt).toLocaleString();
+
   const postBodyPreview = () => {
     const words = post.body.split(' ');
     const maxLength = 12;
