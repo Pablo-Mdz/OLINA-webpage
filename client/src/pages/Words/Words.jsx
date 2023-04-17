@@ -312,7 +312,7 @@ export const Words = () => {
                             // word.createdAt
                           )
                         }
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                        className="bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
                       >
                         Edit
                       </button>
