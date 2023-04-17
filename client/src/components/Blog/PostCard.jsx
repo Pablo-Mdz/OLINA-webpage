@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function PostCard({ post }) {
 
-  const { isLoggedIn, user } = useContext(AuthContext);
+//   const { isLoggedIn, user } = useContext(AuthContext);
 
   const date = new Date(post.createdAt).toLocaleString();
 
@@ -15,7 +15,6 @@ export default function PostCard({ post }) {
     );
   };
   return (
-
     <>
       <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex" >
         <div className="w-1/2 relative z-10">
@@ -35,7 +34,6 @@ export default function PostCard({ post }) {
               </p>
             </div>
           </footer>
-
         </div>
         <div
           className="w-1/2 h-full bg-cover bg-no-repeat bg-center bg-opacity-75 relative"
