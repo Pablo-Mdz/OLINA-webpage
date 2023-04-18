@@ -2,9 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
+import EditWords from './EditWords';
+import DeleteWords from './DeleteWords';
+import PopUpWords from './PopUpWords';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
-//test branch
+
 export const Words = () => {
   const [words, setWords] = useState([]);
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -135,10 +138,6 @@ export const Words = () => {
     }
   });
 
-  // const handleModalOpen = () => {
-  //     setModalIsOpen(true);
-  // };
-
   const handleModalClose = () => {
     setModalIsOpen(false);
   };
@@ -194,6 +193,7 @@ export const Words = () => {
   };
 
   Modal.setAppElement('#root');
+
   return (
     <div className="mx-auto max-w-md">
       <h1 className="text-center text-4xl font-bold text-violet-600 my-4">
@@ -201,65 +201,12 @@ export const Words = () => {
       </h1>
       {isLoggedIn && (
         <>
-          <form onSubmit={handleAddWord} className="my-4">
-            <div className="mb-2">
-              <label
-                htmlFor="word"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Word:
-              </label>
-              <input
-                type="text"
-                id="word"
-                name="word"
-                value={newWord.word}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="description"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Description:
-              </label>
-              <textarea
-                type="text"
-                id="description"
-                name="description"
-                value={newWord.description}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-            <div className="mb-2">
-              <label
-                htmlFor="translation"
-                className="block text-gray-700 font-bold mb-2"
-              >
-                Spanish Translation :
-              </label>
-              <input
-                type="text"
-                id="translation"
-                name="translation"
-                value={newWord.translation}
-                onChange={handleInputChange}
-                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                required
-              />
-            </div>
-            <button
-              type="submit"
-              className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-            >
-              Add Word
-            </button>
-          </form>
+          <button
+            onClick={() => setModalIsOpen(true)}
+            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
+          >
+            Add Word
+          </button>
         </>
       )}
       <label
@@ -329,187 +276,28 @@ export const Words = () => {
             ))}
         </tbody>
       </table>
+      <PopUpWords
+        modalIsOpen={modalIsOpen}
+        handleModalClose={handleModalClose}
+        handleAddWord={handleAddWord}
+        newWord={newWord}
+        handleInputChange={handleInputChange}
+      />
 
-      <Modal
-        isOpen={modalIsOpen}
-        onRequestClose={handleModalClose}
-        style={customStyles}
-        contentLabel="Add Word Modal"
-      >
-        <h2 className="text-center text-2xl font-bold text-violet-600 my-4">
-          Add Word
-        </h2>
-        <form onSubmit={handleAddWord}>
-          <div className="mb-2">
-            <label
-              htmlFor="word"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Word:
-            </label>
-            <input
-              type="text"
-              id="word"
-              name="word"
-              value={newWord.word}
-              onChange={handleInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="mb-2">
-            <label
-              htmlFor="description"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Description:
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              value={newWord.description}
-              onChange={handleInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="mb-2">
-            <label
-              htmlFor="spanish"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Spanish Translation:
-            </label>
-            <input
-              type="text"
-              id="translation"
-              name="translation"
-              value={newWord.translation}
-              onChange={handleInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Add Word
-          </button>
+      <EditWords
+        editModalIsOpen={editModalIsOpen}
+        handleEditModalClose={handleEditModalClose}
+        handleEditWord={handleEditWord}
+        editWord={editWord}
+        handleEditInputChange={handleEditInputChange}
+      />
 
-          <button
-            onClick={handleModalClose}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-          >
-            Cancel
-          </button>
-        </form>
-      </Modal>
-
-      {/* modal edit  */}
-      <Modal
-        isOpen={editModalIsOpen}
-        onRequestClose={handleEditModalClose}
-        style={customStyles}
-        contentLabel="Edit Word Modal"
-      >
-        <h2 className="text-center text-2xl font-bold text-violet-600 my-4">
-          Edit Word
-        </h2>
-        <form onSubmit={handleEditWord}>
-          <input type="hidden" id="id" name="id" value={editWord.id} />
-          <div className="mb-2">
-            <label
-              htmlFor="word"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Word:
-            </label>
-            <input
-              type="text"
-              id="word"
-              name="word"
-              value={editWord.word}
-              onChange={handleEditInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-
-          <div className="mb-2">
-            <label
-              htmlFor="description"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Description:
-            </label>
-            <textarea
-              id="description"
-              name="description"
-              value={editWord.description}
-              onChange={handleEditInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <div className="mb-2">
-            <label
-              htmlFor="translation"
-              className="block text-gray-700 font-bold mb-2"
-            >
-              Spanish Translation:
-            </label>
-            <input
-              type="text"
-              id="translation"
-              name="translation"
-              value={editWord.translation}
-              onChange={handleEditInputChange}
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              required
-            />
-          </div>
-          <button
-            type="submit"
-            className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Save Changes
-          </button>
-          <button
-            onClick={handleEditModalClose}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-          >
-            Cancel
-          </button>
-        </form>
-      </Modal>
-      <Modal
-        isOpen={deleteModalIsOpen}
-        onRequestClose={handleDeleteModalClose}
-        style={customStyles}
-        contentLabel="Delete Word Modal"
-      >
-        <h2 className="text-center text-2xl font-bold text-red-600 my-4">
-          Delete Word
-        </h2>
-        <p className="text-center text-gray-700 mb-4">
-          Are you sure you want to delete this word?
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => handleDeleteWord(deleteWord)}
-            className="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-          >
-            Delete
-          </button>
-          <button
-            onClick={handleDeleteModalClose}
-            className="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ml-2"
-          >
-            Cancel
-          </button>
-        </div>
-      </Modal>
+      <DeleteWords
+        deleteModalIsOpen={deleteModalIsOpen}
+        handleDeleteModalClose={handleDeleteModalClose}
+        handleDeleteWord={handleDeleteWord}
+        deleteWord={deleteWord}
+      />
     </div>
   );
 };
