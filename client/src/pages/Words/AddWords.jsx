@@ -2,7 +2,7 @@ import React from 'react'
 import Modal from 'react-modal'
 
 
-const PopUpWords = ({
+export const AddWords = ({
     modalIsOpen,
   handleModalClose,
   handleAddWord,
@@ -111,4 +111,3 @@ const PopUpWords = ({
   )
 }
 
-export default PopUpWords

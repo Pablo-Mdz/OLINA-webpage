@@ -4,7 +4,7 @@ import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
 import EditWords from './EditWords';
 import DeleteWords from './DeleteWords';
-import PopUpWords from './PopUpWords';
+import { AddWords } from './AddWords';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
@@ -31,6 +31,21 @@ export const Words = () => {
     createdAt: '',
   });
 
+  const filtered = words.filter((oneData) => {
+    if (!oneData.word) {
+      return false;
+    } else if (!oneData.translation) {
+      return true;
+    } else {
+      return (
+        (oneData.word &&
+          oneData.word.toLowerCase().includes(search.toLowerCase())) ||
+        (oneData.translation &&
+          oneData.translation.toLowerCase().includes(search.toLowerCase()))
+      );
+    }
+  });
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setNewWord({ ...newWord, [name]: value });
@@ -106,7 +121,7 @@ export const Words = () => {
       });
   };
 
-  //delete words
+ 
   const handleDeleteWord = (id) => {
     // event.preventDefault();
     axios
@@ -120,28 +135,9 @@ export const Words = () => {
         console.log(error);
       });
   };
-
-  //search bar
-
-  const filtered = words.filter((oneData) => {
-    if (!oneData.word) {
-      return false;
-    } else if (!oneData.translation) {
-      return true;
-    } else {
-      return (
-        (oneData.word &&
-          oneData.word.toLowerCase().includes(search.toLowerCase())) ||
-        (oneData.translation &&
-          oneData.translation.toLowerCase().includes(search.toLowerCase()))
-      );
-    }
-  });
-
   const handleModalClose = () => {
     setModalIsOpen(false);
   };
-
   const handleEditModalOpen = (
     id,
     word,
@@ -160,36 +156,15 @@ export const Words = () => {
     });
     setEditModalIsOpen(true);
   };
-
   const handleEditModalClose = () => {
     setEditModalIsOpen(false);
   };
-
   const handleDeleteModalOpen = (id) => {
     setDeleteWord(id);
     setDeleteModalIsOpen(true);
   };
-
   const handleDeleteModalClose = () => {
     setDeleteModalIsOpen(false);
-  };
-  const customStyles = {
-    overlay: {
-      backgroundColor: 'rgba(0, 0, 0, 0.75)',
-    },
-    content: {
-      top: '50%',
-      left: '50%',
-      right: 'auto',
-      bottom: 'auto',
-      marginRight: '-50%',
-      transform: 'translate(-50%, -50%)',
-      maxWidth: '400px',
-      width: '90%',
-      backgroundColor: '#f0f0f0',
-      borderRadius: '8px',
-      padding: '20px',
-    },
   };
 
   Modal.setAppElement('#root');
@@ -276,7 +251,7 @@ export const Words = () => {
             ))}
         </tbody>
       </table>
-      <PopUpWords
+      <AddWords
         modalIsOpen={modalIsOpen}
         handleModalClose={handleModalClose}
         handleAddWord={handleAddWord}
