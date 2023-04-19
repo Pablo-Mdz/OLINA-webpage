@@ -8,12 +8,6 @@ import { AddWords } from './AddWords';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
-const customStyles = {
-  overlay: {
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  },
-};
-
 export const Words = () => {
   const [words, setWords] = useState([]);
   const { user, isLoggedIn } = useContext(AuthContext);
@@ -181,17 +175,17 @@ export const Words = () => {
   };
 
   return (
-    <div className="bg-whitePro min-h-screen">
-      <div className="mx-auto max-w-7xl p-4">
-        <h1 className="text-center text-4xl font-bold text-primary my-4">
+    <div className="bg-whitePro min-h-screen font-pop">
+      <div className="mx-auto max-w-7xl p-4 ">
+        <h1 className="text-center text-4xl font-bold text-primary my-6">
           Word List
         </h1>
-        <div className="flex space-x-4 mb-4">
+        <div className="flex space-x-4 mb-4 justify-center">
           {alphabet.split('').map((letter) => (
             <button
               key={letter}
               onClick={() => handleLetterClick(letter)}
-              className="bg-primary text-whitePro px-2 py-1 rounded-md hover:bg-secondary focus:outline-none"
+              className="bg-primary text-whitePro px-2 py-1 my-4 rounded-md hover:bg-secondary focus:outline-none"
             >
               {letter}
             </button>
@@ -201,7 +195,7 @@ export const Words = () => {
           <>
             <button
               onClick={() => setModalIsOpen(true)}
-              className="bg-violet-600 hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
+              className="bg-purplePro hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
             >
               Add Word
             </button>
@@ -209,12 +203,12 @@ export const Words = () => {
         )}
         <label
           htmlFor="description"
-          className="block text-gray-700 font-bold mb-2"
+          className="block text-gray-700 font-bold mb-2 text-2xl"
         >
-          SEARCH BAR
+          Search by name or translation
         </label>
         <input
-          placeholder="Search by name or translation"
+          placeholder="..."
           type="text"
           value={search}
           onChange={(e) => {
@@ -222,15 +216,15 @@ export const Words = () => {
           }}
           className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
         />
-        <table className="table-auto w-full divide-y divide-primary">
+        <table className="table-auto w-full  ">
           <thead>
             <tr>
-              <th className="text-left px-4 py-2">Word</th>
-              <th className="text-left px-4 py-2">Description</th>
+              <th className="text-left px-4 py-2 ">Word</th>
+              <th className="text- px-center4 py-2">Description</th>
               <th className="text-left px-4 py-2">Spanish Translation</th>
               {isLoggedIn && (
                 <>
-                  <th className="text-left px-4 py-2">Actions</th>
+                  <th className="text-center px-4 py-2">Actions</th>
                 </>
               )}
             </tr>
@@ -240,16 +234,16 @@ export const Words = () => {
               filtered.map((uniqueWord) => (
                 // .sort((a, b) => new Date(b.date) - new Date(a.date))
                 <tr key={uniqueWord._id}>
-                  <td className="text-left px-4 py-2 text-whitePro bg-primary ">
+                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary ">
                     {uniqueWord.word}
                   </td>
-                  <td className="text-left px-4 py-2 text-whitePro bg-primary">
+                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
                     {uniqueWord.description}
                   </td>
-                  <td className="text-left px-4 py-2 text-whitePro bg-primary">
+                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
                     {uniqueWord.translation}
                   </td>
-                  <td className="text-left px-4 py-2 text-whitePro bg-primary">
+                  <td className="text-center flex justify-around items-stretch  px-3 py-2 text-violetPro bg-whitePro">
                     {isLoggedIn && (
                       <>
                         <button
@@ -259,17 +253,15 @@ export const Words = () => {
                               uniqueWord.word,
                               uniqueWord.description,
                               uniqueWord.translation,
-                              // word.author,
-                              // word.createdAt
                             )
                           }
-                          className="bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
+                          className="w-20 mx-1 bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => handleDeleteModalOpen(uniqueWord._id)}
-                          className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"
+                          className="w-20 mx-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                         >
                           Delete
                         </button>
