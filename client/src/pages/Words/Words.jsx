@@ -178,7 +178,7 @@ export const Words = () => {
     <div className="bg-whitePro min-h-screen font-pop">
       <div className="mx-auto max-w-7xl p-4 ">
         <h1 className="text-center text-4xl font-bold text-primary my-6">
-          Word List
+          WORD LIST
         </h1>
         <div className="flex space-x-4 mb-4 justify-center">
           {alphabet.split('').map((letter) => (
