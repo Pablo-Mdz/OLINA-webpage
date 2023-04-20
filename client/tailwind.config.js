@@ -17,14 +17,19 @@ module.exports = {
                     800: "#2D3748",
                     900: "#1A202C",
                 },
-                purple: {
-                    400: '#7A2FFF',
-                },
-            },
-            fontFamily: {
-                'pop': ['pop', 'sans-serif']
+                whitePro: "#F6F6F6",
+                blackPro: "#383636",
+                purplePro: "#9F1EE8",
+                violetPro: "#7A2FFF",
+                bluePro: "#2147FF",
+                primary: "#6C63FF",
+                secondary: "#4AA1FF",
+                accent: "#FFC75F",
             }
         },
+        fontFamily: {
+            'pop': ['pop', 'sans-serif']
+        }
     },
     plugins: [],
 }

@@ -16,14 +16,19 @@ export default function PostCard({ post }) {
   };
   return (
     <>
-      <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex" >
+      <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex">
         <div className="w-1/2 relative z-10">
           <div className="px-6 py-4">
-            <h1 className="text-2xl mb-2">{post.title}</h1>
+            <h1 className="text-xl mb-2">{post.title}</h1>
           </div>
-          <div className="align-start mx-2 my-4">
-            <div dangerouslySetInnerHTML={{ __html: postBodyPreview() }}></div>
-          </div>
+          <div
+  className="align-start mx-2 my-4 overflow-hidden"
+  style={{
+    maxHeight: 'calc(100% - 8rem)',
+  }}
+>
+  <div dangerouslySetInnerHTML={{ __html: postBodyPreview() }}></div>
+</div>
           <footer className="absolute bottom-0 left-0 right-0 flex items-center justify-between p-3">
             <div className="text-sm">
               <p className="text-gray-900 font-medium">
