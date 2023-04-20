@@ -1,31 +1,33 @@
-import { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
 import TopicDetails from '../components/Topic/TopicDetails';
 import EditTopic from '../components/Topic/EditTopic';
 import CreateATopic from '../components/Topic/CreateATopic';
 import { AuthContext } from '../context/auth.context';
+import { useFetch } from '../hooks/useFetch';
+import Loading from '../components/Loading/Loading';
 
 export default function TopicPage() {
-  const [topics, setTopics] = useState([]);
   const [selectedTopicId, setSelectedTopicId] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [refreshTopics, setRefreshTopics] = useState(false);
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  useEffect(() => {
-    axios
-      .get('/api/topic/list-topics')
-      .then((response) => {
-        setTopics(response.data.topics);
-        setRefreshTopics();
-      })
-      .catch((err) => console.log(err));
-  }, [refreshTopics]);
+  const { data, isLoading, hasError } = useFetch('/api/topic/list-topics', [
+    refreshTopics,
+  ]);
 
-  const TopicsSortedByDate = topics.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-  );
+  if (isLoading) {
+    return <h1>{Loading}</h1>;
+  }
+
+  if (hasError) {
+    return <h1>Error loading topics</h1>;
+  }
+
+  const TopicsSortedByDate =
+    !!data &&
+    data.topics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
   const handleClickTopic = (topicId) => {
     setSelectedTopicId(topicId);
@@ -41,7 +43,7 @@ export default function TopicPage() {
     setAddTopic(true);
   };
   const handleTopicCreated = () => {
-    setRefreshTopics(true);
+    setRefreshTopics((prevState) => !prevState);
   };
   const hideCreateTopic = () => {
     setAddTopic(false);
