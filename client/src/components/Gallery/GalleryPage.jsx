@@ -9,7 +9,7 @@ export default function GalleryPage() {
   const { isLoggedIn } = useContext(AuthContext);
   const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');
-  const [selectedPicture, setSelectedPicture] = useState('')
+  const [selectedPicture, setSelectedPicture] = useState('');
 
   useEffect(() => {
     axios
@@ -30,12 +30,12 @@ export default function GalleryPage() {
       );
     }
   });
-const editPicture = (selectedPic) => {
-    setSelectedPicture(selectedPic._id)
-}
-const cancelEditing = () => {
-    setSelectedPicture(null)
-}
+  const editPicture = (selectedPic) => {
+    setSelectedPicture(selectedPic._id);
+  };
+  const cancelEditing = () => {
+    setSelectedPicture(null);
+  };
 
   return (
     <>
@@ -57,23 +57,34 @@ const cancelEditing = () => {
                   <div className="flex flex-wrap w-1/3" key={picture._id}>
                     <div className="w-full p-1 md:p-2">
                       <div className="flex flex-col items-center">
-                          <p>{picture.title}</p>
+                        <p>{picture.title}</p>
                         <img
                           alt="gallery"
                           className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
                           src={picture.imgUrl}
-                          />
-                      <div className="flex justify-between w-full">
-                       <button onClick={() =>editPicture(picture)}>
-                       <img
-                    src="/editIcon.png"
-                    alt="Edit icon"
-                    className="inline w-8 h-8 ml-1"
-                  />
-                       </button>
-
-                        {selectedPicture && picture._id && (<EditPicture picture={picture} onCancel={cancelEditing}/>)}
-                      </div>
+                        />
+                        <div className="flex justify-between w-full">
+                          {selectedPicture === picture._id && (
+                            <EditPicture
+                              picture={picture}
+                              onCancel={cancelEditing}
+                            />
+                          )}
+                          {selectedPicture !== picture._id ? (
+                            <div className="flex justify-end w-full">
+                          <button
+                            className=""
+                            onClick={() => editPicture(picture)}
+                          >
+                            <img
+                              src="/editIcon.png"
+                              alt="Edit icon"
+                              className="inline w-8 h-8 ml-1"
+                            />
+                          </button></div>
+                              ) : 
+                              null}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -91,4 +102,4 @@ const cancelEditing = () => {
       )}
     </>
   );
-}
+  }
