@@ -199,78 +199,6 @@ export const Words = () => {
             >
               Add Word
             </button>
-<<<<<<< HEAD
-          </form>
-        </>
-      )}
-      <label
-        htmlFor="description"
-        className="block text-gray-700 font-bold mb-2"
-      >
-        SEARCH BAR
-      </label>
-      <input
-        placeholder="Search by name or translation"
-        type="text"
-        value={search}
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-      />
-      <table className="table-auto w-full">
-        <thead>
-          <tr>
-            <th className="text-left px-4 py-2">Word</th>
-            <th className="text-left px-4 py-2">Description</th>
-            <th className="text-left px-4 py-2">Spanish Translation</th>
-            {isLoggedIn && (
-              <>
-                <th className="text-left px-4 py-2">Actions</th>
-              </>
-            )}
-          </tr>
-        </thead>
-        <tbody>
-          {filtered &&
-            filtered.map((uniqueWord) => (
-              // .sort((a, b) => new Date(b.date) - new Date(a.date))
-              <tr key={uniqueWord._id}>
-                <td className="border px-4 py-2">{uniqueWord.word}</td>
-                <td className="border px-4 py-2">{uniqueWord.description}</td>
-                <td className="border px-4 py-2">{uniqueWord.translation}</td>
-                <td className="border px-4 py-2">
-                  {isLoggedIn && (
-                    <>
-                      <button
-                        onClick={() =>
-                          handleEditModalOpen(
-                            uniqueWord._id,
-                            uniqueWord.word,
-                            uniqueWord.description,
-                            uniqueWord.translation,
-                            // word.author,
-                            // word.createdAt
-                          )
-                        }
-                        className="bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mr-2"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => handleDeleteModalOpen(uniqueWord._id)}
-                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"
-                      >
-                        Delete
-                      </button>
-                    </>
-                  )}
-                </td>
-              </tr>
-            ))}
-        </tbody>
-      </table>
-=======
           </>
         )}
         <label
@@ -351,7 +279,6 @@ export const Words = () => {
           newWord={newWord}
           handleInputChange={handleInputChange}
         />
->>>>>>> 43dae48945ac84e7807d193944b7c774818dca78
 
         <EditWords
           editModalIsOpen={editModalIsOpen}

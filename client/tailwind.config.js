@@ -22,12 +22,9 @@ module.exports = {
                 purplePro: "#9F1EE8",
                 violetPro: "#7A2FFF",
                 bluePro: "#2147FF",
-<<<<<<< HEAD
-=======
                 primary: "#6C63FF",
                 secondary: "#4AA1FF",
                 accent: "#FFC75F",
->>>>>>> 43dae48945ac84e7807d193944b7c774818dca78
             }
         },
         fontFamily: {
