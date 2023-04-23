@@ -17,6 +17,7 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
+import { ReadingTime } from '../../pages/Words/ReadingTime';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
@@ -42,10 +43,9 @@ export const SinglePost = ({ onEdit }) => {
   const handleEdit = () => {
     setIsEditing(!isEditing);
     if (!isEditing && editPostRef.current) {
-        editPostRef.current.scrollIntoView({ behavior: 'smooth' });
+      editPostRef.current.scrollIntoView({ behavior: 'smooth' });
     }
-};
-
+  };
 
   const componentRef = useRef();
   const handlePrint = useReactToPrint({
@@ -89,6 +89,7 @@ export const SinglePost = ({ onEdit }) => {
               />
             )}
             <div className="px-6 py-4 place-self-start">
+              {post && <ReadingTime text={post.body} />}
               <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
