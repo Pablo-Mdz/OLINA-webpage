@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import TopicDetails from '../components/Topic/TopicDetails';
-import EditTopic from '../components/Topic/EditTopic';
-import CreateATopic from '../components/Topic/CreateATopic';
-import { AuthContext } from '../context/auth.context';
+import TopicDetails from './TopicDetails';
+import EditTopic from './EditTopic';
+import CreateATopic from './CreateATopic';
+import { AuthContext } from '../../context/auth.context';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
@@ -49,7 +49,7 @@ export default function TopicPage() {
 
   return (
     <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
-      <div className="md:w-1/4 bg-[#9f1ee8] bg-opacity-50">
+      <div className="md:w-1/5 bg-[#9f1ee8] bg-opacity-50">
         {TopicsSortedByDate.map((topic) => (
           <div key={topic._id} className="flex flex-col mb-2 ml-1">
             <div className="flex justify-between">

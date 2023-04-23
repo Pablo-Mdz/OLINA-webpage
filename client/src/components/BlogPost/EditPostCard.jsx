@@ -23,18 +23,22 @@ export default function EditPostCard({
   const handleSubmit = (event) => {
     event.preventDefault();
     const requestBody = { title, body };
-    axios.put(`/api/post/${postId}`, requestBody).then((response) => {
-      window.location.reload(false);
-    });
+    axios
+      .put(`/api/post/${postId}`, requestBody)
+      .then(() => {
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
   };
 
   const deletePost = () => {
     axios
-      .delete(`/api/post/${postId}`)
-      .then(() => {
-        // window.location.reload(false);
-        navigate('/topics');
+      .post(`/api/post/${postId}`)
+      .then((response) => {
+        console.log(response)
+        window.location.reload(false);
       })
+      .then(navigate('/topics'))
       .catch((err) => console.log(err));
   };
 
