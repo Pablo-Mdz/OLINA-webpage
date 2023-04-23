@@ -4,16 +4,17 @@ const Gallery = require('../models/Gallery');
 const { uploader, cloudinary } = require('../config/cloudinary');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
-    const { title, imgUrl, publicId } = req.body;
+    const { title, description, imgUrl, publicId } = req.body;
     console.log("REQUEST BODY: ", req.body)
     Gallery.create({
         title,
+        description,
         imgUrl,
         publicId,
     })
         .then((e) => {
-            const { title, _id } = e;
-            const event = { title, _id };
+            const { title,description, _id } = e;
+            const event = { title, description, _id };
             res.status(201).json({ event });
             console.log("title",e)
         })

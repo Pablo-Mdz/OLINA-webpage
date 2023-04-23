@@ -2,7 +2,6 @@ import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 import { Link } from 'react-router-dom';
-import DeletePicture from './DeletePicture';
 import { EditPicture } from './EditPicture';
 
 export default function GalleryPage() {
@@ -63,14 +62,15 @@ export default function GalleryPage() {
                           className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
                           src={picture.imgUrl}
                         />
+                        <p>{picture.description}</p>
                         <div className="flex justify-between w-full">
-                          {selectedPicture === picture._id && (
+                          {selectedPicture === picture._id && isLoggedIn &&(
                             <EditPicture
                               picture={picture}
                               onCancel={cancelEditing}
                             />
                           )}
-                          {selectedPicture !== picture._id ? (
+                          {selectedPicture !== picture._id && isLoggedIn ? (
                             <div className="flex justify-end w-full">
                           <button
                             className=""

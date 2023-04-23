@@ -223,11 +223,11 @@ export const Words = () => {
               <th className="text-left px-4 py-2 ">Word</th>
               <th className="text- px-center4 py-2">Description</th>
               <th className="text-left px-4 py-2">Spanish Translation</th>
-              {isLoggedIn && (
+              {/* {isLoggedIn && (
                 <>
                   <th className="text-center px-4 py-2">Actions</th>
                 </>
-              )}
+              )} */}
             </tr>
           </thead>
           <tbody>
