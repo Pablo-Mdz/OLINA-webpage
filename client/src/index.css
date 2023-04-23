@@ -5,6 +5,11 @@
   font-family: 'pop';
   src: url(./../static/fonts/josefin-slab/JosefinSlab-SemiBoldItalic.ttf);
 }
+/* @font-face {
+  font-family: 'semibold';
+  src: url(./../static/fonts/josefin-slab/JosefinSlab-SemiBold.ttf);
+} */
+
 
 body {
   margin: 0;

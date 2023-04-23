@@ -28,7 +28,8 @@ module.exports = {
             }
         },
         fontFamily: {
-            'pop': ['pop', 'sans-serif']
+            'pop': ['pop', 'sans-serif'],
+            'semibold': ['semibold', 'sans-serif']
         }
     },
     plugins: [],
