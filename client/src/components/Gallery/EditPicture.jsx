@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import DeletePicture from './DeletePicture';
 
-export const EditPicture = ({ picture , onCancel }) => {
+export const EditPicture = ({ picture , onCancel, id }) => {
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -35,7 +35,7 @@ export const EditPicture = ({ picture , onCancel }) => {
         >
           Save
         </button>
-        <DeletePicture />
+        <DeletePicture id={id}/>
         <button
           onClick={onCancel}
           className="bg-yellow-700  text-white font-bold py-1 px-2 w-full   rounded focus:outline-none focus:shadow-outline"

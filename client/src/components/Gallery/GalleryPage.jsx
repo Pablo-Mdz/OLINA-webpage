@@ -9,6 +9,8 @@ export default function GalleryPage() {
   const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');
   const [selectedPicture, setSelectedPicture] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
 
   useEffect(() => {
     axios
@@ -36,6 +38,16 @@ export default function GalleryPage() {
     setSelectedPicture(null);
   };
 
+  const openModal = (imageUrl) => {
+    setSelectedImage(imageUrl);
+    setShowModal(true);
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    setShowModal(false);
+  };
+
   return (
     <>
       {gallery ? (
@@ -53,37 +65,42 @@ export default function GalleryPage() {
             <div className="flex flex-wrap -m-1 md:-m-2">
               {filtered &&
                 filtered.map((picture) => (
-                  <div className="flex flex-wrap w-1/3" key={picture._id}>
+                  <div
+                    className="w-full sm:w-1/2 md:w-1/3 xl:w-1/4 p-4"
+                    key={picture._id}
+                  >
                     <div className="w-full p-1 md:p-2">
                       <div className="flex flex-col items-center">
                         <p>{picture.title}</p>
                         <img
                           alt="gallery"
-                          className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
+                          className="block object-cover object-center w-auto h-80 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
                           src={picture.imgUrl}
+                          onClick={() => openModal(picture.imgUrl)}
                         />
                         <p>{picture.description}</p>
                         <div className="flex justify-between w-full">
-                          {selectedPicture === picture._id && isLoggedIn &&(
+                          {selectedPicture === picture._id && isLoggedIn && (
                             <EditPicture
                               picture={picture}
                               onCancel={cancelEditing}
+                              id={picture._id}
                             />
                           )}
                           {selectedPicture !== picture._id && isLoggedIn ? (
                             <div className="flex justify-end w-full">
-                          <button
-                            className=""
-                            onClick={() => editPicture(picture)}
-                          >
-                            <img
-                              src="/editIcon.png"
-                              alt="Edit icon"
-                              className="inline w-8 h-8 ml-1"
-                            />
-                          </button></div>
-                              ) : 
-                              null}
+                              <button
+                                className=""
+                                onClick={() => editPicture(picture)}
+                              >
+                                <img
+                                  src="/editIcon.png"
+                                  alt="Edit icon"
+                                  className="inline w-8 h-8 ml-1"
+                                />
+                              </button>
+                            </div>
+                          ) : null}
                         </div>
                       </div>
                     </div>
@@ -93,6 +110,20 @@ export default function GalleryPage() {
           </div>
         </section>
       ) : null}
+      {showModal && (
+        <div
+          className="fixed top-0 left-0 w-full h-full bg-black bg-opacity-75 flex justify-center items-center py-4"
+          onClick={closeModal}
+        >
+          <img
+            src={selectedImage}
+            alt="Full size"
+            className="max-w-full max-h-full"
+            onClick={(e) => e.stopPropagation()} // Evita que se cierre el modal al hacer clic en la imagen
+          />
+        </div>
+      )}
+
       {isLoggedIn && (
         <div className="flex justify-center">
           <div className="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 w-32 border border-gray-400 rounded shadow flex justify-center mb-36">
@@ -102,4 +133,4 @@ export default function GalleryPage() {
       )}
     </>
   );
-  }
+}
