@@ -20,7 +20,7 @@ export const AboutMe = () => {
 
   return (
     <div>
-      <section className="bg-violet-400 py-16 px-4">
+      <section className="bg-violet-400 h-full py-16 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
@@ -28,8 +28,8 @@ export const AboutMe = () => {
               <div className="text-white mb-8">
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                    <p>{aboutMe.textBody}</p>
-
+                  <div dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}></div>
+                  
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
                     )}
