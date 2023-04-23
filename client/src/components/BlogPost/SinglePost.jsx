@@ -17,7 +17,7 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
-import { ReadingTime } from '../../pages/Words/ReadingTime';
+import { ReadingTime } from '../Words/ReadingTime';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);

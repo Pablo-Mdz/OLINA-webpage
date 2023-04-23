@@ -4,16 +4,17 @@ const Gallery = require('../models/Gallery');
 const { uploader, cloudinary } = require('../config/cloudinary');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
-    const { title, imgUrl, publicId } = req.body;
+    const { title, description, imgUrl, publicId } = req.body;
     console.log("REQUEST BODY: ", req.body)
     Gallery.create({
         title,
+        description,
         imgUrl,
         publicId,
     })
         .then((e) => {
-            const { title, _id } = e;
-            const event = { title, _id };
+            const { title,description, _id } = e;
+            const event = { title, description, _id };
             res.status(201).json({ event });
             console.log("title",e)
         })
@@ -28,6 +29,16 @@ router.get('/', (req, res) => {
     .then((gallery) => {
         res.status(200).json(gallery);
     });
+});
+
+router.put("/:titleId", (req, res) => {
+    const { title } = req.body;
+    Gallery.findByIdAndUpdate(req.params.titleId, { title }, { new: true })
+        .then(updatedTitle => {
+            console.log(" updated title", updatedTitle)
+            res.status(200).json(updatedTitle);
+        })
+        .catch(err => console.log(err));
 });
 
 router.post('/delete/:id', (req, res, next) => {
