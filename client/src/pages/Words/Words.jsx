@@ -6,6 +6,7 @@ import EditWords from './EditWords';
 import DeleteWords from './DeleteWords';
 import { AddWords } from './AddWords';
 
+
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
 export const Words = () => {
