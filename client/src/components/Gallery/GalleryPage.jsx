@@ -71,14 +71,14 @@ export default function GalleryPage() {
                   >
                     <div className="w-full p-1 md:p-2">
                       <div className="flex flex-col items-center">
-                        <p>{picture.title}</p>
+                        <h2 className='text-xl'>{picture.title}</h2>
                         <img
                           alt="gallery"
                           className="block object-cover object-center w-auto h-80 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
                           src={picture.imgUrl}
                           onClick={() => openModal(picture.imgUrl)}
                         />
-                        <p>{picture.description}</p>
+                        <p> {picture.description ? `Description: ${picture.description} ` : ''}</p>
                         <div className="flex justify-between w-full">
                           {selectedPicture === picture._id && isLoggedIn && (
                             <EditPicture
