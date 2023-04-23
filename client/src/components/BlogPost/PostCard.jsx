@@ -1,5 +1,5 @@
 import React from 'react';
-import { ReadingTime } from '../../pages/Words/ReadingTime';
+import { ReadingTime } from '../Words/ReadingTime';
 
 export default function PostCard({ post, RTime }) {
   //   const { isLoggedIn, user } = useContext(AuthContext);

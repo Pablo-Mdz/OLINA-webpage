@@ -1,22 +1,22 @@
 import './App.css';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage/HomePage';
 import ProfilePage from './pages/ProfilePage/ProfilePage';
 import SignupPage from './pages/SignupPage/SignupPage';
 import LoginPage from './pages/LoginPage/LoginPage';
-import { Words } from './pages/Words/Words';
+import { Words } from './components/Words/Words';
 import Navbar from './components/Navbar/Navbar';
 import IsPrivate from './components/IsPrivate/IsPrivate';
 import IsAnon from './components/IsAnon/IsAnon';
-import GalleryPage from './pages/GalleryPage';
+import GalleryPage from './components/Gallery/GalleryPage';
 import AddPicture from './components/Gallery/AddPicture';
-import TopicPage from './pages/TopicPage';
-import CreateAPost from './components/Blog/CreateAPost';
+import TopicPage from './components/Topic/TopicPage';
+import CreateAPost from './components/BlogPost/CreateAPost';
 import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
 import { ContactMe } from './pages/ContactMe/ContactMe';
 import { AboutMe } from './pages/AboutMe/AboutMe';
-import { SinglePost } from './components/Blog/SinglePost';
+import { SinglePost } from './components/BlogPost/SinglePost';
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
         <Route path="/topics" element={<TopicPage />} />
         <Route path="/topics/:id" element={<TopicDetails showAllPosts />} />
         <Route path="/create-post" element={<CreateAPost />} />
-        <Route path="/post/:id" element={<SinglePost/>} />
+        <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
         <Route path="/contact-me" element={<ContactMe />} />
         <Route path="/about" element={<AboutMe />} />

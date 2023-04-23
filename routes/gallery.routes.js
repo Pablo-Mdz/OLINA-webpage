@@ -30,6 +30,16 @@ router.get('/', (req, res) => {
     });
 });
 
+router.put("/:titleId", (req, res) => {
+    const { title } = req.body;
+    Gallery.findByIdAndUpdate(req.params.titleId, { title }, { new: true })
+        .then(updatedTitle => {
+            console.log(" updated title", updatedTitle)
+            res.status(200).json(updatedTitle);
+        })
+        .catch(err => console.log(err));
+});
+
 router.post('/delete/:id', (req, res, next) => {
     Gallery.findByIdAndDelete({ _id: req.params.id })
         .then((data) => {

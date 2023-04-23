@@ -1,13 +1,15 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../context/auth.context';
+import { AuthContext } from '../../context/auth.context';
 import { Link } from 'react-router-dom';
-import DeletePicture from '../components/Gallery/DeletePicture';
+import DeletePicture from './DeletePicture';
+import { EditPicture } from './EditPicture';
 
 export default function GalleryPage() {
   const { isLoggedIn } = useContext(AuthContext);
   const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');
+  const [selectedPicture, setSelectedPicture] = useState('')
 
   useEffect(() => {
     axios
@@ -28,6 +30,12 @@ export default function GalleryPage() {
       );
     }
   });
+const editPicture = (selectedPic) => {
+    setSelectedPicture(selectedPic._id)
+}
+const cancelEditing = () => {
+    setSelectedPicture(null)
+}
 
   return (
     <>
@@ -48,14 +56,26 @@ export default function GalleryPage() {
                 filtered.map((picture) => (
                   <div className="flex flex-wrap w-1/3" key={picture._id}>
                     <div className="w-full p-1 md:p-2">
-                      <p>{picture.title}</p>
-                      <img
-                        alt="gallery"
-                        className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
-                        src={picture.imgUrl}
-                      />
+                      <div className="flex flex-col items-center">
+                          <p>{picture.title}</p>
+                        <img
+                          alt="gallery"
+                          className="block object-cover object-center w-full h-full rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
+                          src={picture.imgUrl}
+                          />
+                      <div className="flex justify-between w-full">
+                       <button onClick={() =>editPicture(picture)}>
+                       <img
+                    src="/editIcon.png"
+                    alt="Edit icon"
+                    className="inline w-8 h-8 ml-1"
+                  />
+                       </button>
+
+                        {selectedPicture && picture._id && (<EditPicture picture={picture} onCancel={cancelEditing}/>)}
+                      </div>
+                      </div>
                     </div>
-                    {isLoggedIn && <DeletePicture id={picture._id} />}
                   </div>
                 ))}
             </div>

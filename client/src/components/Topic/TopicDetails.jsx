@@ -6,8 +6,8 @@ import {
   useLayoutEffect,
 } from 'react';
 import axios from 'axios';
-import PostCard from '../Blog/PostCard';
-import CreateAPost from '../Blog/CreateAPost';
+import PostCard from '../BlogPost/PostCard';
+import CreateAPost from '../BlogPost/CreateAPost';
 import { AuthContext } from '../../context/auth.context';
 
 export default function TopicDetails({ id, selectedTopicId }) {
@@ -93,7 +93,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
       </div>
       <div className="w-full">
         {isCreating && (
-          <div ref={createPostRef} >
+          <div ref={createPostRef}>
             <CreateAPost id={id} setPosts={setPosts} posts={posts} />
           </div>
         )}

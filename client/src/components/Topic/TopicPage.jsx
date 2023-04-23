@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
-import TopicDetails from '../components/Topic/TopicDetails';
-import EditTopic from '../components/Topic/EditTopic';
-import CreateATopic from '../components/Topic/CreateATopic';
-import { AuthContext } from '../context/auth.context';
+import TopicDetails from './TopicDetails';
+import EditTopic from './EditTopic';
+import CreateATopic from './CreateATopic';
+import { AuthContext } from '../../context/auth.context';
 
 export default function TopicPage() {
   const [topics, setTopics] = useState([]);
