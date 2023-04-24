@@ -31,12 +31,12 @@ router.get('/', (req, res) => {
     });
 });
 
-router.put("/:titleId", (req, res) => {
-    const { title } = req.body;
-    Gallery.findByIdAndUpdate(req.params.titleId, { title }, { new: true })
-        .then(updatedTitle => {
-            console.log(" updated title", updatedTitle)
-            res.status(200).json(updatedTitle);
+router.put("/:imageId", (req, res) => {
+    const { title, description } = req.body;
+    Gallery.findByIdAndUpdate(req.params?.imageId, { title, description }, { new: true })
+        .then(updatedImage => {
+            console.log(" updated title", updatedImage)
+            res.status(200).json(updatedImage);
         })
         .catch(err => console.log(err));
 });
