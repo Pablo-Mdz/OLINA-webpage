@@ -4,6 +4,7 @@ import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
 import DeleteAboutMe from '../../components/AboutMe/DeleteAboutMe';
 import aboutMe from '../../images/aboutMeLogo.jpg';
+import 'react-quill/dist/quill.snow.css';
 
 export const AboutMe = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -24,11 +25,10 @@ export const AboutMe = () => {
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-3xl font-bold mb-4">About me</h2>
               <div className="text-white mb-8">
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                  <div dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: aboutMe?.textBody }}></div>
                   
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />

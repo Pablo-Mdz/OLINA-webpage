@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
-import ReactQuill from 'react-quill';
-import 'react-quill/dist/quill.snow.css';
+import { useQuill } from 'react-quilljs';
+import 'quill/dist/quill.snow.css'; 
+
+
 
 export default function CreateAboutMe() {
-  const [aboutMe, setAboutMe] = useState();
+  const [aboutMe, setAboutMe] = useState("");
+  const { quill, quillRef } = useQuill();
 
 
   const handleSubmit = event => {
@@ -17,9 +20,20 @@ export default function CreateAboutMe() {
         .catch((err) => console.log(err));
   };
 
-  const handleEditorChange = (content) => {
-    setAboutMe(content);
-  };
+  /* const handleEditorChange = (newValue) => {
+    setAboutMe(newValue);
+  }; */
+
+  useEffect(() => {
+    if (quill) {
+      quill.on('text-change', () => {
+        console.log(quillRef.current.firstChild.innerHTML);
+        setAboutMe(quillRef.current.firstChild.innerHTML)
+      });
+    }
+  }, [quill]);
+
+
 
   return (
     <div>
@@ -28,13 +42,22 @@ export default function CreateAboutMe() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <form 
                 onSubmit={handleSubmit}
-                className="mb-8">
-             <ReactQuill 
+                className="mb-8"
+            >
+            <div>
+
+            <div>
+              <div style={{ width: 500, height: 300 }}>
+                  <div ref={quillRef} />
+              </div>
+            </div>
+             {/* <ReactQuill 
                 theme="snow" 
-                value={aboutMe}
+                value={aboutMe}               
                 onChange={handleEditorChange}
                 className="h-80 w-full py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
-             />
+             /> */}
+             </div>
              <br />
              <button className='px-4 py-1 mt-6 border-2 border-gray-900 rounded uppercase font-medium text-xs'>
                Add About Me
