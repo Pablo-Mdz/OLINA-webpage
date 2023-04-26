@@ -15,6 +15,25 @@ router.post('/', uploader.single('gallery'), (req, res) => {
         })
         .catch(err => console.log(err));
 });
+// router.post('/', uploader.single('gallery'), (req, res) => {
+//     const { aboutMe } = req.body;
+  
+//     // Accede a la información de la imagen subida desde req.file
+//     const imgUrl = req.file.secure_url; // <- La URL de la imagen en Cloudinary
+//     const publicId = req.file.public_id; // <- El ID público de la imagen en Cloudinary
+//   console.log(req.body)
+//     AboutMe.create({
+//       textBody: aboutMe,
+//       imgUrl,
+//       publicId,
+//     })
+//       .then((newAboutMe) => {
+//         res.status(200).json(newAboutMe);
+//       })
+//       .catch((err) => console.log(err));
+//   });
+  
+
 
 router.get("/", (req, res) => {
     AboutMe.find()

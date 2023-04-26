@@ -24,48 +24,45 @@ const formats = [
 
 export default function CreateAboutMe() {
   const [aboutMe, setAboutMe] = useState("");
-  const [imgUrl, setImgUrl] = useState("");
-  const [publicId, setPublicId] = useState("");
+  const [image, setImage] = useState(null);
+  const [imageUrl, setImageUrl] = useState(null);
+
+  const uploadImage = async (file) => {
+    const data = new FormData();
+    data.append("file", file);
+    data.append("upload_preset", "auh8nzbq"); // Reemplaza con tu propio upload_preset
+    data.append("cloud_name", "be-chef"); // Reemplaza con tu propio cloud_name
+  
+    const res = await fetch("https://api.cloudinary.com/v1_1/be-chef/image/upload", {
+      method: "post",
+      body: data,
+    });
+  
+    const imageData = await res.json();
+    return imageData.secure_url;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const data = new FormData();
-    console.log("e.target.files", e.target.file);
-    //data.append("file", e.target.files[0]);
-    data.append('upload_preset', 'auh8nzbq');
-    data.append('cloud_name', 'be-chef');
-
-    const res = await fetch('https://api.cloudinary.com/v1_1/be-chef/image/upload', 
-    { method: 'post',
-      body: data,
-    })
-    .then((response) => response.json())
-        .then(data => {
-          console.log("DATA:", data)
-          const requestBody = {
-            aboutMe,
-            publicId: data.public_id,
-            imgUrl: data.url,
-          };
-          
-          axios
-          .post(`/api/about-me`, requestBody)
-          .then(response => {
-            console.log("RESPONSE: ", response)
-           window.location.reload(false);
-          })
-          .catch((err) => console.log(err))
-        
-        });
-      
-        console.log("RES: ", res)
-
-    setImgUrl(res.data.secure_url);
-    setPublicId(res.data.public_id);
+    
+    let requestBody = {
+      aboutMe,
+      imgUrl: imageUrl,
+    };
+    
+    if (image) {
+      const imageUrl = await uploadImage(image);
+      setImageUrl(imageUrl);
+      requestBody.imgUrl = imageUrl;
+    }
+    
+    axios.post(`/api/about-me`, requestBody)
+      .then(response => {
+        console.log("RESPONSE: ", response)
+        window.location.reload(false);
+      })
+      .catch((err) => console.log(err));
   };
-
-
-
 
   return (
     <div>
