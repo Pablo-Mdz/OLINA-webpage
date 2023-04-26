@@ -4,7 +4,6 @@ import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
 import DeleteAboutMe from '../../components/AboutMe/DeleteAboutMe';
 import aboutMe from '../../images/aboutMeLogo.jpg';
-import 'react-quill/dist/quill.snow.css';
 
 export const AboutMe = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -19,6 +18,8 @@ export const AboutMe = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(aboutMes)
+
   return (
     <div>
       <section className="bg-violet-400 h-full py-16 px-4">
@@ -28,7 +29,7 @@ export const AboutMe = () => {
               <div className="text-white mb-8">
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                  <div dangerouslySetInnerHTML={{ __html: aboutMe?.textBody }}></div>
+                  <div dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}></div>
                   
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
@@ -38,11 +39,11 @@ export const AboutMe = () => {
               </div>
             </div>
             <div>
-              <img
+              {/* <img
                 className="w-full h-auto rounded-lg shadow-lg"
                 src={aboutMe}
                 alt="about me logo"
-              />
+              /> */}
             </div>
           </div>
         </div>
