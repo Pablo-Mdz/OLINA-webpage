@@ -30,8 +30,8 @@ export default function CreateAboutMe() {
   const uploadImage = async (file) => {
     const data = new FormData();
     data.append("file", file);
-    data.append("upload_preset", "auh8nzbq"); // Reemplaza con tu propio upload_preset
-    data.append("cloud_name", "be-chef"); // Reemplaza con tu propio cloud_name
+    data.append("upload_preset", "auh8nzbq"); 
+    data.append("cloud_name", "be-chef"); 
   
     const res = await fetch("https://api.cloudinary.com/v1_1/be-chef/image/upload", {
       method: "post",

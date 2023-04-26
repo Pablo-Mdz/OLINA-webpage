@@ -4,7 +4,7 @@ const { uploader, cloudinary } = require('../config/cloudinary');
 
 router.post('/', uploader.single('gallery'), (req, res) => {
     const { aboutMe, imgUrl, publicId, } = req.body;
-    
+    console.log(req.body)
     AboutMe.create({
             textBody: aboutMe, 
             imgUrl,
@@ -15,6 +15,8 @@ router.post('/', uploader.single('gallery'), (req, res) => {
         })
         .catch(err => console.log(err));
 });
+
+
 // router.post('/', uploader.single('gallery'), (req, res) => {
 //     const { aboutMe } = req.body;
   
