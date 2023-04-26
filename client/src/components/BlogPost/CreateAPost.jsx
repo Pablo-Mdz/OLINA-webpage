@@ -49,7 +49,7 @@ export default function CreateAPost({ id }) {
         setErrorMessage(errorDescription);
       });
 
-    setImage('');
+      setImage('');
   };
   const handleEditorChange = (content) => {
     setBody(content);

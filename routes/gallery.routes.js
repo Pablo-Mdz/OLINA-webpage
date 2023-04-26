@@ -5,7 +5,6 @@ const { uploader, cloudinary } = require('../config/cloudinary');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
     const { title, description, imgUrl, publicId } = req.body;
-    console.log("REQUEST BODY: ", req.body)
     Gallery.create({
         title,
         description,
