@@ -2,17 +2,6 @@ const router = require("express").Router();
 const AboutMe = require('../models/AboutMe');
 const { uploader, cloudinary } = require('../config/cloudinary');
 
-
-router.post('/',uploader.single('gallery'),  (req, res) => {
-    const { aboutMe, imgUrl, publicId, } = req.body;
-    
-    AboutMe.create({
-            textBody: aboutMe, 
-            imgUrl,
-            publicId,
-    })
-const { uploader, cloudinary } = require('../config/cloudinary');
-
 router.post('/', uploader.single('gallery'), (req, res) => {
     const { aboutMe, imgUrl, publicId, } = req.body;
     
