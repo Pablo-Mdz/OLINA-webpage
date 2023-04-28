@@ -6,8 +6,8 @@ import {
   useLayoutEffect,
 } from 'react';
 import axios from 'axios';
-import PostCard from '../Blog/PostCard';
-import CreateAPost from '../Blog/CreateAPost';
+import PostCard from '../BlogPost/PostCard';
+import CreateAPost from '../BlogPost/CreateAPost';
 import { AuthContext } from '../../context/auth.context';
 
 export default function TopicDetails({ id, selectedTopicId }) {
@@ -26,6 +26,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
   const postSortedByDate = filteredPost.sort(
     (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
   );
+
   useEffect(() => {
     if (id === 'all') {
       axios
@@ -56,7 +57,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
   }, [isCreating]);
 
   return (
-    <div className="topic-details-container w-full px-4">
+    <div className="topic-details-container  w-full px-4 ">
       <div className="flex justify-between items-center my-2">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
           {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}
@@ -85,12 +86,12 @@ export default function TopicDetails({ id, selectedTopicId }) {
         className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0 ">
         {postSortedByDate.map((post) => (
           <div key={post._id}>{post && <PostCard post={post} />}</div>
         ))}
       </div>
-      <div className="">
+      <div className="w-full">
         {isCreating && (
           <div ref={createPostRef}>
             <CreateAPost id={id} setPosts={setPosts} posts={posts} />

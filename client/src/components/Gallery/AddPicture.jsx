@@ -6,6 +6,8 @@ export default function AddPicture() {
   const [image, setImage] = useState('');
   const [setErrorMessage] = useState('');
   const [title, setTitle] = useState('');
+  const [description, SetDescription] = useState('');
+  const [wordsRemaining, setWordsRemaining] = useState(25);
 
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ export default function AddPicture() {
         const storedToken = localStorage.getItem('authToken');
         const requestBody = {
           title: title,
+          description: description,
           publicId: data.public_id,
           imgUrl: data.url,
         };
@@ -37,6 +40,7 @@ export default function AddPicture() {
               navigate('/gallery');
               console.log('RESPONSE: ', response);
               setTitle('');
+              SetDescription('');
             })
             .catch((err) => {
               const errorDescription = err.response.data.message;
@@ -49,6 +53,19 @@ export default function AddPicture() {
         setErrorMessage(errorDescription);
       });
     setImage('');
+  };
+
+  const countWords = (str) => {
+    return str.trim().split(/\s+/).length;
+  };
+
+  const handleDescriptionChange = (e) => {
+    const newDescription = e.target.value;
+    const wordCount = countWords(newDescription);
+    if (countWords(newDescription) <= 25) {
+      SetDescription(newDescription);
+      setWordsRemaining(25 - wordCount);
+    }
   };
 
   return (
@@ -70,6 +87,26 @@ export default function AddPicture() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
               />
+              <label
+                className="block text-gray-700 font-bold mb-2"
+                htmlFor="title"
+              >
+                Description:
+              </label>
+              <input
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="description"
+                type="text"
+                value={description}
+                onChange={handleDescriptionChange}
+              />
+              <p
+                className={`${
+                  wordsRemaining <= 10 ? 'text-red-500' : 'text-gray-700'
+                } text-sm`}
+              >
+                {wordsRemaining} words remaining
+              </p>
             </div>
             <input
               type="file"

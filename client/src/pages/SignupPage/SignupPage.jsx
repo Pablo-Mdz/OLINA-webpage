@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
 
@@ -27,6 +28,9 @@ function SignupPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Olina - Blog | Sign Up</title>
+      </Helmet>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>

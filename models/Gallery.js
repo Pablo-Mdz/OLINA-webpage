@@ -6,6 +6,7 @@ const gallerySchema = new Schema(
       type: String,
     },
     imgUrl: String,
+    description: String,
     publicId: String,
   },
   {
