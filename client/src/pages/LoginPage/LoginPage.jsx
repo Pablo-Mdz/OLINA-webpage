@@ -3,24 +3,23 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../context/auth.context';
 import authService from '../../services/auth.service';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from 'react-hook-form';
 
 function LoginPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { onInputChange, email, password } = useForm({
-    email: '',
-    password: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { storeToken, verifyStoredToken } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
-  const handleLoginSubmit = (e) => {
-    e.preventDefault();
-    const requestBody = { email, password };
+  const handleLoginSubmit = (data) => {
     authService
-      .login(requestBody)
+      .login(data)
       .then((response) => {
         const token = response.data.authToken
         storeToken(token);
@@ -29,7 +28,6 @@ function LoginPage() {
         });
       })
       .catch((error) => {
-        console.log('ERROR: ', error);
         const errorDescription = error.response.data.message;
         setErrorMessage(errorDescription);
       });
@@ -47,7 +45,11 @@ function LoginPage() {
               Sign in to your account
             </h2>
           </div>
-          <form onSubmit={handleLoginSubmit} className="mt-8 space-y-6">
+          <form
+            onSubmit={handleSubmit(handleLoginSubmit)}
+            className="mt-8 space-y-6"
+            noValidate
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -55,6 +57,13 @@ function LoginPage() {
                   Email address
                 </label>
                 <input
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })}
                   id="email-address"
                   name="email"
                   type="email"
@@ -62,15 +71,19 @@ function LoginPage() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
-                  value={email}
-                  onChange={onInputChange}
                 />
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
+                  {...register('password', {
+                    required: 'Password is required',
+                  })}
                   id="password"
                   name="password"
                   type="password"
@@ -78,12 +91,12 @@ function LoginPage() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
-                  value={password}
-                  onChange={onInputChange}
                 />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
             </div>
-
             {errorMessage && (
               <p className="text-red-500 text-xs mt-2">{errorMessage}</p>
             )}
