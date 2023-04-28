@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
 import EditWords from './EditWords';
 import DeleteWords from './DeleteWords';
 import { AddWords } from './AddWords';
-
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 
@@ -176,126 +176,133 @@ export const Words = () => {
   };
 
   return (
-    <div className="bg-whitePro min-h-screen font-pop">
-      <div className="mx-auto max-w-7xl p-4 ">
-        <h1 className="text-center text-4xl font-bold text-primary my-6">
-          WORD LIST
-        </h1>
-        <div className="flex space-x-4 mb-4 justify-center">
-          {alphabet.split('').map((letter) => (
-            <button
-              key={letter}
-              onClick={() => handleLetterClick(letter)}
-              className="bg-primary text-whitePro px-2 py-1 my-4 rounded-md hover:bg-secondary focus:outline-none"
-            >
-              {letter}
-            </button>
-          ))}
-        </div>
-        {isLoggedIn && (
-          <>
-            <button
-              onClick={() => setModalIsOpen(true)}
-              className="bg-purplePro hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
-            >
-              Add Word
-            </button>
-          </>
-        )}
-        <label
-          htmlFor="description"
-          className="block text-gray-700 font-bold mb-2 text-2xl"
-        >
-          Search by name or translation
-        </label>
-        <input
-          placeholder="..."
-          type="text"
-          value={search}
-          onChange={(e) => {
-            setSearch(e.target.value);
-          }}
-          className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-        />
-        <table className="table-auto w-full  ">
-          <thead>
-            <tr>
-              <th className="text-left px-4 py-2 ">Word</th>
-              <th className="text- px-center4 py-2">Description</th>
-              <th className="text-left px-4 py-2">Spanish Translation</th>
-              {/* {isLoggedIn && (
+    <>
+      <Helmet>
+        <title>Olina - Blog | Words</title>
+      </Helmet>
+      <div className="bg-whitePro min-h-screen font-pop">
+        <div className="mx-auto max-w-7xl p-4 ">
+          <h1 className="text-center text-4xl font-bold text-primary my-6">
+            WORD LIST
+          </h1>
+          <div className="flex space-x-4 mb-4 justify-center">
+            {alphabet.split('').map((letter) => (
+              <button
+                key={letter}
+                onClick={() => handleLetterClick(letter)}
+                className="bg-primary text-whitePro px-2 py-1 my-4 rounded-md hover:bg-secondary focus:outline-none"
+              >
+                {letter}
+              </button>
+            ))}
+          </div>
+          {isLoggedIn && (
+            <>
+              <button
+                onClick={() => setModalIsOpen(true)}
+                className="bg-purplePro hover:bg-violet-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mb-4"
+              >
+                Add Word
+              </button>
+            </>
+          )}
+          <label
+            htmlFor="description"
+            className="block text-gray-700 font-bold mb-2 text-2xl"
+          >
+            Search by name or translation
+          </label>
+          <input
+            placeholder="..."
+            type="text"
+            value={search}
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          />
+          <table className="table-auto w-full  ">
+            <thead>
+              <tr>
+                <th className="text-left px-4 py-2 ">Word</th>
+                <th className="text- px-center4 py-2">Description</th>
+                <th className="text-left px-4 py-2">Spanish Translation</th>
+                {/* {isLoggedIn && (
                 <>
                   <th className="text-center px-4 py-2">Actions</th>
                 </>
               )} */}
-            </tr>
-          </thead>
-          <tbody>
-            {filtered &&
-              filtered.map((uniqueWord) => (
-                // .sort((a, b) => new Date(b.date) - new Date(a.date))
-                <tr key={uniqueWord._id}>
-                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary ">
-                    {uniqueWord.word}
-                  </td>
-                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
-                    {uniqueWord.description}
-                  </td>
-                  <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
-                    {uniqueWord.translation}
-                  </td>
-                  <td className="text-center flex justify-around items-stretch  px-3 py-2 text-violetPro bg-whitePro">
-                    {isLoggedIn && (
-                      <>
-                        <button
-                          onClick={() =>
-                            handleEditModalOpen(
-                              uniqueWord._id,
-                              uniqueWord.word,
-                              uniqueWord.description,
-                              uniqueWord.translation,
-                            )
-                          }
-                          className="w-20 mx-1 bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                          Edit
-                        </button>
-                        <button
-                          onClick={() => handleDeleteModalOpen(uniqueWord._id)}
-                          className="w-20 mx-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                          Delete
-                        </button>
-                      </>
-                    )}
-                  </td>
-                </tr>
-              ))}
-          </tbody>
-        </table>
-        <AddWords
-          modalIsOpen={modalIsOpen}
-          handleModalClose={handleModalClose}
-          handleAddWord={handleAddWord}
-          newWord={newWord}
-          handleInputChange={handleInputChange}
-        />
+              </tr>
+            </thead>
+            <tbody>
+              {filtered &&
+                filtered.map((uniqueWord) => (
+                  // .sort((a, b) => new Date(b.date) - new Date(a.date))
+                  <tr key={uniqueWord._id}>
+                    <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary ">
+                      {uniqueWord.word}
+                    </td>
+                    <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
+                      {uniqueWord.description}
+                    </td>
+                    <td className="text-left px-4 py-2 text-violetPro bg-whitePro border border-primary">
+                      {uniqueWord.translation}
+                    </td>
+                    <td className="text-center flex justify-around items-stretch  px-3 py-2 text-violetPro bg-whitePro">
+                      {isLoggedIn && (
+                        <>
+                          <button
+                            onClick={() =>
+                              handleEditModalOpen(
+                                uniqueWord._id,
+                                uniqueWord.word,
+                                uniqueWord.description,
+                                uniqueWord.translation,
+                              )
+                            }
+                            className="w-20 mx-1 bg-bluePro hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() =>
+                              handleDeleteModalOpen(uniqueWord._id)
+                            }
+                            className="w-20 mx-1 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                          >
+                            Delete
+                          </button>
+                        </>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+            </tbody>
+          </table>
+          <AddWords
+            modalIsOpen={modalIsOpen}
+            handleModalClose={handleModalClose}
+            handleAddWord={handleAddWord}
+            newWord={newWord}
+            handleInputChange={handleInputChange}
+          />
 
-        <EditWords
-          editModalIsOpen={editModalIsOpen}
-          handleEditModalClose={handleEditModalClose}
-          handleEditWord={handleEditWord}
-          editWord={editWord}
-          handleEditInputChange={handleEditInputChange}
-        />
+          <EditWords
+            editModalIsOpen={editModalIsOpen}
+            handleEditModalClose={handleEditModalClose}
+            handleEditWord={handleEditWord}
+            editWord={editWord}
+            handleEditInputChange={handleEditInputChange}
+          />
 
-        <DeleteWords
-          deleteModalIsOpen={deleteModalIsOpen}
-          handleDeleteModalClose={handleDeleteModalClose}
-          handleDeleteWord={handleDeleteWord}
-          deleteWord={deleteWord}
-        />
+          <DeleteWords
+            deleteModalIsOpen={deleteModalIsOpen}
+            handleDeleteModalClose={handleDeleteModalClose}
+            handleDeleteWord={handleDeleteWord}
+            deleteWord={deleteWord}
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 };
