@@ -1,4 +1,10 @@
-import React, { useEffect, useState, useRef, useContext } from 'react';
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useContext,
+  useLayoutEffect,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
@@ -11,15 +17,17 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
+import { ReadingTime } from '../Words/ReadingTime';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
   const [postBeingEdited, setPostBeingEdited] = useState({});
   const [isEditing, setIsEditing] = useState(false);
-  const { id } = useParams();
-  const { isLoggedIn, user } = useContext(AuthContext);
-
   const [isCopied, setIsCopied] = useState(false);
+  const { isLoggedIn, user } = useContext(AuthContext);
+  const editPostRef = useRef(null);
+  const { id } = useParams();
+
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
     setIsCopied(true);
@@ -34,7 +42,9 @@ export const SinglePost = ({ onEdit }) => {
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
-    setPostBeingEdited(postBeingEdited);
+    if (!isEditing && editPostRef.current) {
+      editPostRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const componentRef = useRef();
@@ -50,6 +60,12 @@ export const SinglePost = ({ onEdit }) => {
     handleEdit();
   };
 
+  useLayoutEffect(() => {
+    if (isEditing && editPostRef.current) {
+      editPostRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, [isEditing]);
+
   return (
     <>
       <div
@@ -57,23 +73,24 @@ export const SinglePost = ({ onEdit }) => {
         className="flex justify-center items-center relative bg-gray-200 pt-5 pb-10 font-pop"
       >
         {postBeingEdited && (
-          <div className="max-w-2xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
-            {!post?.image && (
+          <div className="max-w-4xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
+            {!post?.imgUrl && (
               <img
                 alt="pic"
                 className="w-full h-auto  rounded-t-2xl"
-                src="https://source.unsplash.com/random/500x300"
+                src="https://picsum.photos/500/300"
               />
             )}
-            {post?.image && (
+            {post?.imgUrl && (
               <img
                 alt="user"
                 className="w-full h-auto  rounded-t-2xl "
-                src={post?.image}
+                src={post?.imgUrl}
               />
             )}
             <div className="px-6 py-4 place-self-start">
-              <div className="mb-2 text-4xl font-bold ">
+              {post && <ReadingTime text={post.body} />}
+              <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
               <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
@@ -120,10 +137,12 @@ export const SinglePost = ({ onEdit }) => {
               </button>
             )}
             {isEditing && (
-              <EditPostCard
-                postBeingEdited={postBeingEdited}
-                onCancel={cancelEditing}
-              />
+              <div ref={editPostRef}>
+                <EditPostCard
+                  postBeingEdited={postBeingEdited}
+                  onCancel={cancelEditing}
+                />
+              </div>
             )}
           </div>
         )}
