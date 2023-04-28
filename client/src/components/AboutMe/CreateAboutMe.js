@@ -87,7 +87,6 @@ export default function CreateAboutMe() {
               id="image"
               type="file"
               onChange={(e) => setImage(e.target.files[0])}
-              required
             />
             </div>
              <br />

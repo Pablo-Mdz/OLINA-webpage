@@ -3,9 +3,14 @@ import axios from 'axios';
 
 export default function CreateATopic({ onTopicCreated, hideCreateTopic }) {
   const [title, setTitle] = useState('');
+  const [error, setError] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (title.trim() === '') {
+      setError('Title cannot be empty');
+      return;
+    }
     const requestBody = { title };
     const storedToken = localStorage.getItem('authToken');
     axios
@@ -34,6 +39,7 @@ export default function CreateATopic({ onTopicCreated, hideCreateTopic }) {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
+        {error && <p className="text-red-500">{error}</p>}
         <div className="flex items-center justify-between">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold w-full py-1 px-4 mt-2 rounded focus:outline-none focus:shadow-outline"

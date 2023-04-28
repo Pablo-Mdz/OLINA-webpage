@@ -11,6 +11,16 @@ router.post('/',uploader.single('gallery'),  (req, res) => {
             imgUrl,
             publicId,
     })
+const { uploader, cloudinary } = require('../config/cloudinary');
+
+router.post('/', uploader.single('gallery'), (req, res) => {
+    const { aboutMe, imgUrl, publicId, } = req.body;
+    
+    AboutMe.create({
+            textBody: aboutMe, 
+            imgUrl,
+            publicId,
+    })
         .then(newAboutMe => {
             res.status(200).json(newAboutMe);
         })
