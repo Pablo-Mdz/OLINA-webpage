@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from 'react';
+import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/auth.context';
 import { Link } from 'react-router-dom';
@@ -21,16 +21,19 @@ export default function GalleryPage() {
       .catch((err) => console.log(err));
   }, []);
 
-  const filtered = gallery.filter((oneData) => {
-    if (!oneData.title) {
-      return false;
-    } else {
-      return (
-        oneData.title &&
-        oneData.title.toLowerCase().includes(search.toLowerCase())
-      );
-    }
-  });
+  const filtered = useMemo(() => {
+    return gallery.filter((oneData) => {
+      if (!oneData.title) {
+        return false;
+      } else {
+        return (
+          oneData.title &&
+          oneData.title.toLowerCase().includes(search.toLowerCase())
+        );
+      }
+    });
+  }, [gallery, search]);
+
   const editPicture = (selectedPic) => {
     setSelectedPicture(selectedPic._id);
   };
@@ -71,14 +74,19 @@ export default function GalleryPage() {
                   >
                     <div className="w-full p-1 md:p-2">
                       <div className="flex flex-col items-center">
-                        <h2 className='text-xl'>{picture.title}</h2>
+                        <h2 className="text-xl">{picture.title}</h2>
                         <img
                           alt="gallery"
                           className="block object-cover object-center w-auto h-80 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
                           src={picture.imgUrl}
                           onClick={() => openModal(picture.imgUrl)}
                         />
-                        <p> {picture.description ? `Description: ${picture.description} ` : ''}</p>
+                        <p>
+                          {' '}
+                          {picture.description
+                            ? `Description: ${picture.description} `
+                            : ''}
+                        </p>
                         <div className="flex justify-between w-full">
                           {selectedPicture === picture._id && isLoggedIn && (
                             <EditPicture
