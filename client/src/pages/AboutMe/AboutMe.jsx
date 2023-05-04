@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../context/auth.context';
 import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
@@ -18,17 +19,23 @@ export const AboutMe = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  console.log(aboutMes);
+
   return (
-    <div>
-      <section className="bg-violet-400 py-16 px-4">
+    <>
+      <Helmet>
+        <title>Olina - Blog | About Me</title>
+      </Helmet>
+      <section className="bg-violet-400 h-full py-16 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <h2 className="text-3xl font-bold mb-4">About me</h2>
               <div className="text-white mb-8">
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                    <p>{aboutMe.textBody}</p>
+                    <div
+                      dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}
+                    ></div>
 
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
@@ -38,16 +45,16 @@ export const AboutMe = () => {
               </div>
             </div>
             <div>
-              <img
+              {/* <img
                 className="w-full h-auto rounded-lg shadow-lg"
                 src={aboutMe}
                 alt="about me logo"
-              />
+              /> */}
             </div>
           </div>
         </div>
       </section>
       {isLoggedIn && <CreateAboutMe />}
-    </div>
+    </>
   );
 };

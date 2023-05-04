@@ -1,23 +1,22 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { Helmet } from 'react-helmet';
 import authService from '../../services/auth.service';
-import { useForm } from '../../hooks/useForm';
+import { useForm } from 'react-hook-form';
 
 function SignupPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
-  const { onInputChange, email, password, name } = useForm({
-    email: '',
-    password: '',
-    name: '',
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const navigate = useNavigate();
 
-  const handleSignupSubmit = (e) => {
-    e.preventDefault();
-    const requestBody = { email, password, name };
+  const handleSignupSubmit = (data) => {
     authService
-      .signup(requestBody)
+      .signup(data)
       .then((response) => {
         navigate('/login');
       })
@@ -29,6 +28,9 @@ function SignupPage() {
 
   return (
     <>
+      <Helmet>
+        <title>Olina - Blog | Sign Up</title>
+      </Helmet>
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -36,7 +38,11 @@ function SignupPage() {
               Sign in to your account
             </h2>
           </div>
-          <form onSubmit={handleSignupSubmit} className="mt-8 space-y-6">
+          <form
+            onSubmit={handleSubmit(handleSignupSubmit)}
+            className="mt-8 space-y-6"
+            noValidate
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
@@ -44,6 +50,13 @@ function SignupPage() {
                   Email address
                 </label>
                 <input
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address',
+                    },
+                  })}
                   id="email-address"
                   name="email"
                   type="email"
@@ -51,15 +64,23 @@ function SignupPage() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Email address"
-                  value={email}
-                  onChange={onInputChange}
                 />
+                {errors.email && (
+                  <p className="text-red-500">{errors.email.message}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="password" className="sr-only">
                   Password
                 </label>
                 <input
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                      value: 8,
+                      message: 'Password must be at least 8 characters long',
+                    },
+                  })}
                   id="password"
                   name="password"
                   type="password"
@@ -67,26 +88,35 @@ function SignupPage() {
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Password"
-                  value={password}
-                  onChange={onInputChange}
                 />
+                {errors.password && (
+                  <p className="text-red-500">{errors.password.message}</p>
+                )}
               </div>
               <div>
                 <label htmlFor="name" className="sr-only">
                   Name
                 </label>
                 <input
+                  {...register('name', {
+                    required: 'Name is required',
+                    minLength: {
+                      value: 2,
+                      message: 'Name must be at least 2 characters long',
+                    },
+                  })}
                   id="name"
                   name="name"
                   type="text"
-                  autoComplete="current-password"
+                  autoComplete="off"
                   required
                   className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Your name"
-                  value={name}
-                  onChange={onInputChange}
                 />
               </div>
+              {errors.name && (
+                <p className="text-red-500">{errors.name.message}</p>
+              )}
             </div>
 
             {errorMessage && (
