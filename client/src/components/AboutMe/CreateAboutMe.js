@@ -39,7 +39,6 @@ export default function CreateAboutMe() {
             publicId: data.public_id,
             imgUrl: data.url,
           };
-          if (data.url.length > 1) {
           axios
           .post(`/api/about-me`, requestBody)
           .then(response => {
@@ -47,7 +46,7 @@ export default function CreateAboutMe() {
            window.location.reload(false);
           })
           .catch((err) => console.log(err))
-          }
+          
         });
 
     setImage('');

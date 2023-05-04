@@ -4,6 +4,10 @@ const PostSchema = new Schema({
   title: String, 
   author: { type: Schema.Types.ObjectId, ref: 'User'},
   body: String,
+  likes: {
+    type: Number,
+    default: 0
+  },
   imgUrl: String,
   publicId: String,
   //comments: [{ body: String, date: Date }],

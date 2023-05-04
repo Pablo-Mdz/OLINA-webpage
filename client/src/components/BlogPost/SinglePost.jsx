@@ -18,6 +18,7 @@ import {
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import { ReadingTime } from '../Words/ReadingTime';
+import LikeButton from './LikeButton';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
@@ -106,6 +107,7 @@ export const SinglePost = ({ onEdit }) => {
             >
               Print
             </span>
+            <LikeButton id={id} initialLikes={post?.likes} />
             <div className="my-1 space-x-4">
               <FacebookShareButton
                 quote={post?.title}

@@ -19,7 +19,6 @@ export const AboutMe = () => {
       .catch((err) => console.log(err));
   }, []);
 
-  console.log(aboutMes)
 
   return (
     <>
@@ -37,11 +36,10 @@ export const AboutMe = () => {
                     dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}
                     ></div>
                     <img
-                          alt="gallery"
-                          className="block object-cover object-center w-auto h-80 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
-                          src={aboutMe.imgUrl}
-                          
-                        />
+                      alt="aboutme"
+                      className="block object-cover object-center w-auto h-80 rounded-lg hover:shadow-lg transition duration-300 ease-in-out"
+                      src={aboutMe.imgUrl} 
+                    />
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
                     )}
