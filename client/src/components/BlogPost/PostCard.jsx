@@ -14,6 +14,9 @@ export default function PostCard({ post, RTime }) {
       (words.length > maxLength ? '...' : '')
     );
   };
+
+  console.log(post)
+
   return (
     <>
       <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex">
@@ -38,6 +41,7 @@ export default function PostCard({ post, RTime }) {
               <p className="text-gray-900 font-medium">
                 Created by: {post.author.name}
               </p>
+              <p>{post.likes} ❤️ </p>
             </div>
           </footer>
         </div>

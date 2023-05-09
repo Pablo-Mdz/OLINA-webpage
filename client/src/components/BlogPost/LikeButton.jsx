@@ -17,13 +17,21 @@ export default function LikeButton({ id, initialLikes }) {
         };
         fetchLikes();
       }, [id]);
+
+      useEffect(() => {
+        const isLiked = JSON.parse(localStorage.getItem(`post-${id}`));
+        if (isLiked) {
+          setLiked(true);
+        }
+      }, [id]);  
   
     const handleClick = () => {
-      const newLikes = liked ? likes - 1 : likes + 1;
+      const newLikes = !liked ? likes + 1 : likes - 1 ;
       setLikes(newLikes);
       setLiked(!liked);
+      localStorage.setItem(`post-${id}`, JSON.stringify(!liked));
   
-      axios.put(`/api/post/${id}`, { likes: newLikes })
+      axios.put(`/api/post/likes/${id}`, { likes: newLikes })
         .then(response => {
             console.log(response.data);
         })
@@ -32,7 +40,7 @@ export default function LikeButton({ id, initialLikes }) {
     };
 
   return (
-    <button onClick={handleClick}>
+    <button onClick={handleClick} >
       <span>{liked ? '❤️' : '🤍'}</span>
       <span>{likes} Likes</span>
     </button>
