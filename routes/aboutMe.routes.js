@@ -26,7 +26,10 @@ router.get("/", (req, res) => {
 
 router.delete('/delete/:id', (req, res, next) => {
     AboutMe.findByIdAndRemove({_id: req.params.id})
-      .then(() => {
+      .then((data) => {
+        if (data.imgUrl) {
+            cloudinary.uploader.destroy(data.publicId);
+        }
         res.status(200).json({message: 'A part of aboutMe is deleted'})
       })
       .catch(err => next(err))

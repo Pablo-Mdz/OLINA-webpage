@@ -78,8 +78,25 @@ router.post("/:postId", (req, res) => {
             res.status(200).json({ message: 'Post deleted' })
         })
         .catch(err => console.log(err));
+});
+
+router.get("/:id/likes", async (req, res) => {
+    const postId = req.params.id;
+    Post.findById(postId)
+      .then(post => {
+        res.status(200).json({ likes: post.likes });
+      })
+      .catch(err => console.log(err));
+  });
+
+router.put("/likes/:id", (req, res) => {
+    const postId = req.params.id;
+    const { likes } = req.body;
+    Post.findByIdAndUpdate(postId, { likes }, { new: true })
+      .then(updatedPost => {
+        res.status(200).json(updatedPost)
+      })
+      .catch(err => console.log(err));
 })
-
-
   
 module.exports = router;
