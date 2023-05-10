@@ -10,7 +10,7 @@ const PostSchema = new Schema({
   },
   imgUrl: String,
   publicId: String,
-  //comments: [{ body: String, date: Date }],
+  comments: [{ body: String, date: Date }],
   createdAt: { type: Date, default: Date.now },
   topic: { type: Schema.Types.ObjectId, ref: 'Topic'},
 });

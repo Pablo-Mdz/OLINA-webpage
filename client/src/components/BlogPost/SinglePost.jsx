@@ -19,6 +19,7 @@ import {
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import { ReadingTime } from '../Words/ReadingTime';
 import LikeButton from './LikeButton';
+import CommentBox from "../CommentBox/CommentBox";
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
@@ -130,6 +131,8 @@ export const SinglePost = ({ onEdit }) => {
                 {isCopied ? 'Copied!' : <FaLink />}
               </button>
             </div>
+
+            <CommentBox postId={id} /> 
             {isLoggedIn && user?._id === post?.author?._id && (
               <button
                 onClick={handleEdit}
@@ -147,7 +150,7 @@ export const SinglePost = ({ onEdit }) => {
               </div>
             )}
           </div>
-        )}
+        )} 
       </div>
     </>
   );

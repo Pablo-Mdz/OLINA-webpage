@@ -5,6 +5,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const User = require('../models/User');
 const { findById } = require("../models/Post");
 const { uploader, cloudinary } = require('../config/cloudinary');
+const { restart } = require("nodemon");
 
 router.post("/", isAuthenticated, (req, res) => {
     console.log('this is req.body of post:', req.body)
@@ -97,6 +98,35 @@ router.put("/likes/:id", (req, res) => {
         res.status(200).json(updatedPost)
       })
       .catch(err => console.log(err));
-})
+});
+
+// Add new comment to a post
+router.post('/comments', async (req, res) => {
+    const { body, postId } = req.body;
+  
+    Post.findByIdAndUpdate(postId, { $push: { comments: body }})
+        .then(updatedPost => {
+            res.json(updatedPost);
+            console.log("updated Post: ", updatedPost);
+        })
+        .catch(err => console.log(err));
+  });
+
+// Get all comments for a post
+router.get('/comments/:postId', async (req, res) => {
+    const { postId } = req.params.postId;
+  
+    try {
+      const post = await Post.findById(postId);
+      if (!post) {
+        return res.status(404).json({ message: 'Post not found' });
+      }
+  
+      return res.json(post.comments);
+    } catch (err) {
+      console.error(err);
+      return res.status(500).json({ message: 'Server error' });
+    }
+  });  
   
 module.exports = router;
