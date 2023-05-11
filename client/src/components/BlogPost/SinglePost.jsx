@@ -68,6 +68,7 @@ export const SinglePost = ({ onEdit }) => {
     }
   }, [isEditing]);
 
+
   return (
     <>
       <div
@@ -131,8 +132,12 @@ export const SinglePost = ({ onEdit }) => {
                 {isCopied ? 'Copied!' : <FaLink />}
               </button>
             </div>
-
+            
+            
             <CommentBox postId={id} /> 
+            {post?.comments?.map(comment => (
+              <p key={comment._id}>{comment.body}</p>
+            ))}
             {isLoggedIn && user?._id === post?.author?._id && (
               <button
                 onClick={handleEdit}

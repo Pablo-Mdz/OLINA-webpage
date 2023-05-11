@@ -40,6 +40,7 @@ export default function PostCard({ post, RTime }) {
                 Created by: {post.author.name}
               </p>
               <p>{post.likes} ❤️ </p>
+              <p>{post.comments.length} Comments</p>
             </div>
           </footer>
         </div>

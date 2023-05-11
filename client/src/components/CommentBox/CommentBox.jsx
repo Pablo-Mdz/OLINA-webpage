@@ -5,15 +5,17 @@ export default function CommentBox ({ postId }) {
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState([]);
 
-  useEffect(() => {
-    axios.get(`/api/post/comments/${postId}`)
-      .then(res => {
-        setComments(res.data);
+
+
+ /*  useEffect(() => {
+    axios.get(`/api/comment/`)
+      .then(response => {
+        setComments(response.data);
       })
       .catch(err => {
         console.log(err);
       });
-  }, [postId]);
+  }, [postId]); */
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -23,9 +25,9 @@ export default function CommentBox ({ postId }) {
       postId
     };
 
-    axios.post('/api/post/comments', requestBody)
-      .then(res => {
-        setComments([...comments, res.data]);
+    axios.post('/api/comment', requestBody)
+      .then(response => {
+        console.log(response)
         setComment('');
       })
       .catch(err => {
@@ -33,8 +35,17 @@ export default function CommentBox ({ postId }) {
       });
   };
 
+
   return (
     <div>
+      <div>
+      {/* {
+        comments?.commentsFromDB?.map((comment) => (
+        <div key={comment._id}>
+          <p>{comment.body}</p>
+        </div>
+      ))} */}
+      </div>
       <h3>Leave a Comment</h3>
       <form onSubmit={handleSubmit}>
         <div>
