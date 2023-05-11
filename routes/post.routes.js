@@ -5,6 +5,7 @@ const { isAuthenticated } = require("../middleware/jwt.middleware");
 const User = require('../models/User');
 const { findById } = require("../models/Post");
 const { uploader, cloudinary } = require('../config/cloudinary');
+const { restart } = require("nodemon");
 
 router.post("/", isAuthenticated, (req, res) => {
     console.log('this is req.body of post:', req.body)
@@ -51,6 +52,7 @@ router.get("/:postId", (req, res) => {
     const postId = req.params.postId;
     Post.findById(postId)
         .populate("author")
+        .populate("comments")
         .then(post => {
             res.status(200).json(post);
         })
@@ -69,7 +71,6 @@ router.put("/:postId", (req, res) => {
 
 router.post("/:postId", (req, res) => {
     const postID = req.params.postId;
-    console.log('post Id to delete',postID)
     Post.findByIdAndDelete(postID)
         .then((data) => {
             if (data.imgUrl) {
@@ -97,6 +98,7 @@ router.put("/likes/:id", (req, res) => {
         res.status(200).json(updatedPost)
       })
       .catch(err => console.log(err));
-})
+});
+
   
 module.exports = router;

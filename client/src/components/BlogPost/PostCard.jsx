@@ -15,8 +15,6 @@ export default function PostCard({ post, RTime }) {
     );
   };
 
-  console.log(post)
-
   return (
     <>
       <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex">
@@ -42,6 +40,7 @@ export default function PostCard({ post, RTime }) {
                 Created by: {post.author.name}
               </p>
               <p>{post.likes} ❤️ </p>
+              <p>{post.comments.length} Comments</p>
             </div>
           </footer>
         </div>
