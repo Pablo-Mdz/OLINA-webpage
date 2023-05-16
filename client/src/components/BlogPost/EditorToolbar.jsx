@@ -4,7 +4,7 @@ import { Quill } from "react-quill";
 // Custom Undo button icon component for Quill editor. You can import it directly
 // from 'quill/assets/icons/undo.svg' but I found that a number of loaders do not
 // handle them correctly
-const CustomUndo = () => (
+export const CustomUndo = () => (
   <svg viewBox="0 0 18 18">
     <polygon className="ql-fill ql-stroke" points="6 10 4 12 2 10 6 10" />
     <path
@@ -15,7 +15,7 @@ const CustomUndo = () => (
 );
 
 // Redo button icon component for Quill editor
-const CustomRedo = () => (
+export const CustomRedo = () => (
   <svg viewBox="0 0 18 18">
     <polygon className="ql-fill ql-stroke" points="12 10 14 12 16 10 12 10" />
     <path
@@ -34,12 +34,12 @@ function redoChange() {
 }
 
 // Add sizes to whitelist and register them
-const Size = Quill.import("formats/size");
+export const Size = Quill.import("formats/size");
 Size.whitelist = ["extra-small", "small", "medium", "large"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them
-const Font = Quill.import("formats/font");
+export const Font = Quill.import("formats/font");
 Font.whitelist = [
   "arial",
   "comic-sans",
@@ -91,9 +91,55 @@ export const formats = [
   "code-block"
 ];
 
-
+export const QuillToolbar = () => {return(
+    <div id="toolbar">
+      <span className="ql-formats">
+        <select className="ql-font"></select>
+        <select className="ql-size"></select>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-bold"></button>
+        <button className="ql-italic"></button>
+        <button className="ql-underline"></button>
+        <button className="ql-strike"></button>
+      </span>
+      <span className="ql-formats">
+        <select className="ql-color"></select>
+        <select className="ql-background"></select>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-script" value="sub"></button>
+        <button className="ql-script" value="super"></button>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-header" value="1"></button>
+        <button className="ql-header" value="2"></button>
+        <button className="ql-blockquote"></button>
+        <button className="ql-code-block"></button>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-list" value="ordered"></button>
+        <button className="ql-list" value="bullet"></button>
+        <button className="ql-indent" value="-1"></button>
+        <button className="ql-indent" value="+1"></button>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-direction" value="rtl"></button>
+        <select className="ql-align"></select>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-link"></button>
+        <button className="ql-image"></button>
+        <button className="ql-video"></button>
+        <button className="ql-formula"></button>
+      </span>
+      <span className="ql-formats">
+        <button className="ql-clean"></button>
+      </span>
+    </div>
+  )};
 // Quill Toolbar component
-export const QuillToolbar = (props) => {
+export const CustomToolbar = (props) => {
   return  (<> 
   {props.toolbarId !== undefined && 
   <div id={props.toolbarId}>
@@ -169,4 +215,5 @@ export const QuillToolbar = (props) => {
  }
  </>)
  }
-export default QuillToolbar;
+// export default QuillToolbar;
+
