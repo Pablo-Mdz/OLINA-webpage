@@ -11,6 +11,7 @@ export default function CreateAPost({ id }) {
   const [errorMessage, setErrorMessage] = useState('');
 
   const quillRef = useRef();
+//   const quillRef = useRef();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
