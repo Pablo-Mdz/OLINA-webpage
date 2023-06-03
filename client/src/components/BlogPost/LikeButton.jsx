@@ -9,7 +9,7 @@ export default function LikeButton({ id, initialLikes }) {
         const fetchLikes = async () => {
           try {
             const response = await axios.get(`/api/post/${id}/likes`);
-            console.log("RESPONSE: ", response.data)
+            // console.log("RESPONSE: ", response.data)
             setLikes(response.data.likes);
           } catch (error) {
             console.log(error);
@@ -33,7 +33,7 @@ export default function LikeButton({ id, initialLikes }) {
   
       axios.put(`/api/post/likes/${id}`, { likes: newLikes })
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
         })
         .catch(error => console.log(error));
         
