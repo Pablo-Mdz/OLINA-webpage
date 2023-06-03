@@ -19,7 +19,7 @@ import {
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import { ReadingTime } from '../Words/ReadingTime';
 import LikeButton from './LikeButton';
-import CommentBox from "../CommentBox/CommentBox";
+import CommentBox from '../CommentBox/CommentBox';
 
 export const SinglePost = ({ onEdit }) => {
   const [post, setPost] = useState(null);
@@ -38,6 +38,7 @@ export const SinglePost = ({ onEdit }) => {
   useEffect(() => {
     axios.get(`/api/post/${id}`).then((response) => {
       setPost(response.data);
+      console.log(response.data)
       setPostBeingEdited(response.data);
     });
   }, [id]);
@@ -68,7 +69,6 @@ export const SinglePost = ({ onEdit }) => {
     }
   }, [isEditing]);
 
-
   return (
     <>
       <div
@@ -96,7 +96,7 @@ export const SinglePost = ({ onEdit }) => {
               <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
-              <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
+              <div dangerouslySetInnerHTML={{ __html: post?.body }} className="post-content"></div>
             </div>
             <a href="/topics">
               <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
@@ -132,10 +132,9 @@ export const SinglePost = ({ onEdit }) => {
                 {isCopied ? 'Copied!' : <FaLink />}
               </button>
             </div>
-            
-            
-            <CommentBox postId={id} /> 
-            {post?.comments?.map(comment => (
+
+            <CommentBox postId={id} />
+            {post?.comments?.map((comment) => (
               <p key={comment._id}>{comment.body}</p>
             ))}
             {isLoggedIn && user?._id === post?.author?._id && (
@@ -155,7 +154,7 @@ export const SinglePost = ({ onEdit }) => {
               </div>
             )}
           </div>
-        )} 
+        )}
       </div>
     </>
   );

@@ -1,9 +1,9 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
-
+import { modules } from './EditorToolbar';
 
 export default function EditPostCard({
   postBeingEdited: initialPost,
@@ -13,6 +13,7 @@ export default function EditPostCard({
   const [body, setBody] = useState(initialPost.body);
   const navigate = useNavigate();
   const postId = initialPost?._id;
+  const quillRef = useRef(null);
 
   useEffect(() => {
     axios.get(`/api/post/${postId}`).then((response) => {
@@ -21,6 +22,16 @@ export default function EditPostCard({
       setBody(body);
     });
   }, [postId]);
+
+  useEffect(() => {
+    if (quillRef.current) {
+      const quillInstance = quillRef.current.getEditor();
+      const imgElems = quillInstance.root.querySelectorAll('img');
+      imgElems.forEach((imgElem) => {
+        imgElem.classList.add('w-600', 'h-auto');
+      });
+    }
+  }, [body]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,7 +48,7 @@ export default function EditPostCard({
     axios
       .post(`/api/post/${postId}`)
       .then((response) => {
-        console.log(response)
+        console.log(response);
         window.location.reload(false);
       })
       .then(navigate('/topics'))
@@ -67,7 +78,13 @@ export default function EditPostCard({
           <label className="block text-gray-700 font-bold mb-2" htmlFor="body">
             Body:
           </label>
-          <ReactQuill theme="snow" onChange={handleEditorChange} value={body} />
+          <ReactQuill
+            ref={quillRef}
+            theme="snow"
+            modules={modules}
+            onChange={handleEditorChange}
+            value={body}
+          />
         </div>
         <div className="flex items-center justify-center my-1">
           <button className="bg-green-500  text-white font-bold py-2 px-14 rounded focus:outline-none ">
