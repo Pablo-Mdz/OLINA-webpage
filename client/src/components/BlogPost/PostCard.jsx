@@ -14,7 +14,7 @@ export default function PostCard({ post, RTime }) {
       (words.length > maxLength ? '...' : '')
     );
   };
-
+console.log(post.comments)
   return (
     <>
       <div className="w-full h-96 rounded overflow-hidden shadow-lg bg-opacity-25 relative flex">
