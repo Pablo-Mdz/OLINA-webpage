@@ -15,46 +15,46 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link
               to="/"
-              className="flex-shrink-0 text-white font-bold tracking-tight"
+              className="flex-shrink-0 text-white font-bold tracking-tight no-underline"
             >
               My Site
             </Link>
             <div className="hidden sm:ml-6 sm:flex">
               <Link
                 to="/gallery"
-                className="ml-4 text-white hover:text-gray-300"
+                className="ml-4 text-white hover:text-gray-300 no-underline"
               >
                 Gallery
               </Link>
               <Link
                 to="/topics"
-                className="ml-4 text-white hover:text-gray-300"
+                className="ml-4 text-white hover:text-gray-300 no-underline"
               >
                 Topics
               </Link>
-              <Link to="/word" className="ml-4 text-white hover:text-gray-300">
+              <Link to="/word" className="ml-4 text-white hover:text-gray-300 no-underline">
                 Dictionary
               </Link>
               <Link
                 to="/contact-me"
-                className="ml-4 text-white hover:text-gray-300"
+                className="ml-4 text-white hover:text-gray-300 no-underline"
               >
                 Contact
               </Link>
-              <Link to="/about" className="ml-4 text-white hover:text-gray-300">
+              <Link to="/about" className="ml-4 text-white hover:text-gray-300 no-underline">
                 About Me
               </Link>
               {!isLoggedIn && (
                 <>
                   <Link
                     to="/login"
-                    className="ml-4 text-white hover:text-gray-300"
+                    className="ml-4 text-white hover:text-gray-300 no-underline"
                   >
                     login
                   </Link>
                   <Link
                     to="/signup"
-                    className="ml-4 text-white hover:text-gray-300"
+                    className="ml-4 text-white hover:text-gray-300 no-underline"
                   >
                     Sign Up
                   </Link>
@@ -64,7 +64,7 @@ const Navbar = () => {
                 <>
                   <Link
                     onClick={logoutUser}
-                    className="ml-4 text-white hover:text-gray-300"
+                    className="ml-4 text-white hover:text-gray-300 no-underline"
                   >
                     Logout
                   </Link>

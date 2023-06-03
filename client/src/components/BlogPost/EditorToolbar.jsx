@@ -49,7 +49,7 @@ export const modules = {
             setTimeout(() => {
               const imgElems = quill.root.querySelectorAll('img');
               imgElems.forEach((imgElem) => {
-                imgElem.classList.add('w-60', 'h-auto');
+                imgElem.classList.add('w-600', 'h-auto');
               });
             }, 50);
           };

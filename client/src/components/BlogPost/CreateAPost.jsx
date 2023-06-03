@@ -96,7 +96,7 @@ export default function CreateAPost({ id }) {
             </label>
             <ReactQuill
               theme="snow"
-              style={{ height: '300px' }}
+              style={{ height: '400px' }}
               modules={modules}
               onChange={handleEditorChange}
               value={body}
