@@ -45,7 +45,7 @@ const modules = {
             const imgElems = quill.root.querySelectorAll('img');
             // Add classes to all images
             imgElems.forEach((imgElem) => {
-              imgElem.classList.add('w-40', 'h-auto');
+              imgElem.classList.add('w-96', 'h-auto');
             });
           }, 50);
         };
