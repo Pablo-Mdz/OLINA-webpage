@@ -39,13 +39,10 @@ const modules = {
           const url = result.data.secure_url;
 
           quill.insertEmbed(range.index, 'image', url);
-          // Add a small delay
           setTimeout(() => {
-            // Get all img elements in quill editor
             const imgElems = quill.root.querySelectorAll('img');
-            // Add classes to all images
             imgElems.forEach((imgElem) => {
-              imgElem.classList.add('w-40', 'h-auto');
+              imgElem.classList.add('w-96', 'h-auto');
             });
           }, 50);
         };
