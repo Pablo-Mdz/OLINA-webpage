@@ -1,13 +1,11 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 
-export default function CommentBox ({ postId }) {
+export default function CommentBox({ postId }) {
   const [comment, setComment] = useState('');
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
 
-
-
- /*  useEffect(() => {
+  /*  useEffect(() => {
     axios.get(`/api/comment/`)
       .then(response => {
         setComments(response.data);
@@ -17,29 +15,29 @@ export default function CommentBox ({ postId }) {
       });
   }, [postId]); */
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     const requestBody = {
       comment,
-      postId
+      postId,
     };
 
-    axios.post('/api/comment', requestBody)
-      .then(response => {
-        console.log(response)
+    axios
+      .post('/api/comment', requestBody)
+      .then((response) => {
+        console.log(response);
         setComment('');
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   };
 
-
   return (
     <div>
       <div>
-      {/* {
+        {/* {
         comments?.commentsFromDB?.map((comment) => (
         <div key={comment._id}>
           <p>{comment.body}</p>
@@ -50,17 +48,15 @@ export default function CommentBox ({ postId }) {
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="comment">Comment:</label>
-          <textarea 
-            id="comment" 
-            value={comment} 
-            onChange={e => setComment(e.target.value)}
-            placeholder='Write a comment..'
-         />
+          <textarea
+            id="comment"
+            value={comment}
+            onChange={(e) => setComment(e.target.value)}
+            placeholder="Write a comment.."
+          />
         </div>
-        <button>
-            Send
-        </button>
+        <button>Send</button>
       </form>
-     </div>
+    </div>
   );
-}       
+}
