@@ -38,6 +38,7 @@ export const SinglePost = ({ onEdit }) => {
   useEffect(() => {
     axios.get(`/api/post/${id}`).then((response) => {
       setPost(response.data);
+      console.log(response.data)
       setPostBeingEdited(response.data);
     });
   }, [id]);
@@ -95,7 +96,7 @@ export const SinglePost = ({ onEdit }) => {
               <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
-              <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
+              <div dangerouslySetInnerHTML={{ __html: post?.body }} className="post-content"></div>
             </div>
             <a href="/topics">
               <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
