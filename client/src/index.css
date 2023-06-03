@@ -9,8 +9,11 @@
 body {
   margin: 0;
 }
+.post-content img {
+  width: 600px;
+  height: auto;
+}
 
-* { 
-  font-family: "pop";
-  
+* {
+  font-family: 'pop';
 }
