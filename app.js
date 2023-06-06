@@ -15,6 +15,8 @@ const app = express();
 app.use(
   cors({
     origin: ['https://turisnoa.com', 'http://localhost:3000'],
+    // test docker 
+    // origin : ['mongodb://localhost:27017/oliinadb']
   }),
 );
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware

@@ -4,6 +4,10 @@ import { ReadingTime } from '../Words/ReadingTime';
 export default function PostCard({ post, RTime }) {
   //   const { isLoggedIn, user } = useContext(AuthContext);
 
+//   if (!post) {
+//     return null;
+//   }
+  
   const date = new Date(post.createdAt).toLocaleString();
 
   const postBodyPreview = () => {
@@ -37,7 +41,7 @@ console.log(post.comments)
                 Date: {new Date(date).toLocaleDateString('es-ES')}
               </p>
               <p className="text-gray-900 font-medium">
-                Created by: {post.author.name}
+                Created by: {post.author?.name}
               </p>
               <p>{post.likes} ❤️ </p>
               <p>{post.comments.length} Comments</p>
