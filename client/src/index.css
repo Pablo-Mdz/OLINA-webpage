@@ -3,14 +3,19 @@
 @tailwind utilities;
 @font-face {
   font-family: 'pop';
-  src: url(./../static/fonts/josefin-slab/JosefinSlab-SemiBoldItalic.ttf);
+  /* src: url(./../static/fonts/josefin-slab/JosefinSlab-SemiBoldItalic.ttf); */
 }
 
 body {
   margin: 0;
 }
+.post-content img,
+.post-content .ql-video .ql-video-thumbnail {
+  width: 600px;
+  height: auto;
+}
 
-* { 
-  font-family: "pop";
-  
+
+* {
+  font-family: 'pop';
 }

@@ -22,3 +22,6 @@ ehthumbs.db
 # VS Code
 .vscode/*
 .DS_Store
+
+/mongo
+mongo/

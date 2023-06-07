@@ -1,3 +1,23 @@
+### We have incorporated Docker for use in the development environment.
+
+To get it up and running, please follow the steps outlined below:
+
+1. Ensure Docker is installed on your system. If it isn't, you can download it from this URL: https://docs.docker.com/get-docker/
+(Please note, you may need to create an account on Docker.)
+
+2. Update your .env file: Replace the existing MongoDB URL with the following:
+```
+MONGO_URI=mongodb://localhost:27017/oliinadb
+```
+
+3. To start the Docker container use the command:
+```
+docker-compose up -d
+```
+ 
+This will spin up a MongoDB instance that is accessible locally via mongodb://mongo:27017/oliinadb.
+
+----
 It would be great to adopt the following **commit message conventions**:
 
 * feat: Short for "feature", this indicates that the commit introduces a new functionality or feature to the project.

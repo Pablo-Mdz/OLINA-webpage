@@ -19,13 +19,14 @@ import {
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import { ReadingTime } from '../Words/ReadingTime';
 import LikeButton from './LikeButton';
-import CommentBox from "../CommentBox/CommentBox";
+import CommentBox from '../CommentBox/CommentBox';
 
-export const SinglePost = ({ onEdit }) => {
+export const SinglePost = () => {
   const [post, setPost] = useState(null);
   const [postBeingEdited, setPostBeingEdited] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
+  const [reloadTrigger, setReloadTrigger] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
   const editPostRef = useRef(null);
   const { id } = useParams();
@@ -38,9 +39,10 @@ export const SinglePost = ({ onEdit }) => {
   useEffect(() => {
     axios.get(`/api/post/${id}`).then((response) => {
       setPost(response.data);
+      console.log(response.data)
       setPostBeingEdited(response.data);
     });
-  }, [id]);
+  }, [id, reloadTrigger]);
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -69,6 +71,19 @@ export const SinglePost = ({ onEdit }) => {
   }, [isEditing]);
 
 
+
+  const deleteComment = (commentId) => {
+    axios
+      .delete(`/api/comment/${commentId}`)
+      .then(() => {
+        setReloadTrigger(!reloadTrigger);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  
+
   return (
     <>
       <div
@@ -96,7 +111,12 @@ export const SinglePost = ({ onEdit }) => {
               <div className="my-8 text-4xl font-bold ">
                 <h1>{post?.title}</h1>
               </div>
-              <div dangerouslySetInnerHTML={{ __html: post?.body }}></div>
+
+              <div
+                dangerouslySetInnerHTML={{ __html: post?.body }}
+                className="post-content"
+              ></div>
+
             </div>
             <a href="/topics">
               <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
@@ -132,11 +152,24 @@ export const SinglePost = ({ onEdit }) => {
                 {isCopied ? 'Copied!' : <FaLink />}
               </button>
             </div>
-            
-            
-            <CommentBox postId={id} /> 
-            {post?.comments?.map(comment => (
-              <p key={comment._id}>{comment.body}</p>
+
+
+            <CommentBox
+              postId={id}
+              onCommentMade={() => setReloadTrigger(!reloadTrigger)}
+            />
+
+            <h3>comments: </h3>
+            {post?.comments?.map((comment) => (
+              <div key={comment._id}>
+                <p>{comment.body}</p>
+                {isLoggedIn && (
+                  <button onClick={() => deleteComment(comment._id)}>
+                    Delete
+                  </button>
+                )}
+              </div>
+
             ))}
             {isLoggedIn && user?._id === post?.author?._id && (
               <button
@@ -155,7 +188,7 @@ export const SinglePost = ({ onEdit }) => {
               </div>
             )}
           </div>
-        )} 
+        )}
       </div>
     </>
   );

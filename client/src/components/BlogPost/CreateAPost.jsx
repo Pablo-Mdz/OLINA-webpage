@@ -1,58 +1,66 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { modules } from './EditorToolbar';
 
 export default function CreateAPost({ id }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
-  const [image, setImage] = useState('');
-  const [setErrorMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  const [coverImage, setCoverImage] = useState(null);
 
-  const handleSubmit = (event) => {
-
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData();
-    data.append('file', image);
-    data.append('upload_preset', 'auh8nzbq');
-    data.append('cloud_name', 'be-chef');
+    const storedToken = localStorage.getItem('authToken');
 
-    fetch('https://api.cloudinary.com/v1_1/be-chef/image/upload', {
-      method: 'post',
-      body: data,
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        const storedToken = localStorage.getItem('authToken');
-        const requestBody = {
-          title: title,
-          body: body,
-          topicId: data.topic,
-          publicId: data.public_id,
-          imgUrl: data.url,
-        };
-        if (data.url.length > 1) {
-          axios
-            .post(`/api/post/`, requestBody, {
-              headers: { Authorization: `Bearer ${storedToken}` },
-            })
-            .then((response) => {
-              console.log(response.data.newPost);
-              setTitle(title);
-              setBody(body);
-              window.location.reload(false);
-            });
-        }
+    let coverImageUrl = '';
+    if (coverImage) {
+      const coverImageData = new FormData();
+      coverImageData.append('file', coverImage);
+      coverImageData.append('upload_preset', 'auh8nzbq');
+      coverImageData.append('cloud_name', 'be-chef');
+
+      const coverImageResponse = await axios.post(
+        'https://api.cloudinary.com/v1_1/be-chef/image/upload',
+        coverImageData,
+      );
+
+      coverImageUrl = coverImageResponse.data.secure_url;
+    }
+
+    const requestBody = {
+      title: title,
+      body: body,
+      topicId: id,
+      imgUrl: coverImageUrl,
+    };
+
+    axios
+      .post(`/api/post/`, requestBody, {
+        headers: { Authorization: `Bearer ${storedToken}` },
+      })
+      .then((response) => {
+
+        // console.log(response.data.newPost);
+
+        setTitle('');
+        setBody('');
+        setCoverImage(null);
+        window.location.reload(false);
       })
       .catch((err) => {
         const errorDescription = err.response.data.message;
         setErrorMessage(errorDescription);
       });
-
-      setImage('');
   };
+
   const handleEditorChange = (content) => {
     setBody(content);
+  };
+
+  const handleCoverImageChange = (e) => {
+    setCoverImage(e.target.files[0]);
   };
 
   return (
@@ -88,27 +96,26 @@ export default function CreateAPost({ id }) {
             </label>
             <ReactQuill
               theme="snow"
-              style={{ height: '300px' }}
+              style={{ height: '400px' }}
+              modules={modules}
               onChange={handleEditorChange}
               value={body}
             />
           </div>
-          <div className="mb-4">
-            <br />
+          <div className="mb-2">
             <label
               className="block text-gray-700 font-bold mb-2"
-              htmlFor="image"
+              htmlFor="cover-image"
             >
-              Image:
+              Cover Image:
             </label>
             <input
-              className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-              id="image"
               type="file"
-              onChange={(e) => setImage(e.target.files[0])}
-              required
+              id="cover-image"
+              onChange={handleCoverImageChange}
             />
           </div>
+          {errorMessage && <div className="text-red-500">{errorMessage}</div>}
           <div className="flex">
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline m-auto"
