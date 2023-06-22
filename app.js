@@ -44,7 +44,7 @@ app.use('/api/about-me', aboutMe);
 
 const word = require("./routes/word.routes");
 app.use("/", word);
-// console.log('test word',word)
+
 const path = require('path');
 app.use(express.static(path.join(__dirname, "/client/build")));
 
