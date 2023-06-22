@@ -12,7 +12,6 @@ export const AboutMe = () => {
     axios
       .get(`/api/about-me`)
       .then((response) => {
-        console.log('this is response', response.data);
         setAboutMes(response.data);
       })
       .catch((err) => console.log(err));
