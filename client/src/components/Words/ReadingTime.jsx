@@ -6,7 +6,7 @@ export const ReadingTime = ({text}) => {
   const readingTime = Math.ceil(words / wordsPerMinute);
   return (
     <>
-      <div className="text-sm text-gray-500">
+      <div className="text-sm text-gray-700">
         Approx reading time: {readingTime} min.
       </div>
     </>

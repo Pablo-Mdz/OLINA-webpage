@@ -17,7 +17,7 @@ import TopicDetails from './components/Topic/TopicDetails';
 import { ContactMe } from './pages/ContactMe/ContactMe';
 import { AboutMe } from './pages/AboutMe/AboutMe';
 import { SinglePost } from './components/BlogPost/SinglePost';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import NotFoundPage from './pages/NotFoundPage/NotFoundPage'; 
 
 function App() {
   return (
