@@ -35,8 +35,8 @@ export default function PostCard({ post, RTime }) {
           {post.title}
         </div>
         <img className="w-[190px] h-[auto] left-[207px] top-[10px] absolute rounded-[10px]" src={post.imgUrl ? post.imgUrl : 'https://via.placeholder.com/190x400'} alt="Post" />
-        <div className="px-2 py-2 left-[312px] top-[370px] absolute bg-sky-500 rounded-md border border-black border-opacity-70 justify-center items-center gap-2.5 inline-flex">
-          <div className="text-black text-xs font-normal font-['Inter']">Read More</div>
+        <div className="px-2 py-2 left-[312px] top-[360px] absolute bg-sky-500 rounded-md border border-black border-opacity-70 justify-center items-center gap-2.5 inline-flex z-10">
+                  <div className="text-black text-xs font-normal font-['Inter']">Read More</div>
         </div>
         <div className="h-[76px] px-2 left-[2px] top-[330px] absolute flex-col justify-start items-start gap-[5px] inline-flex">
           <div className="w-[165px] justify-between items-center inline-flex">
