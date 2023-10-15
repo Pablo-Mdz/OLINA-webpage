@@ -57,7 +57,8 @@ export default function TopicDetails({ id, selectedTopicId }) {
   }, [isCreating]);
 
   return (
-    <div className="topic-details-container  w-full px-4 ">
+<div className="topic-details-container w-full px-4 bg-white">
+
       <div className="flex justify-between items-center my-2">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
           {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}
@@ -85,12 +86,20 @@ export default function TopicDetails({ id, selectedTopicId }) {
         onChange={(e) => setSearch(e.target.value)}
         className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6"
       />
+<div className="flex flex-wrap justify-start items-start mt-6 mx-auto sm:mx-0 ">
+  {postSortedByDate.map((post) => (
+    <div key={post._id} className="m-4 flex-none" style={{ minWidth: '405px', maxWidth: '405px' }}>
+      {post && <PostCard post={post} />}
+    </div>
+  ))}
+</div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0 ">
+
+      {/* <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0 ">
         {postSortedByDate.map((post) => (
-          <div key={post._id}>{post && <PostCard post={post} />}</div>
+          <div key={post._id} className='m-4'>{post && <PostCard post={post} />}</div>
         ))}
-      </div>
+      </div> */}
       <div className="w-full">
         {isCreating && (
           <div ref={createPostRef}>
