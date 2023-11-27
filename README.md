@@ -29,3 +29,7 @@ It would be great to adopt the following **commit message conventions**:
 * chore: Refers to tasks that do not directly modify the code but are necessary for project maintenance, such as updating dependencies, build system adjustments, or other housekeeping tasks.
 
 Remember, the goal is to adopt good habits that catch the attention of companies looking for developers. 🎯 
+
+
+
+https://www.figma.com/file/Y6sBPY04gNVRd69kBeNTQt/OLINA'S-BLOG---Janine%2C-Bori?node-id=211%3A2276&mode=dev
