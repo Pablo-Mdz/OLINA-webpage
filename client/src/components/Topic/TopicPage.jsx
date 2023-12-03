@@ -1,5 +1,4 @@
 import { useState, useEffect, useContext, useMemo } from 'react';
-import { Helmet } from 'react-helmet';
 import axios from 'axios';
 import TopicDetails from './TopicDetails';
 import EditTopic from './EditTopic';
@@ -51,26 +50,8 @@ export default function TopicPage() {
 
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | Topics</title>
-        <meta
-          name="description"
-          content="Explore the diverse topics on Olina's blog. Browse through our collection of articles and find the subjects that interest you most."
-        />
-        <meta property="og:title" content="Olina - Blog | Topics" />
-        <meta
-          property="og:description"
-          content="Explore the diverse topics on Olina's blog. Browse through our collection of articles and find the subjects that interest you most."
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://example.com/topics" />
-        <meta
-          property="og:image"
-          content="https://example.com/featured-image-topics.jpg"
-        />
-      </Helmet>
-      <div className="flex flex-col space-y-4 md:flex-row md:space-y-0 md:space-x-4 font-pop">
-        <div className="md:w-1/5 bg-[#9f1ee8] bg-opacity-50">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 font-pop">
+        <div className="md:w-1/5 bg-slate-200 bg-opacity-50">
           {TopicsSortedByDate.map((topic) => (
             <div key={topic._id} className="flex flex-col mb-2 ml-1">
               <div className="flex justify-between">
@@ -89,7 +70,7 @@ export default function TopicPage() {
                     />
                   </button>
                 )}
-                {/* veryfy author not working <check populate> */}
+                
               </div>
               {selectedTopic === topic && (
                 <div className="mt-2">
