@@ -86,11 +86,15 @@ export default function TopicDetails({ id, selectedTopicId }) {
         className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6"
       />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8 mt-6 mx-auto sm:mx-0 ">
+      <div
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  mx-auto sm:mx-0"
+        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
+      >
         {postSortedByDate.map((post) => (
-          <div key={post._id}>{post && <PostCard post={post} />}</div>
+          <div key={post._id} className="flex justify-center">{post && <PostCard post={post} />}</div>
         ))}
       </div>
+
       <div className="w-full">
         {isCreating && (
           <div ref={createPostRef}>
