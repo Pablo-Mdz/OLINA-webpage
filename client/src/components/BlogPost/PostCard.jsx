@@ -18,7 +18,7 @@ export default function PostCard({ post, RTime }) {
 
   const postTitlePreview = () => {
     const words = post.title.split(' ');
-    const maxLength = 3;
+    const maxLength = 5;
     return words.slice(0, maxLength).join(' ') + (words.length > maxLength ? '...' : '');
   };
   
