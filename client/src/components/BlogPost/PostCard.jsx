@@ -25,8 +25,6 @@ export function PostCard({ post, prefetchPost }) {
     );
   };
 
-
-
   const imgUrl = findFirstImageUrl(post.body);
   // TODO: create placeholder image to replace picsum.photos
 
