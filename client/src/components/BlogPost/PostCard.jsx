@@ -34,7 +34,7 @@ export default function PostCard({ post, RTime }) {
   return (
     <>
       <div className="flex justify-between flex-wrap md:flex-no-wrap mx-5 gap-5">
-        <div className="w-[617px] h-[590px] rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
+        <div className="w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
           <div
             className="bg-cover bg-center"
             style={{
