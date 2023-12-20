@@ -58,9 +58,9 @@ export default function PostCard({ post, RTime }) {
               </div>
               <a
                 href={`/post/${post._id}`}
-                className="bg-blue-800 text-white font-medium px-2 py-1 mb-3 rounded-lg no-underline hover:bg-blue-700"
+                className="bg-black text-white font-roboto text-large px-2 py-1 mb-3 rounded-[5px] no-underline"
               >
-                read more
+                Read more..
               </a>
             </footer>
           </div>
