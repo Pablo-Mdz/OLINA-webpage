@@ -87,8 +87,7 @@ export default function TopicDetails({ id, selectedTopicId }) {
       />
 
       <div
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  mx-auto sm:mx-0"
-        style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
+        className="flex justify-between flex-wrap md:flex-no-wrap mx-5 gap-5"
       >
         {postSortedByDate.map((post) => (
           <div key={post._id} className="flex justify-center">{post && <PostCard post={post} />}</div>
