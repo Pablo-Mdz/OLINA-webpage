@@ -1,8 +1,16 @@
-import React from 'react';
-// import { ReadingTime } from '../Words/ReadingTime';
+//import { ReadingTime } from '../Words/ReadingTime';
 
 export default function PostCard({ post, RTime }) {
-  const date = new Date(post.createdAt).toLocaleString();
+  const date = new Date(post.createdAt);
+
+  const formattedDate = date.toLocaleString('en-US', {
+    month: 'short', 
+    day: 'numeric',  
+    year: 'numeric'
+  });
+  
+  console.log(RTime);
+  
 
   const postBodyPreview = () => {
     const parser = new DOMParser();
@@ -25,8 +33,8 @@ export default function PostCard({ post, RTime }) {
 
   return (
     <>
-      <div className="flex flex-wrap mx-5 ">
-        <div className=" w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
+      <div >
+        <div className="w-[570px] h-[570px] rounded  border border-solid border-zinc-400">
           <div
             className="bg-cover bg-center"
             style={{
@@ -37,7 +45,8 @@ export default function PostCard({ post, RTime }) {
             }}
           ></div>
 
-          <div className="bg-white  px-2 flex flex-col " style={{ height: '45%' }}>
+          <div className="bg-white flex flex-col items-start" >
+            <p className='text-gray-600 text-xs ml-4'>{formattedDate}</p>
             <h1 className="text-2xl font-bold mb-1 flex ml-4">{postTitlePreview()}</h1>
             <p
               className="text-sm text-gray-600 my-2 flex ml-4 "
@@ -45,25 +54,40 @@ export default function PostCard({ post, RTime }) {
             >
               {postBodyPreview()}
             </p>
+            </div>  
 
-            <footer className="flex justify-between items-end  py-5 ">
-              <div className="text-gray-600 text-xs  ">
-                <p className="flex justify-start ">{post.likes} ❤️</p>
-                <p>{new Date(date).toLocaleDateString('es-ES')}</p>
+            <div className="flex justify-between ml-4 mr-3 my-4">
+              <div className="flex items-center gap-1 text-gray-600 text-xs">
+                <p className="">{post.likes}</p>
+                <img
+                  className="shrink-0"
+                  src="/heart-icon.svg"
+                  alt="Expand Icon"
+                  width={15}
+                  height={15}
+                />
+                <p>{post.comments.length} Comments</p>
               </div>
-              <div className="flex justify-start">
-                <div className="text-gray-600 text-xs ">
-                  <p>{post.comments.length} Comentarios</p>
-                </div>
+              <div className="flex items-center text-xs gap-1">
+              <p className="text-gray-600">x min read</p>
+              <img
+                  className="shrink-0"
+                  src="/eye-icon.svg"
+                  alt="Expand Icon"
+                  width={20}
+                  height={15}
+                />
               </div>
+              <div>
               <a
-                href={`/post/${post._id}`}
-                className="bg-blue-800 text-white font-medium px-2 py-1 mb-3 rounded-lg no-underline hover:bg-blue-700"
-              >
-                read more
-              </a>
-            </footer>
-          </div>
+              href={`/post/${post._id}`}
+              className="flex justify-center items-center shrink-0 sm:w-36 sm:h-10 w-12 h-4 bg-black text-white text-center text-large  rounded-[5px] no-underline"
+            >
+              Read more..
+            </a>
+            </div>
+            </div>
+
         </div>
       </div>
     </>

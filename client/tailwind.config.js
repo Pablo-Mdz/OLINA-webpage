@@ -28,7 +28,9 @@ module.exports = {
             }
         },
         fontFamily: {
-            'pop': ['pop', 'sans-serif']
+            'pop': ['pop', 'sans-serif'],
+            sans: ['var(--font-inter)'],
+            mono: ['var(--font-roboto-mono)'],
         }
     },
     plugins: [],
