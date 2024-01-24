@@ -21,18 +21,23 @@ function LoginPage() {
     authService
       .login(data)
       .then((response) => {
-        const token = response.data.authToken
+        const token = response.data.authToken;
         storeToken(token);
         verifyStoredToken(token).then(() => {
           navigate('/');
         });
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message;
+        let errorDescription = 'An error occurred.';
+
+        if (error.response && error.response.data) {
+          errorDescription = error.response.data.message;
+        }
+
         setErrorMessage(errorDescription);
       });
   };
-  
+
   return (
     <>
       <Helmet>
