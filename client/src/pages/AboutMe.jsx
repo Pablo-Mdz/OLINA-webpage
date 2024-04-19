@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
-import { AuthContext } from '../../context/auth.context';
-import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
+import { AuthContext } from '../context/auth.context';
+import CreateAboutMe from '../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
-import DeleteAboutMe from '../../components/AboutMe/DeleteAboutMe';
+import DeleteAboutMe from '../components/AboutMe/DeleteAboutMe';
 
 export const AboutMe = () => {
   const { isLoggedIn } = useContext(AuthContext);
