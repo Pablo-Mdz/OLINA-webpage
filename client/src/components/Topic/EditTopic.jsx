@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const EditTopic = ({ topic, onCancel }) => {
+export const EditTopic = ({ topic, onCancel }) => {
   const [title, setTitle] = useState('');
 
   useEffect(() => {
@@ -64,5 +64,3 @@ const EditTopic = ({ topic, onCancel }) => {
     </div>
   );
 };
-
-export default EditTopic;

@@ -1,11 +1,11 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { Helmet } from 'react-helmet';
+import MetaData from '../../components/Metadata';
 import { AuthContext } from '../../context/auth.context';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
 
-function LoginPage() {
+export function LoginPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const {
     register,
@@ -21,7 +21,7 @@ function LoginPage() {
     authService
       .login(data)
       .then((response) => {
-        const token = response.data.authToken
+        const token = response.data.authToken;
         storeToken(token);
         verifyStoredToken(token).then(() => {
           navigate('/');
@@ -32,12 +32,10 @@ function LoginPage() {
         setErrorMessage(errorDescription);
       });
   };
-  
+
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | Login</title>
-      </Helmet>
+      <MetaData title="Olina - Blog | Login" />
       <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
@@ -125,5 +123,3 @@ function LoginPage() {
     </>
   );
 }
-
-export default LoginPage;

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
-export default function AddPicture() {
+export function AddPicture() {
   const [image, setImage] = useState('');
   const [setErrorMessage] = useState('');
   const [title, setTitle] = useState('');

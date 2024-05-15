@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 
-const Navbar = () => {
+export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen(!isOpen);
@@ -32,7 +32,10 @@ const Navbar = () => {
               >
                 Topics
               </Link>
-              <Link to="/word" className="ml-4 text-white hover:text-gray-300 no-underline">
+              <Link
+                to="/word"
+                className="ml-4 text-white hover:text-gray-300 no-underline"
+              >
                 Dictionary
               </Link>
               <Link
@@ -41,7 +44,10 @@ const Navbar = () => {
               >
                 Contact
               </Link>
-              <Link to="/about" className="ml-4 text-white hover:text-gray-300 no-underline">
+              <Link
+                to="/about"
+                className="ml-4 text-white hover:text-gray-300 no-underline"
+              >
                 About Me
               </Link>
               {!isLoggedIn && (
@@ -154,5 +160,3 @@ const Navbar = () => {
     </nav>
   );
 };
-
-export default Navbar;

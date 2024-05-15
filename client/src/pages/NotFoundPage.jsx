@@ -1,6 +1,6 @@
 import React from 'react';
 
-function NotFoundPage() {
+export function NotFoundPage() {
   return (
     <div className="h-screen flex font-pop">
       <div className="w-1/4 bg-white flex flex-col justify-center items-center p-8 my-10">
@@ -21,9 +21,7 @@ function NotFoundPage() {
         style={{
           backgroundImage: `url('${process.env.PUBLIC_URL}/notFound.jpg')`,
         }}
-      ></div>
+      />
     </div>
   );
 }
-
-export default NotFoundPage;

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-export default function CreateATopic({ onTopicCreated, hideCreateTopic }) {
+export function CreateATopic({ onTopicCreated, hideCreateTopic }) {
   const [title, setTitle] = useState('');
   const [error, setError] = useState('');
 

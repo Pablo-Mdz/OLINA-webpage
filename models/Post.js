@@ -1,20 +1,20 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const PostSchema = new Schema({
-  title: String, 
-  author: { type: Schema.Types.ObjectId, ref: 'User'},
+  title: String,
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
   body: String,
   likes: {
     type: Number,
-    default: 0
+    default: 0,
   },
   imgUrl: String,
   publicId: String,
-  comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
   createdAt: { type: Date, default: Date.now },
-  topic: { type: Schema.Types.ObjectId, ref: 'Topic'},
+  topic: { type: Schema.Types.ObjectId, ref: 'Topic' },
 });
 
-const Post = model("Post", PostSchema);
+const Post = model('Post', PostSchema);
 
 module.exports = Post;

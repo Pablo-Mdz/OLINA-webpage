@@ -1,23 +1,27 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
-import SignupPage from './pages/auth/SignupPage';
-import LoginPage from './pages/auth/LoginPage';
-import { Words } from './components/Words/Words';
-import Navbar from './components/Navbar/Navbar';
-import IsPrivate from './components/IsPrivate/IsPrivate';
-import IsAnon from './components/IsAnon/IsAnon';
-import GalleryPage from './components/Gallery/GalleryPage';
-import AddPicture from './components/Gallery/AddPicture';
-import TopicPage from './components/Topic/TopicPage';
-import CreateAPost from './components/BlogPost/CreateAPost';
-import CreateATopic from './components/Topic/CreateATopic';
-import TopicDetails from './components/Topic/TopicDetails';
-import { ContactMe } from './pages/ContactMe/ContactMe';
-import { AboutMe } from './pages/AboutMe/AboutMe';
-import { SinglePost } from './components/BlogPost/SinglePost';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import {
+  NotFoundPage,
+  AboutMe,
+  ContactMe,
+  LoginPage,
+  SignupPage,
+  ProfilePage,
+  HomePage,
+} from './pages';
+import {
+  Words,
+  Navbar,
+  IsPrivate,
+  IsAnon,
+  GalleryPage,
+  AddPicture,
+  TopicPage,
+  CreateAPost,
+  CreateATopic,
+  TopicDetails,
+  SinglePost,
+} from './components';
 
 function App() {
   return (
