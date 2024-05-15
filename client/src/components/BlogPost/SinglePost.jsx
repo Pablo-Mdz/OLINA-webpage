@@ -84,11 +84,18 @@ export const SinglePost = () => {
   };
 
   return (
-    <>
-      <div
-        ref={componentRef}
-        className="flex justify-center items-center relative bg-gray-200 pt-5 pb-10 font-pop"
-      >
+    <div
+      ref={componentRef}
+      className="flex justify-start items-center relative bg-gray-200 pt-5 pb-10 font-pop"
+    >
+      <div className="flex flex-col  w-full h-full">
+        <div className="self-start text-2xl font-bold capitalize">
+          <h1>{post?.title}</h1>
+        </div>
+        <div
+          dangerouslySetInnerHTML={{ __html: post?.body }}
+          className="post-content self-start "
+        ></div>
         {postBeingEdited && (
           <div className="max-w-4xl mt-5 bg-gray-50 rounded-2xl overflow-hidden shadow-lg ">
             {!post?.imgUrl && (
@@ -107,15 +114,8 @@ export const SinglePost = () => {
             )}
             <div className="px-6 py-4 place-self-start">
               {post && <ReadingTime text={post.body} />}
-              <div className="my-8 text-4xl font-bold ">
-                <h1>{post?.title}</h1>
-              </div>
-
-              <div
-                dangerouslySetInnerHTML={{ __html: post?.body }}
-                className="post-content"
-              ></div>
             </div>
+
             <a href="/topics">
               <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
                 Return to topics
@@ -186,6 +186,6 @@ export const SinglePost = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
