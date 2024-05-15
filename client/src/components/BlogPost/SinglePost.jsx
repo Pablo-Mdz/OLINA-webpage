@@ -10,16 +10,18 @@ import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
 import { useReactToPrint } from 'react-to-print';
-import { EditPostCard } from './EditPostCard';
 import {
   FacebookShareButton,
   TwitterShareButton,
   LinkedinShareButton,
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
-import { ReadingTime } from '../Words/ReadingTime';
-import { LikeButton } from './LikeButton';
-import { CommentBox } from '../CommentBox/CommentBox';
+import {
+  ReadingTime,
+  LikeButton,
+  CommentBox,
+  EditPostCard,
+} from '../../components';
 
 export const SinglePost = () => {
   const [post, setPost] = useState(null);

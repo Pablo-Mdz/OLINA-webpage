@@ -19,8 +19,7 @@ router.post('/', isAuthenticated, (req, res) => {
     imgUrl,
     publicId,
     author: authorId,
-  })
-  .then((newPost) => {
+  }).then((newPost) => {
     Topic.findByIdAndUpdate(topicId, { $push: { posts: newPost._id } })
       .then((updatedTopic) => {
         User.findByIdAndUpdate(authorId, {

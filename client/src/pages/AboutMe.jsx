@@ -32,7 +32,7 @@ export const AboutMe = () => {
                   <div key={aboutMe._id}>
                     <div
                       dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}
-                    ></div>
+                    />
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
                     )}
