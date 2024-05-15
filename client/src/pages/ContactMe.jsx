@@ -30,9 +30,7 @@ export const ContactMe = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | Contact Me</title>
-      </Helmet>
+      <MetaData title="Olina - Blog | Contact Me" />
       <div className="bg-white rounded-md shadow-md py-6 px-8 mx-auto max-w-xl">
         <h2 className="text-2xl font-medium mb-4 text-purple-600">
           Contact Me
