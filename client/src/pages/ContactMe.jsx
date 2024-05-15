@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
-import { Helmet } from 'react-helmet';
 import emailjs from '@emailjs/browser';
 import { useNavigate } from 'react-router-dom';
+import MetaData from '../components/Metadata';
 
 export const ContactMe = () => {
   const navigate = useNavigate();
