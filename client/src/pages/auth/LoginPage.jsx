@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import MetaData from '../../components/Mateadata';
+import MetaData from '../../components/Metadata';
 import { AuthContext } from '../../context/auth.context';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';

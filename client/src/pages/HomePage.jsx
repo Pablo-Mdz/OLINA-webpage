@@ -1,4 +1,4 @@
-import MetaData from '../../components/Mateadata';
+import MetaData from '../components/Metadata';
 
 function HomePage() {
   return (

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import MetaData from '../Matadata';
+import MetaData from '../Metadata';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
