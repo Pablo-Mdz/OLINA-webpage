@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { modules } from './EditorToolbar';
 
-export default function CreateAPost({ id }) {
+export function CreateAPost({ id }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -41,7 +41,6 @@ export default function CreateAPost({ id }) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-
         // console.log(response.data.newPost);
 
         setTitle('');

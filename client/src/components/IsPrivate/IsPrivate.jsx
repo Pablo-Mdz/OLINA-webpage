@@ -1,9 +1,9 @@
 import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
 import { Navigate } from 'react-router-dom';
-import Loading from '../Loading/Loading';
+import { Loading } from '../../components';
 
-function IsPrivate({ children }) {
+export function IsPrivate({ children }) {
   const { isLoggedIn, isLoading } = useContext(AuthContext);
 
   // If the authentication is still loading ⏳
@@ -18,5 +18,3 @@ function IsPrivate({ children }) {
   // If the user is logged in, allow to see the page ✅
   return children;
 }
-
-export default IsPrivate;

@@ -51,7 +51,7 @@ const modules = {
   },
 };
 
-export default function CreateAboutMe() {
+export function CreateAboutMe() {
   const [aboutMe, setAboutMe] = useState('');
 
   const handleSubmit = async (e) => {

@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/auth.context';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
 
-function LoginPage() {
+export function LoginPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const {
     register,
@@ -123,5 +123,3 @@ function LoginPage() {
     </>
   );
 }
-
-export default LoginPage;

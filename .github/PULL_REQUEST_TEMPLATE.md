@@ -16,7 +16,6 @@
 - [ ] Refactoring (no new functionality, just code cleanup/refactoring)
 - [ ] Documentation update
 
-
 ## Screenshots (if applicable)
 
 <!-- Add any relevant screenshots or GIFs to help illustrate the changes. -->
@@ -32,4 +31,3 @@
 ## Any other Comments?
 
 <!-- _Remove this section if no further comments exist_ -->
-

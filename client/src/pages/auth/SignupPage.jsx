@@ -4,7 +4,7 @@ import MetaData from '../../components/Metadata';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
 
-function SignupPage() {
+export function SignupPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
   const {
     register,
@@ -146,5 +146,3 @@ function SignupPage() {
     </>
   );
 }
-
-export default SignupPage;
