@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
-import HomePage from './pages/HomePage/HomePage';
-import ProfilePage from './pages/ProfilePage/ProfilePage';
+import HomePage from './pages/HomePage';
+import ProfilePage from './pages/ProfilePage';
 import SignupPage from './pages/auth/SignupPage';
 import LoginPage from './pages/auth/LoginPage';
 import { Words } from './components/Words/Words';
@@ -14,10 +14,10 @@ import TopicPage from './components/Topic/TopicPage';
 import CreateAPost from './components/BlogPost/CreateAPost';
 import CreateATopic from './components/Topic/CreateATopic';
 import TopicDetails from './components/Topic/TopicDetails';
-import { ContactMe } from './pages/ContactMe/ContactMe';
-import { AboutMe } from './pages/AboutMe/AboutMe';
+import { ContactMe } from './pages/ContactMe';
+import { AboutMe } from './pages/AboutMe';
 import { SinglePost } from './components/BlogPost/SinglePost';
-import NotFoundPage from './pages/NotFoundPage/NotFoundPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 function App() {
   return (
