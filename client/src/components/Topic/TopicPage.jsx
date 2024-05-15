@@ -1,11 +1,9 @@
 import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
-import TopicDetails from './TopicDetails';
-import EditTopic from './EditTopic';
-import CreateATopic from './CreateATopic';
+import { TopicDetails, CreateATopic, EditTopic } from '../../components';
 import { AuthContext } from '../../context/auth.context';
 
-export default function TopicPage() {
+export function TopicPage() {
   const [topics, setTopics] = useState([]);
   const [selectedTopicId, setSelectedTopicId] = useState('all');
   const [selectedTopic, setSelectedTopic] = useState(null);
@@ -70,7 +68,6 @@ export default function TopicPage() {
                     />
                   </button>
                 )}
-                
               </div>
               {selectedTopic === topic && (
                 <div className="mt-2">

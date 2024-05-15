@@ -1,9 +1,8 @@
 import { useContext, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../context/auth.context';
-import CreateAboutMe from '../components/AboutMe/CreateAboutMe';
+import { CreateAboutMe, DeleteAboutMe } from '../components';
 import axios from 'axios';
-import DeleteAboutMe from '../components/AboutMe/DeleteAboutMe';
 
 export const AboutMe = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -32,7 +31,7 @@ export const AboutMe = () => {
                   <div key={aboutMe._id}>
                     <div
                       dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}
-                    ></div>
+                    />
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
                     )}

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import DeletePicture from './DeletePicture';
+import { DeletePicture } from './DeletePicture';
 
 export const EditPicture = ({ picture, onCancel, id }) => {
   const [title, setTitle] = useState('');

@@ -6,11 +6,10 @@ import {
   useLayoutEffect,
 } from 'react';
 import axios from 'axios';
-import PostCard from '../BlogPost/PostCard';
-import CreateAPost from '../BlogPost/CreateAPost';
+import { PostCard, CreateAPost } from '../../components';
 import { AuthContext } from '../../context/auth.context';
 
-export default function TopicDetails({ id, selectedTopicId }) {
+export function TopicDetails({ id, selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
@@ -91,7 +90,9 @@ export default function TopicDetails({ id, selectedTopicId }) {
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
       >
         {postSortedByDate.map((post) => (
-          <div key={post._id} className="flex justify-center">{post && <PostCard post={post} />}</div>
+          <div key={post._id} className="flex justify-center">
+            {post && <PostCard post={post} />}
+          </div>
         ))}
       </div>
 

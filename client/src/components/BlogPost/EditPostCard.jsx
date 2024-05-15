@@ -5,10 +5,7 @@ import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
 import { modules } from './EditorToolbar';
 
-export default function EditPostCard({
-  postBeingEdited: initialPost,
-  onCancel,
-}) {
+export function EditPostCard({ postBeingEdited: initialPost, onCancel }) {
   const [title, setTitle] = useState(initialPost.title);
   const [body, setBody] = useState(initialPost.body);
   const navigate = useNavigate();

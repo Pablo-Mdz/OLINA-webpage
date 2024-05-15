@@ -4,53 +4,56 @@ const Gallery = require('../models/Gallery');
 const { uploader, cloudinary } = require('../config/cloudinary');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
-    const { title, description, imgUrl, publicId } = req.body;
-    Gallery.create({
-        title,
-        description,
-        imgUrl,
-        publicId,
+  const { title, description, imgUrl, publicId } = req.body;
+  Gallery.create({
+    title,
+    description,
+    imgUrl,
+    publicId,
+  })
+    .then((e) => {
+      const { title, description, _id } = e;
+      const event = { title, description, _id };
+      res.status(201).json({ event });
+      console.log('title', e);
     })
-        .then((e) => {
-            const { title,description, _id } = e;
-            const event = { title, description, _id };
-            res.status(201).json({ event });
-            console.log("title",e)
-        })
-        .catch((err) => {
-            console.log(err);
-            res.status(500).json({ message: 'Internal Server Error' });
-        });
-});
-
-router.get('/', (req, res) => {
-    Gallery.find()
-    .then((gallery) => {
-        res.status(200).json(gallery);
+    .catch((err) => {
+      console.log(err);
+      res.status(500).json({ message: 'Internal Server Error' });
     });
 });
 
-router.put("/:imageId", (req, res) => {
-    const { title, description } = req.body;
-    Gallery.findByIdAndUpdate(req.params?.imageId, { title, description }, { new: true })
-        .then(updatedImage => {
-            console.log(" updated title", updatedImage)
-            res.status(200).json(updatedImage);
-        })
-        .catch(err => console.log(err));
+router.get('/', (req, res) => {
+  Gallery.find().then((gallery) => {
+    res.status(200).json(gallery);
+  });
+});
+
+router.put('/:imageId', (req, res) => {
+  const { title, description } = req.body;
+  Gallery.findByIdAndUpdate(
+    req.params?.imageId,
+    { title, description },
+    { new: true },
+  )
+    .then((updatedImage) => {
+      console.log(' updated title', updatedImage);
+      res.status(200).json(updatedImage);
+    })
+    .catch((err) => console.log(err));
 });
 
 router.post('/delete/:id', (req, res, next) => {
-    Gallery.findByIdAndDelete({ _id: req.params.id })
-        .then((data) => {
-            if (data.imgUrl) {
-                cloudinary.uploader.destroy(data.publicId);
-            }
-            res.status(200).json({ message: 'Entry deleted' });
-        })
-        .catch((err) => {
-            next(err);
-        });
+  Gallery.findByIdAndDelete({ _id: req.params.id })
+    .then((data) => {
+      if (data.imgUrl) {
+        cloudinary.uploader.destroy(data.publicId);
+      }
+      res.status(200).json({ message: 'Entry deleted' });
+    })
+    .catch((err) => {
+      next(err);
+    });
 });
 
 /* router.post("/upload", uploader.single("imageURL"), (req, res, next) => {
