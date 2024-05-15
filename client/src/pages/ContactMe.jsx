@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import MetaData from '../components/Metadata';
+import { Helmet } from 'react-helmet';
 import emailjs from '@emailjs/browser';
 import { useNavigate } from 'react-router-dom';
 
