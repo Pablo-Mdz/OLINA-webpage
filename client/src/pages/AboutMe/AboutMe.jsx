@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
+import MetaData from '../../components/Mateadata';
 import { AuthContext } from '../../context/auth.context';
 import CreateAboutMe from '../../components/AboutMe/CreateAboutMe';
 import axios from 'axios';
@@ -21,9 +21,10 @@ export const AboutMe = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | About Me</title>
-      </Helmet>
+      <MetaData
+        title="Olina - Blog | About Me"
+        description="You can find out more about the author of this blog, here."
+      />
       <section className="h-full py-16 px-4">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

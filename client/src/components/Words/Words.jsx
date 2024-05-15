@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Helmet } from 'react-helmet';
+import MetaData from '../Matadata';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
@@ -177,9 +177,7 @@ export const Words = () => {
 
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | Words</title>
-      </Helmet>
+      <MetaData title="Olina - Blog | Words" />
       <div className="bg-whitePro min-h-screen font-pop">
         <div className="mx-auto max-w-7xl p-4 ">
           <h1 className="text-center text-4xl font-bold text-primary my-6">

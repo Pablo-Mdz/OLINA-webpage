@@ -1,11 +1,9 @@
-import { Helmet } from 'react-helmet';
+import MetaData from '../../components/Mateadata';
 
 function HomePage() {
   return (
     <>
-      <Helmet>
-        <title>Olina - Blog | Home</title>
-      </Helmet>
+      <MetaData title="Olina - Blog | Home" />
       <div className="bg-violet-800 font-pop">
         <div
           className="h-screen bg-center bg-cover "
