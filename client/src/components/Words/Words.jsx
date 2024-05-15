@@ -3,9 +3,7 @@ import MetaData from '../Metadata';
 import axios from 'axios';
 import Modal from 'react-modal';
 import { AuthContext } from '../../context/auth.context';
-import EditWords from './EditWords';
-import DeleteWords from './DeleteWords';
-import { AddWords } from './AddWords';
+import { EditWords, DeleteWords, AddWords } from '../../components';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 

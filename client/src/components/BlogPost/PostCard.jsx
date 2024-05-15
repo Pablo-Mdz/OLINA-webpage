@@ -1,7 +1,7 @@
 import React from 'react';
 // import { ReadingTime } from '../Words/ReadingTime';
 
-export default function PostCard({ post, RTime }) {
+export function PostCard({ post, RTime }) {
   const date = new Date(post.createdAt).toLocaleString();
 
   const postBodyPreview = () => {
@@ -14,14 +14,16 @@ export default function PostCard({ post, RTime }) {
       words.slice(0, maxLength).join(' ') +
       (words.length > maxLength ? '...' : '')
     );
-};
+  };
 
   const postTitlePreview = () => {
     const words = post.title.split(' ');
     const maxLength = 5;
-    return words.slice(0, maxLength).join(' ') + (words.length > maxLength ? '...' : '');
+    return (
+      words.slice(0, maxLength).join(' ') +
+      (words.length > maxLength ? '...' : '')
+    );
   };
-  
 
   return (
     <>
@@ -37,8 +39,13 @@ export default function PostCard({ post, RTime }) {
             }}
           ></div>
 
-          <div className="bg-white  px-2 flex flex-col " style={{ height: '45%' }}>
-            <h1 className="text-2xl font-bold mb-1 flex ml-4">{postTitlePreview()}</h1>
+          <div
+            className="bg-white  px-2 flex flex-col "
+            style={{ height: '45%' }}
+          >
+            <h1 className="text-2xl font-bold mb-1 flex ml-4">
+              {postTitlePreview()}
+            </h1>
             <p
               className="text-sm text-gray-600 my-2 flex ml-4 "
               style={{ maxHeight: '3rem' }}

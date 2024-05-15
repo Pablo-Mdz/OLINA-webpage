@@ -1,36 +1,34 @@
-import React from 'react'
-import Modal from 'react-modal'
+import React from 'react';
+import Modal from 'react-modal';
 
-const DeleteWords = ({
-    deleteModalIsOpen,
-    handleDeleteModalClose,
-    handleDeleteWord,
-    deleteWord,
+export const DeleteWords = ({
+  deleteModalIsOpen,
+  handleDeleteModalClose,
+  handleDeleteWord,
+  deleteWord,
 }) => {
-
-    const customStyles = {
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        },
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          maxWidth: '400px',
-          width: '90%',
-          backgroundColor: '#f0f0f0',
-          borderRadius: '8px',
-          padding: '20px',
-        },
-      };
-
+  const customStyles = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      maxWidth: '400px',
+      width: '90%',
+      backgroundColor: '#f0f0f0',
+      borderRadius: '8px',
+      padding: '20px',
+    },
+  };
 
   return (
     <div>
-        <Modal
+      <Modal
         isOpen={deleteModalIsOpen}
         onRequestClose={handleDeleteModalClose}
         style={customStyles}
@@ -58,7 +56,5 @@ const DeleteWords = ({
         </div>
       </Modal>
     </div>
-  )
-}
-
-export default DeleteWords
+  );
+};

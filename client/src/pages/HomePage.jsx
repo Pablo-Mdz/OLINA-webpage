@@ -1,6 +1,6 @@
 import MetaData from '../components/Metadata';
 
-function HomePage() {
+export function HomePage() {
   return (
     <>
       <MetaData title="Olina - Blog | Home" />
@@ -20,5 +20,3 @@ function HomePage() {
     </>
   );
 }
-
-export default HomePage;

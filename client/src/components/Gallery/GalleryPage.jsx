@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/auth.context';
 import { Link } from 'react-router-dom';
 import { EditPicture } from './EditPicture';
 
-export default function GalleryPage() {
+export function GalleryPage() {
   const { isLoggedIn } = useContext(AuthContext);
   const [gallery, setGallery] = useState([]);
   const [search, setSearch] = useState('');

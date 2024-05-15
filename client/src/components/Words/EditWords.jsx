@@ -1,33 +1,31 @@
 import React from 'react';
 import Modal from 'react-modal';
 
-const EditWords = ({
+export const EditWords = ({
   editModalIsOpen,
   handleEditModalClose,
   handleEditWord,
   editWord,
   handleEditInputChange,
 }) => {
-
-
-    const customStyles = {
-        overlay: {
-          backgroundColor: 'rgba(0, 0, 0, 0.75)',
-        },
-        content: {
-          top: '50%',
-          left: '50%',
-          right: 'auto',
-          bottom: 'auto',
-          marginRight: '-50%',
-          transform: 'translate(-50%, -50%)',
-          maxWidth: '400px',
-          width: '90%',
-          backgroundColor: '#f0f0f0',
-          borderRadius: '8px',
-          padding: '20px',
-        },
-      };
+  const customStyles = {
+    overlay: {
+      backgroundColor: 'rgba(0, 0, 0, 0.75)',
+    },
+    content: {
+      top: '50%',
+      left: '50%',
+      right: 'auto',
+      bottom: 'auto',
+      marginRight: '-50%',
+      transform: 'translate(-50%, -50%)',
+      maxWidth: '400px',
+      width: '90%',
+      backgroundColor: '#f0f0f0',
+      borderRadius: '8px',
+      padding: '20px',
+    },
+  };
 
   return (
     <div>
@@ -110,5 +108,3 @@ const EditWords = ({
     </div>
   );
 };
-
-export default EditWords;

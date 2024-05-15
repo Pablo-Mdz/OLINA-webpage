@@ -10,7 +10,7 @@ import { AuthContext } from '../../context/auth.context';
 import axios from 'axios';
 import 'react-quill/dist/quill.snow.css';
 import { useReactToPrint } from 'react-to-print';
-import EditPostCard from './EditPostCard';
+import { EditPostCard } from './EditPostCard';
 import {
   FacebookShareButton,
   TwitterShareButton,
@@ -18,8 +18,8 @@ import {
 } from 'react-share';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import { ReadingTime } from '../Words/ReadingTime';
-import LikeButton from './LikeButton';
-import CommentBox from '../CommentBox/CommentBox';
+import { LikeButton } from './LikeButton';
+import { CommentBox } from '../CommentBox/CommentBox';
 
 export const SinglePost = () => {
   const [post, setPost] = useState(null);
@@ -39,7 +39,7 @@ export const SinglePost = () => {
   useEffect(() => {
     axios.get(`/api/post/${id}`).then((response) => {
       setPost(response.data);
-      console.log(response.data)
+      console.log(response.data);
       setPostBeingEdited(response.data);
     });
   }, [id, reloadTrigger]);
@@ -70,8 +70,6 @@ export const SinglePost = () => {
     }
   }, [isEditing]);
 
-
-
   const deleteComment = (commentId) => {
     axios
       .delete(`/api/comment/${commentId}`)
@@ -82,7 +80,6 @@ export const SinglePost = () => {
         console.error(error);
       });
   };
-  
 
   return (
     <>
@@ -116,7 +113,6 @@ export const SinglePost = () => {
                 dangerouslySetInnerHTML={{ __html: post?.body }}
                 className="post-content"
               ></div>
-
             </div>
             <a href="/topics">
               <span className="inline-block bg-gray-200  rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-gray-700 mr-2 mb-2  hover:text-white">
@@ -153,7 +149,6 @@ export const SinglePost = () => {
               </button>
             </div>
 
-
             <CommentBox
               postId={id}
               onCommentMade={() => setReloadTrigger(!reloadTrigger)}
@@ -169,7 +164,6 @@ export const SinglePost = () => {
                   </button>
                 )}
               </div>
-
             ))}
             {isLoggedIn && user?._id === post?.author?._id && (
               <button

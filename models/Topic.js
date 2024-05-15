@@ -1,12 +1,12 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model } = require('mongoose');
 
 const topicSchema = new Schema({
-    title: { type: String, unique: true },
-    author: { type: Schema.Types.ObjectId, ref: 'User' },
-    posts: [{ type: Schema.Types.ObjectId, ref: "Post" }],
-    createdAt: { type: Date, default: Date.now }
+  title: { type: String, unique: true },
+  author: { type: Schema.Types.ObjectId, ref: 'User' },
+  posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
+  createdAt: { type: Date, default: Date.now },
 });
 
-const Topic = model("Topic", topicSchema);
+const Topic = model('Topic', topicSchema);
 
 module.exports = Topic;
