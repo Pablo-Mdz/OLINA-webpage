@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
+import OlinaLogo from './OlinaLogo';
 
 const NavLink = ({ to, children, extraClasses = '' }) => (
   <Link
@@ -24,16 +25,16 @@ export const Navbar = () => {
 
   return (
     <nav className="bg-blackToPink-500 font-pop">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link
-              to="/"
-              className="flex-shrink-0 text-plum-500 font-bold tracking-tight no-underline"
-            >
-              My Site
-            </Link>
-            <div className="hidden sm:ml-6 sm:flex">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8s">
+        <div className="flex justify-between h-24 w-full">
+          <div className="flex justify-between items-center w-full">
+            <div className="hidden sm:ml-6 sm:flex w-full items-center">
+              <Link
+                to="/"
+                className="flex-shrink-0 text-plum-500 font-bold tracking-tight no-underline"
+              >
+                <OlinaLogo />
+              </Link>
               <NavLink to="/gallery">Gallery</NavLink>
               <NavLink to="/topics">Topics</NavLink>
               <NavLink to="/word">Dictionary</NavLink>
