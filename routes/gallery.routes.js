@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Gallery = require('../models/Gallery');
 const { uploader, cloudinary } = require('../config/cloudinary');
+const { deleteImages } = require('../utils/deleteImagesHelper');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
   const { title, description, imgUrl, publicId } = req.body;
@@ -46,9 +47,7 @@ router.put('/:imageId', (req, res) => {
 router.post('/delete/:id', (req, res, next) => {
   Gallery.findByIdAndDelete({ _id: req.params.id })
     .then((data) => {
-      if (data.imgUrl) {
-        cloudinary.uploader.destroy(data.publicId);
-      }
+      deleteImages(data);
       res.status(200).json({ message: 'Entry deleted' });
     })
     .catch((err) => {

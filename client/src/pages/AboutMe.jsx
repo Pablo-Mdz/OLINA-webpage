@@ -30,7 +30,7 @@ export const AboutMe = () => {
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
                     <div
-                      dangerouslySetInnerHTML={{ __html: aboutMe.textBody }}
+                      dangerouslySetInnerHTML={{ __html: aboutMe.body }}
                     />
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
