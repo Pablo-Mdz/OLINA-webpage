@@ -1,6 +1,7 @@
 import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
+import { SearchContext } from '../../context/search.context';
 import OlinaLogo from './OlinaLogo';
 
 const NavLink = ({ to, children, extraClasses = '' }) => (
@@ -19,16 +20,22 @@ const MobileNavLink = ({ to, children }) => (
 );
 
 export const Navbar = () => {
+  const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
+  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+
+  const handleSearchChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
 
   return (
     <nav className="bg-blackToPink-500 font-pop">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8s">
         <div className="flex justify-between h-24 w-full">
-          <div className="flex justify-between items-center w-full">
-            <div className="hidden sm:ml-6 sm:flex w-full items-center">
+          <div className="flex justify-around sm:px-40 items-center w-full">
+            <div className="hidden sm:flex w-full items-center">
               <Link
                 to="/"
                 className="flex-shrink-0 text-plum-500 font-bold tracking-tight no-underline"
@@ -52,6 +59,18 @@ export const Navbar = () => {
                 </NavLink>
               )}
             </div>
+
+            {location.pathname === '/topics' && (
+              <div>
+                <input
+                  placeholder="Search by keywords.."
+                  type="text"
+                  value={searchTerm}
+                  onChange={handleSearchChange}
+                  className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                />
+              </div>
+            )}
           </div>
           <div className="-mr-2 flex items-center sm:hidden">
             <button

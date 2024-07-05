@@ -8,18 +8,20 @@ import {
 import axios from 'axios';
 import { PostCard, CreateAPost } from '../../components';
 import { AuthContext } from '../../context/auth.context';
+import { SearchContext } from '../../context/search.context';
 
 export function TopicDetails({ id, selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
   const [topic, setTopic] = useState('');
   const [posts, setPosts] = useState([]);
-  const [search, setSearch] = useState('');
+  const { searchTerm } = useContext(SearchContext);
   const [isCreating, setIsCreating] = useState(false);
   const createPostRef = useRef(null);
+
   const filteredPost = posts.filter(
     (post) =>
-      post.body.toLowerCase().includes(search.toLowerCase()) ||
-      post.title.toLowerCase().includes(search.toLowerCase()),
+      post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      post.title.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const postSortedByDate = filteredPost.sort(
@@ -43,7 +45,7 @@ export function TopicDetails({ id, selectedTopicId }) {
         })
         .catch((err) => console.log(err));
     }
-  }, [id, search]);
+  }, [id, searchTerm]);
 
   const handleCreatePost = () => {
     setIsCreating(!isCreating);
@@ -71,19 +73,6 @@ export function TopicDetails({ id, selectedTopicId }) {
           </button>
         )}
       </div>
-      <label
-        htmlFor="description"
-        className="block text-gray-700 font-semibold mb-2"
-      >
-        SEARCH BAR
-      </label>
-      <input
-        placeholder="Search by keywords.."
-        type="text"
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-6"
-      />
 
       <div
         className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  mx-auto sm:mx-0"
