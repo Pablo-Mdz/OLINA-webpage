@@ -47,55 +47,50 @@ export function TopicPage() {
   };
 
   return (
-    <>
-      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 font-pop bg-plum-400">
-        <div className="md:w-1/5 bg-slate-200 bg-opacity-50">
-          {TopicsSortedByDate.map((topic) => (
-            <div key={topic._id} className="flex flex-col mb-2 ml-1">
-              <div className="flex justify-between">
-                <button
-                  className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900"
-                  onClick={() => handleClickTopic(topic._id)}
-                >
-                  {topic.title}
+    <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 font-pop bg-plum-400 min-h-[calc(100vh-3.0rem)]">
+      <div className="md:w-1/5 bg-opacity-50 mt-10">
+        {TopicsSortedByDate.map((topic) => (
+          <div key={topic._id} className="flex flex-col mb-2 ml-1">
+            <div className="flex justify-between">
+              <button
+                className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900"
+                onClick={() => handleClickTopic(topic._id)}
+              >
+                {topic.title}
+              </button>
+              {isLoggedIn && topic.author._id === user.id && (
+                <button className="mx-2" onClick={() => editTitle(topic)}>
+                  <img
+                    src="/editIcon.png"
+                    alt="Edit icon"
+                    className="inline w-8 h-8 ml-1"
+                  />
                 </button>
-                {isLoggedIn && topic.author._id === user.id && (
-                  <button className="mx-2" onClick={() => editTitle(topic)}>
-                    <img
-                      src="/editIcon.png"
-                      alt="Edit icon"
-                      className="inline w-8 h-8 ml-1"
-                    />
-                  </button>
-                )}
-              </div>
-              {selectedTopic === topic && (
-                <div className="mt-2">
-                  <EditTopic topic={selectedTopic} onCancel={cancelEditing} />
-                </div>
               )}
             </div>
-          ))}
-          <button
-            onClick={addTopicButton}
-            className="mt-4 ml-1 block text-lg font-medium text-gray-700 hover:text-gray-900"
-          >
-            + Add a new topic
-          </button>
-          {addTopic && (
-            <CreateATopic
-              onTopicCreated={handleTopicCreated}
-              hideCreateTopic={hideCreateTopic}
-            />
-          )}
-        </div>
-        {selectedTopicId !== null ? (
-          <TopicDetails
-            id={selectedTopicId}
-            selectedTopicId={selectedTopicId}
+            {selectedTopic === topic && (
+              <div className="mt-2">
+                <EditTopic topic={selectedTopic} onCancel={cancelEditing} />
+              </div>
+            )}
+          </div>
+        ))}
+        <button
+          onClick={addTopicButton}
+          className="mt-4 ml-1 block text-lg font-medium text-gray-700 hover:text-gray-900"
+        >
+          + Add a new topic
+        </button>
+        {addTopic && (
+          <CreateATopic
+            onTopicCreated={handleTopicCreated}
+            hideCreateTopic={hideCreateTopic}
           />
-        ) : null}
+        )}
       </div>
-    </>
+      {selectedTopicId !== null ? (
+        <TopicDetails id={selectedTopicId} selectedTopicId={selectedTopicId} />
+      ) : null}
+    </div>
   );
 }
