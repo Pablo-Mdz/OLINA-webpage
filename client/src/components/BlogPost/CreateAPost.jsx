@@ -46,8 +46,6 @@ export function CreateAPost({ id }) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-
-        console.log('response88888888888888', response);
         setTitle('');
         setBody('');
         setCoverImage(null);
