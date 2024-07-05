@@ -23,7 +23,6 @@ export function AddPicture() {
     })
       .then((response) => response.json())
       .then((data) => {
-        //console.log("DATA: ", data);
         const storedToken = localStorage.getItem('authToken');
         const requestBody = {
           title: title,

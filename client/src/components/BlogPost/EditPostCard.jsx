@@ -43,7 +43,7 @@ export function EditPostCard({ postBeingEdited: initialPost, onCancel }) {
 
   const deletePost = () => {
     axios
-      .post(`/api/post/${postId}`)
+      .delete(`/api/post/${postId}`)
       .then((response) => {
         console.log(response);
         window.location.reload(false);
