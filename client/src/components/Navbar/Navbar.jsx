@@ -1,80 +1,55 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { useContext } from 'react';
 import { AuthContext } from '../../context/auth.context';
+import OlinaLogo from './OlinaLogo';
+
+const NavLink = ({ to, children, extraClasses = '' }) => (
+  <Link
+    to={to}
+    className={`ml-4 text-plum-500 hover:text-gray-300 no-underline ${extraClasses}`}
+  >
+    {children}
+  </Link>
+);
+
+const MobileNavLink = ({ to, children }) => (
+  <Link to={to} className="block text-white hover:text-gray-300">
+    {children}
+  </Link>
+);
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-
   const toggleMenu = () => setIsOpen(!isOpen);
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
+
   return (
-    <nav className="bg-gray-800 font-pop">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex items-center">
-            <Link
-              to="/"
-              className="flex-shrink-0 text-white font-bold tracking-tight no-underline"
-            >
-              My Site
-            </Link>
-            <div className="hidden sm:ml-6 sm:flex">
+    <nav className="bg-blackToPink-500 font-pop">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8s">
+        <div className="flex justify-between h-24 w-full">
+          <div className="flex justify-between items-center w-full">
+            <div className="hidden sm:ml-6 sm:flex w-full items-center">
               <Link
-                to="/gallery"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                to="/"
+                className="flex-shrink-0 text-plum-500 font-bold tracking-tight no-underline"
               >
-                Gallery
+                <OlinaLogo />
               </Link>
-              <Link
-                to="/topics"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
-              >
-                Topics
-              </Link>
-              <Link
-                to="/word"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
-              >
-                Dictionary
-              </Link>
-              <Link
-                to="/contact-me"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
-              >
-                Contact
-              </Link>
-              <Link
-                to="/about"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
-              >
-                About Me
-              </Link>
+              <NavLink to="/gallery">Gallery</NavLink>
+              <NavLink to="/topics">Topics</NavLink>
+              <NavLink to="/word">Dictionary</NavLink>
+              <NavLink to="/contact-me">Contact</NavLink>
+              <NavLink to="/about">About Me</NavLink>
               {!isLoggedIn && (
                 <>
-                  <Link
-                    to="/login"
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
-                  >
-                    login
-                  </Link>
-                  <Link
-                    to="/signup"
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
-                  >
-                    Sign Up
-                  </Link>
+                  <NavLink to="/login">Login</NavLink>
+                  <NavLink to="/signup">Sign Up</NavLink>
                 </>
               )}
               {isLoggedIn && (
-                <>
-                  <Link
-                    onClick={logoutUser}
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
-                  >
-                    Logout
-                  </Link>
-                </>
+                <NavLink to="/" onClick={logoutUser}>
+                  Logout
+                </NavLink>
               )}
             </div>
           </div>
@@ -83,13 +58,9 @@ export const Navbar = () => {
               type="button"
               onClick={toggleMenu}
               className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-              aria-expanded="false"
+              aria-expanded={isOpen}
             >
               <span className="sr-only">Open main menu</span>
-              {/*
-                Icon when menu is closed.
-                Menu open: "hidden", Menu closed: "block"
-              */}
               <svg
                 className={`${isOpen ? 'hidden' : 'block'} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -105,10 +76,6 @@ export const Navbar = () => {
                   d="M4 6h16M4 12h16M4 18h16"
                 />
               </svg>
-              {/*
-                Icon when menu is open.
-                Menu open: "block", Menu closed: "hidden"
-              */}
               <svg
                 className={`${isOpen ? 'block' : 'hidden'} h-6 w-6`}
                 xmlns="http://www.w3.org/2000/svg"
@@ -128,33 +95,13 @@ export const Navbar = () => {
           </div>
         </div>
       </div>
-      {/*
-        Mobile menu, toggle classNamees based on menu state.
-        Open: "block", closed: "hidden"
-      */}
       <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
         <div className="px-2 pt-2 pb-3 space-y-1">
-          <Link to="/gallery" className="block text-white hover:text-gray-300">
-            Gallery
-          </Link>
-          <Link to="/topics" className="ml-4 text-white hover:text-gray-300">
-            Topics
-          </Link>
-          <Link
-            to="/dictionary"
-            className="block text-white hover:text-gray-300"
-          >
-            Dictionary
-          </Link>
-          <Link
-            to="/contact-me"
-            className="block text-white hover:text-gray-300"
-          >
-            Contact
-          </Link>
-          <Link to="/about" className="block text-white hover:text-gray-300">
-            About Me
-          </Link>
+          <MobileNavLink to="/gallery">Gallery</MobileNavLink>
+          <MobileNavLink to="/topics">Topics</MobileNavLink>
+          <MobileNavLink to="/dictionary">Dictionary</MobileNavLink>
+          <MobileNavLink to="/contact-me">Contact</MobileNavLink>
+          <MobileNavLink to="/about">About Me</MobileNavLink>
         </div>
       </div>
     </nav>
