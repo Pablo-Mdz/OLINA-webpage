@@ -29,9 +29,7 @@ export function CreateAPost({ id }) {
 
       coverImageUrl = coverImageResponse.data.secure_url;
       coverPublicId = coverImageResponse.data.public_id;
-
     }
-
 
     const requestBody = {
       title: title,
