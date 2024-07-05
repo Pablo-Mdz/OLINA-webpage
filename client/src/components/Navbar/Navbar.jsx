@@ -3,11 +3,12 @@ import { Link, useLocation } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import { SearchContext } from '../../context/search.context';
 import OlinaLogo from './OlinaLogo';
+import { TbSearch } from 'react-icons/tb';
 
 const NavLink = ({ to, children, extraClasses = '' }) => (
   <Link
     to={to}
-    className={`ml-4 text-plum-500 hover:text-gray-300 no-underline ${extraClasses}`}
+    className={`ml-4 text-plum-500 hover:text-blackToPink-200 no-underline ${extraClasses}`}
   >
     {children}
   </Link>
@@ -61,13 +62,16 @@ export const Navbar = () => {
             </div>
 
             {location.pathname === '/topics' && (
-              <div>
+              <div className="relative">
+                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <TbSearch className="text-plum-400" />
+                </div>
                 <input
-                  placeholder="Search by keywords.."
+                  placeholder="Search by keywords..."
                   type="text"
                   value={searchTerm}
                   onChange={handleSearchChange}
-                  className="shadow appearance-none border border-gray-300 rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  className="shadow appearance-none border border-gray-300 rounded-lg w-full py-2 pl-10 pr-3 text-plum-400 leading-tight focus:outline-none focus:shadow-outline"
                 />
               </div>
             )}

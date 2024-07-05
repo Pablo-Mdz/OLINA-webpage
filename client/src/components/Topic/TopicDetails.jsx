@@ -60,14 +60,14 @@ export function TopicDetails({ id, selectedTopicId }) {
   return (
     <div className="topic-details-container w-full px-4 bg-plum-400">
       <div className="flex justify-between items-center my-2">
-        <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
+        <h1 className="text-4xl font-bold text-gray-800 font-pop my-8 ml-24 w-full text-start">
           {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}
         </h1>
 
         {isLoggedIn && selectedTopicId !== 'all' && (
           <button
             onClick={handleCreatePost}
-            className="bg-cyan-500 text-white font-medium px-6 my-4 p-2 rounded mt-2   top-4 right-4 z-10 whitespace-nowrap"
+            className="bg-cyan-500 text-white font-medium px-6 my-4 p-2 rounded mt-2 top-4 right-4 z-10 whitespace-nowrap"
           >
             {!isCreating ? 'Create a Post' : 'hidde menu'}
           </button>

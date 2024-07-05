@@ -15,8 +15,6 @@ export function CommentBox({ postId, onCommentMade }) {
     axios
       .post('/api/comment', requestBody)
       .then((response) => {
-        // console.log(response)
-
         setComment('');
         onCommentMade();
       })
@@ -27,19 +25,20 @@ export function CommentBox({ postId, onCommentMade }) {
 
   return (
     <div>
-      <div></div>
-      <h3>Leave a Comment</h3>
+      <h3>Leave a Comment:</h3>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="comment">Comment:</label>
+        <div className="flex justify-center ">
           <textarea
             id="comment"
             value={comment}
             onChange={(e) => setComment(e.target.value)}
             placeholder="Write a comment.."
+            className="bg-blackToPink-200 w-2/5"
           />
+          <button className="bg-blackToPink-200 border-0 hover:bg-blackToPink-300">
+            Send
+          </button>
         </div>
-        <button>Send</button>
       </form>
     </div>
   );

@@ -9,7 +9,6 @@ export function LikeButton({ id, initialLikes }) {
     const fetchLikes = async () => {
       try {
         const response = await axios.get(`/api/post/${id}/likes`);
-        // console.log("RESPONSE: ", response.data)
         setLikes(response.data.likes);
       } catch (error) {
         console.log(error);
@@ -34,14 +33,16 @@ export function LikeButton({ id, initialLikes }) {
     axios
       .put(`/api/post/likes/${id}`, { likes: newLikes })
       .then((response) => {
-        // console.log(response.data);
       })
       .catch((error) => console.log(error));
   };
 
   return (
-    <button onClick={handleClick}>
-      <span>{liked ? '❤️' : '🤍'}</span>
+    <button
+      className="inline-block bg-blackToPink-100 rounded-full border-none px-3 py-1 text-sm font-semibold text-gray-700 hover:text-plum-400 hover:bg-blackToPink-200 mr-2 mb-2"
+      onClick={handleClick}
+    >
+      <span className='mr-1'>{liked ? '❤️' : '🤍'}</span>
       <span>{likes} Likes</span>
     </button>
   );
