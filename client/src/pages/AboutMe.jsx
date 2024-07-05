@@ -29,9 +29,7 @@ export const AboutMe = () => {
               <div className="text-black mb-8">
                 {aboutMes.map((aboutMe) => (
                   <div key={aboutMe._id}>
-                    <div
-                      dangerouslySetInnerHTML={{ __html: aboutMe.body }}
-                    />
+                    <div dangerouslySetInnerHTML={{ __html: aboutMe.body }} />
                     {isLoggedIn && (
                       <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
                     )}

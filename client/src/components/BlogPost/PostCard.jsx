@@ -27,7 +27,7 @@ export function PostCard({ post, RTime }) {
 
   return (
     <>
-      <div className="flex flex-wrap mx-5 ">
+      <div className="flex flex-wrap mx-5">
         <div className=" w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
           <div
             className="bg-cover bg-center"
