@@ -1,14 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../context/auth.context';
 import { SearchContext } from '../../context/search.context';
 import OlinaLogo from './OlinaLogo';
 import { TbSearch } from 'react-icons/tb';
 
-const NavLink = ({ to, children, extraClasses = '' }) => (
+const NavLink = ({ to, children, extraClasses = '', onClick }) => (
   <Link
     to={to}
     className={`ml-4 text-plum-500 hover:text-blackToPink-200 no-underline ${extraClasses}`}
+    onClick={onClick}
   >
     {children}
   </Link>
@@ -22,6 +23,7 @@ const MobileNavLink = ({ to, children }) => (
 
 export const Navbar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const toggleMenu = () => setIsOpen(!isOpen);
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
@@ -29,6 +31,11 @@ export const Navbar = () => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
+  };
+
+  const handleLogout = () => {
+    logoutUser();
+    navigate('/');
   };
 
   return (
@@ -56,7 +63,7 @@ export const Navbar = () => {
                   </>
                 )}
                 {isLoggedIn && (
-                  <NavLink to="/" onClick={logoutUser}>
+                  <NavLink to="/" onClick={handleLogout}>
                     Logout
                   </NavLink>
                 )}
