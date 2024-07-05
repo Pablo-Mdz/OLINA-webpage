@@ -14,7 +14,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['https://turisnoa.com', 'http://localhost:3000'],
+    origin: ['https://oliina.com', 'http://localhost:3000'],
   }),
 );
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware

@@ -85,8 +85,13 @@ export function CreateAboutMe() {
                   className="h-80 w-full py-2 px-3 rounded-md text-gray-700 leading-tight focus:outline-none focus:border-purple-600"
                 />
               </div>
+
               <br />
-              <button className="px-4 py-1 mt-12 border-2 border-gray-900 rounded uppercase font-medium text-xs">
+              
+              <button
+                type="submit"
+                className="px-4 py-1 mt-12 border-2 border-gray-900 rounded uppercase font-medium text-xs"
+              >
                 Add About Me
               </button>
             </form>

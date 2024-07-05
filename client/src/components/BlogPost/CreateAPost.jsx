@@ -15,6 +15,7 @@ export function CreateAPost({ id }) {
     const storedToken = localStorage.getItem('authToken');
 
     let coverImageUrl = '';
+    let coverPublicId = '';
     if (coverImage) {
       const coverImageData = new FormData();
       coverImageData.append('file', coverImage);
@@ -27,13 +28,17 @@ export function CreateAPost({ id }) {
       );
 
       coverImageUrl = coverImageResponse.data.secure_url;
+      coverPublicId = coverImageResponse.data.public_id;
+
     }
+
 
     const requestBody = {
       title: title,
       body: body,
       topicId: id,
       imgUrl: coverImageUrl,
+      publicId: coverPublicId,
     };
 
     axios
@@ -41,8 +46,8 @@ export function CreateAPost({ id }) {
         headers: { Authorization: `Bearer ${storedToken}` },
       })
       .then((response) => {
-        // console.log(response.data.newPost);
 
+        console.log('response88888888888888', response);
         setTitle('');
         setBody('');
         setCoverImage(null);
@@ -101,7 +106,7 @@ export function CreateAPost({ id }) {
               value={body}
             />
           </div>
-          <div className="mb-2">
+          <div className="mt-20">
             <label
               className="block text-gray-700 font-bold mb-2"
               htmlFor="cover-image"
@@ -112,6 +117,7 @@ export function CreateAPost({ id }) {
               type="file"
               id="cover-image"
               onChange={handleCoverImageChange}
+              className="cursor-pointer"
             />
           </div>
           {errorMessage && <div className="text-red-500">{errorMessage}</div>}
