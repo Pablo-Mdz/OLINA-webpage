@@ -56,7 +56,7 @@ export function TopicDetails({ id, selectedTopicId }) {
   }, [isCreating]);
 
   return (
-    <div className="topic-details-container  w-full px-4 ">
+    <div className="topic-details-container w-full px-4 bg-plum-400">
       <div className="flex justify-between items-center my-2">
         <h1 className="text-4xl font-bold text-gray-800 mb-8 font-pop mt-6 w-full text-center">
           {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}

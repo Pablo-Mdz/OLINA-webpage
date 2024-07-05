@@ -48,7 +48,7 @@ export function TopicPage() {
 
   return (
     <>
-      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 font-pop">
+      <div className="flex flex-col space-y-4 sm:flex-row sm:space-y-0 sm:space-x-4 font-pop bg-plum-400">
         <div className="md:w-1/5 bg-slate-200 bg-opacity-50">
           {TopicsSortedByDate.map((topic) => (
             <div key={topic._id} className="flex flex-col mb-2 ml-1">
