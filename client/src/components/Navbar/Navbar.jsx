@@ -9,44 +9,44 @@ export const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
   return (
-    <nav className="bg-gray-800 font-pop">
+    <nav className="bg-blackToPink-500 font-pop">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
             <Link
               to="/"
-              className="flex-shrink-0 text-white font-bold tracking-tight no-underline"
+              className="flex-shrink-0 text-plum-500 font-bold tracking-tight no-underline"
             >
               My Site
             </Link>
             <div className="hidden sm:ml-6 sm:flex">
               <Link
                 to="/gallery"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
               >
                 Gallery
               </Link>
               <Link
                 to="/topics"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
               >
                 Topics
               </Link>
               <Link
                 to="/word"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
               >
                 Dictionary
               </Link>
               <Link
                 to="/contact-me"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
               >
                 Contact
               </Link>
               <Link
                 to="/about"
-                className="ml-4 text-white hover:text-gray-300 no-underline"
+                className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
               >
                 About Me
               </Link>
@@ -54,13 +54,13 @@ export const Navbar = () => {
                 <>
                   <Link
                     to="/login"
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
+                    className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
                   >
                     login
                   </Link>
                   <Link
                     to="/signup"
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
+                    className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
                   >
                     Sign Up
                   </Link>
@@ -70,7 +70,7 @@ export const Navbar = () => {
                 <>
                   <Link
                     onClick={logoutUser}
-                    className="ml-4 text-white hover:text-gray-300 no-underline"
+                    className="ml-4 text-plum-500 hover:text-gray-300 no-underline"
                   >
                     Logout
                   </Link>
