@@ -17,7 +17,7 @@ export function AddPicture() {
     data.append('file', image);
     data.append('upload_preset', 'auh8nzbq');
     data.append('cloud_name', 'be-chef');
-    fetch('https://api.cloudinary.com/v1_1/be-chef/image/upload', {
+    fetch(process.env.CLOUDINARY_FRONTEND_URL, {
       method: 'post',
       body: data,
     })

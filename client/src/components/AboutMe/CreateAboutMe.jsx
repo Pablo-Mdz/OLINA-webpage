@@ -33,7 +33,7 @@ const modules = {
           formData.append('cloud_name', 'be-chef');
 
           const result = await axios.post(
-            'https://api.cloudinary.com/v1_1/be-chef/image/upload',
+            process.env.CLOUDINARY_FRONTEND_URL,
             formData,
           );
           const url = result.data.secure_url;

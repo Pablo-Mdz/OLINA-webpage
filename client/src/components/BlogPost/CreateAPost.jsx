@@ -14,6 +14,11 @@ export function CreateAPost({ id }) {
     event.preventDefault();
     const storedToken = localStorage.getItem('authToken');
 
+    console.log(
+      'process.env.CLOUDINARY_FRONTEND_URL',
+      process.env.CLOUDINARY_FRONTEND_URL,
+    );
+
     let coverImageUrl = '';
     let coverPublicId = '';
     if (coverImage) {
@@ -23,15 +28,13 @@ export function CreateAPost({ id }) {
       coverImageData.append('cloud_name', 'be-chef');
 
       const coverImageResponse = await axios.post(
-        'https://api.cloudinary.com/v1_1/be-chef/image/upload',
+        process.env.CLOUDINARY_FRONTEND_URL,
         coverImageData,
       );
 
       coverImageUrl = coverImageResponse.data.secure_url;
       coverPublicId = coverImageResponse.data.public_id;
-
     }
-
 
     const requestBody = {
       title: title,
