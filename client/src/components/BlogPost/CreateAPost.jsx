@@ -31,7 +31,6 @@ export function CreateAPost({ id }) {
       coverPublicId = coverImageResponse.data.public_id;
     }
 
-
     const requestBody = {
       title: title,
       body: body,

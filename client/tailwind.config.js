@@ -93,7 +93,7 @@ module.exports = {
       },
     },
     fontFamily: {
-      pop: ['pop', 'sans-serif', 'inter'],
+      pop: ['pop', 'sans-serif'],
     },
   },
   plugins: [],
