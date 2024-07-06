@@ -166,7 +166,7 @@ export const SinglePost = () => {
                   className="post-content"
                 />
               </div>
-              <div className="mt-28 w-3/5">
+              <div className="mt-28 w-3/5 ">
                 <CommentSection
                   postId={id}
                   comments={post?.comments}

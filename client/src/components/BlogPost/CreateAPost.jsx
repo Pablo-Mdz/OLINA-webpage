@@ -87,6 +87,21 @@ export function CreateAPost({ id }) {
               required
             />
           </div>
+          <div className="mt-20">
+            <label
+              className="block text-gray-700 font-bold mb-2"
+              htmlFor="cover-image"
+            >
+              Cover Image:
+            </label>
+            <input
+              type="file"
+              id="cover-image"
+              onChange={handleCoverImageChange}
+              className="cursor-pointer"
+            />
+          </div>
+
           <div className="mb-4">
             <label
               className="block text-gray-700 font-bold mb-2"
