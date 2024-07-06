@@ -42,17 +42,17 @@ app.use('/api/comment', comment);
 const aboutMe = require('./routes/aboutMe.routes');
 app.use('/api/about-me', aboutMe);
 
-const word = require("./routes/word.routes");
-app.use("/", word);
+const word = require('./routes/word.routes');
+app.use('/', word);
 
 const path = require('path');
-app.use(express.static(path.join(__dirname, "/client/build")));
+app.use(express.static(path.join(__dirname, '/client/build')));
 
 app.use((req, res) => {
   // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/client/build/index.html");
+  res.sendFile(__dirname + '/client/build/index.html');
 });
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
-require("./error-handling")(app);
+require('./error-handling')(app);
 
 module.exports = app;
