@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['https://oliina.com', 'http://localhost:3000'],
+    origin: ['https://olina.versanetsolution.com', 'http://localhost:3000'],
   }),
 );
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
