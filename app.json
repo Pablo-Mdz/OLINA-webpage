@@ -14,15 +14,16 @@
     }
   },
   "addons": [],
-  "healthchecks": [
-    {
-      "type": "web",
-      "path": "/healthcheck",
-      "interval": 10,
-      "timeout": 5,
-      "grace": 5,
-      "method": "GET",
-      "status": 200
-    }
-  ]
+  "healthchecks": {
+    "web": [
+      {
+        "path": "/healthcheck",
+        "interval": 10,
+        "timeout": 5,
+        "grace": 5,
+        "method": "GET",
+        "status": 200
+      }
+    ]
+  }
 }
