@@ -21,7 +21,12 @@ export function SignupPage() {
         navigate('/login');
       })
       .catch((error) => {
-        const errorDescription = error.response.data.message;
+        let errorDescription = 'An error occurred.';
+
+        if (error.response && error.response.data) {
+          errorDescription = error.response.data.message;
+        }
+
         setErrorMessage(errorDescription);
       });
   };

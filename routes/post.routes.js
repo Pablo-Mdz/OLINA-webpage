@@ -4,9 +4,6 @@ const Topic = require('../models/Topic');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 const { deleteImages } = require('../utils/deleteImagesHelper');
 const User = require('../models/User');
-const { findById } = require('../models/Post');
-const { uploader, cloudinary } = require('../config/cloudinary');
-const { restart } = require('nodemon');
 
 router.post('/', isAuthenticated, (req, res) => {
   console.log('this is req.body of post:', req.body);

@@ -4,9 +4,5 @@ const app = require('./app');
 const PORT = process.env.PORT || 5005;
 
 app.listen(PORT, () => {
-  console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on ${PORT}`);
 });
-
-// const wordRouters = require('./routes/word.routes')
-// app.use(wordRouters)
-// initDB()

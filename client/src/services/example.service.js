@@ -3,7 +3,8 @@ import axios from 'axios';
 class ExampleService {
   constructor() {
     this.api = axios.create({
-      baseURL: process.env.REACT_APP_SERVER_URL || 'http://localhost:5005',
+      baseURL: 'https://olina.versanetsolutions.com' || 'http://localhost:5005',
+      // baseURL: process.env.REACT_APP_SERVER_URL || 'http://localhost:5005',
     });
 
     // Automatically set JWT token in the headers for every request
