@@ -7,7 +7,9 @@ const app = express();
 
 app.use(
   cors({
-    origin: ['https://olina.versanetsolution.com', 'http://localhost:3000'],
+    origin: ['https://olina.versanetsolutions.com', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
 
