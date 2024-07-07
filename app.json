@@ -17,6 +17,7 @@
   "healthchecks": {
     "web": [
       {
+        "type": "http",
         "path": "/healthcheck",
         "interval": 10,
         "timeout": 5,
