@@ -19,7 +19,7 @@ function AuthProviderWrapper(props) {
     const storedToken = localStorage.getItem('authToken');
     if (storedToken) {
       return axios
-        .get('http://localhost:5005/auth/verify', {
+        .get('https://olina.versanetsolutions.com/auth/verify', {
           headers: { Authorization: `Bearer ${storedToken}` },
         })
         .then((response) => {
