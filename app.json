@@ -1,0 +1,27 @@
+{
+  "name": "OLINA-webpage-server",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "env": {
+    "NODE_ENV": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "addons": [],
+  "healthchecks": {
+    "web": {
+      "path": "/healthcheck",
+      "interval": 10,
+      "timeout": 5,
+      "grace": 5,
+      "method": "GET",
+      "status": 200
+    }
+  }
+}

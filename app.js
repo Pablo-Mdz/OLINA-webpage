@@ -1,11 +1,8 @@
 require('dotenv').config();
-
 require('./db');
 
 const cors = require('cors');
-
 const express = require('express');
-
 const app = express();
 
 app.use(
@@ -13,6 +10,12 @@ app.use(
     origin: ['https://olina.versanetsolution.com', 'http://localhost:3000'],
   }),
 );
+
+// healthcheck route
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require('./config')(app);
 
