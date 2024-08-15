@@ -21,7 +21,7 @@ export { Navbar } from './Navbar/Navbar';
 
 export { CreateATopic } from './Topic/CreateATopic';
 export { EditTopic } from './Topic/EditTopic';
-export { TopicsSection } from './Topic/TopicSections';
+export { TopicsSection } from './Topic/TopicsSection';
 
 export { PostResults } from './Posts/PostResults';
 
