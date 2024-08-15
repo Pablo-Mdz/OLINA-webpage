@@ -5,9 +5,12 @@ export const getPosts = async () => {
   return data;
 };
 
-export const getPost = async (id) => {
-  const { data } = await api.get(`/api/topic/details/${id}`);
-  return data;
+export const getPostsByTopicId = async (selectedTopicId) => {
+  const { data } = await api.get(`/api/topic/details/${selectedTopicId}`);
+  return {
+    posts: data.topic.posts,
+    topic: data.topic,
+  };
 };
 
 export const getTopics = async () => {
