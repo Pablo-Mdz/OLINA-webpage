@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 export function PostCard({ post, prefetchPost }) {
   const date = new Date(post.createdAt).toLocaleString();
 
@@ -60,12 +62,12 @@ export function PostCard({ post, prefetchPost }) {
                   <p>{post.comments.length} Comentarios</p>
                 </div>
               </div>
-              <a
-                href={`/post/${post._id}`}
+              <Link
+                to={`/post/${post._id}`}
                 className="bg-blue-800 text-white font-medium px-2 py-1 mb-3 rounded-lg no-underline hover:bg-blue-700"
               >
                 read more
-              </a>
+              </Link>
             </footer>
           </div>
         </div>
