@@ -32,7 +32,7 @@ function App() {
         <Route path="/word" element={<Words />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/gallery/add-picture" element={<AddPicture />} />
-        <Route path="/topics/:id" element={<PostResults showAllPosts />} />
+        <Route path="/topics/:id" element={<PostResults />} />
         <Route path="/create-post" element={<CreateAPost />} />
         <Route path="/posts" element={<PostsPage />} />
         <Route path="/post/:id" element={<SinglePost />} />
