@@ -1,24 +1,16 @@
 import { useState, useContext, useMemo } from 'react';
 import { CreateATopic, EditTopic } from '..';
 import { AuthContext } from '../../context/auth.context';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { postActions } from '../../services';
+import { useQueryClient } from '@tanstack/react-query';
+import { useTopics } from '../../hooks';
 
-export function TopicsSection({ selectedTopicId, setSelectedTopicId }) {
+export function TopicsSection({ setSelectedTopicId }) {
   const queryClient = useQueryClient();
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  const { data: topics, isFetching } = useQuery({
-    queryKey: ['topics'],
-    queryFn: () => postActions.getTopics(),
-    staleTime: 1000 * 60 * 5,
-  });
-
-  const handleTopicCreated = () => {
-    queryClient.invalidateQueries(['topics']);
-  };
+  const { topics, isFetching } = useTopics();
 
   const TopicsSortedByDate = useMemo(() => {
     if (!topics) return [];
@@ -26,6 +18,10 @@ export function TopicsSection({ selectedTopicId, setSelectedTopicId }) {
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
   }, [topics]);
+
+  const handleTopicCreated = () => {
+    queryClient.invalidateQueries(['topics']);
+  };
 
   const handleClickTopic = (topicId) => {
     setSelectedTopicId(topicId);

@@ -37,10 +37,10 @@ export const Navbar = () => {
     logoutUser();
     navigate('/');
   };
-  // TODO: add  <nav className="bg-blackToPink-500 font-pop rounded-b-3xl">
+// TODO: add  <nav className="bg-blackToPink-500 font-pop rounded-b-3xl"> 
   return (
     <div className="bg-plum-400">
-      <nav className="bg-blackToPink-500 font-pop">
+      <nav className="bg-blackToPink-500 font-pop"> 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8s ">
           <div className="flex justify-between h-24 w-full">
             <div className="flex justify-around sm:px-40 items-center w-full">
@@ -53,7 +53,7 @@ export const Navbar = () => {
                 </Link>
                 {/* <NavLink to="/gallery">Gallery</NavLink> */}
                 <NavLink to="/posts">Posts</NavLink>
-                {/* <NavLink to="/word">Dictionary</NavLink> */}
+                <NavLink to="/word">Dictionary</NavLink>
                 <NavLink to="/contact-me">Contact</NavLink>
                 <NavLink to="/about">About Me</NavLink>
                 {!isLoggedIn && (
@@ -69,7 +69,7 @@ export const Navbar = () => {
                 )}
               </div>
 
-              {location.pathname === '/topics' && (
+              {location.pathname === '/posts' && (
                 <div className="relative">
                   <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <TbSearch className="text-plum-400" />
@@ -128,7 +128,7 @@ export const Navbar = () => {
         </div>
         <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
-            <MobileNavLink to="/gallery">Gallery</MobileNavLink>
+            {/* <MobileNavLink to="/gallery">Gallery</MobileNavLink> */}
             <MobileNavLink to="/topics">Topics</MobileNavLink>
             <MobileNavLink to="/dictionary">Dictionary</MobileNavLink>
             <MobileNavLink to="/contact-me">Contact</MobileNavLink>

@@ -13,6 +13,11 @@ export const getPostsByTopicId = async (selectedTopicId) => {
   };
 };
 
+export const getPostById = async (postId) => {
+  const { data } = await api.get(`/api/post/${postId}`);
+  return data;
+};
+
 export const getTopics = async () => {
   const { data } = await api.get('/api/topic/list-topics');
   return data;
