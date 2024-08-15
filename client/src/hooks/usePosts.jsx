@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
 import { useContext } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import { postActions } from '../services';
 import { SearchContext } from '../context/search.context';
 
