@@ -21,8 +21,9 @@ export { Navbar } from './Navbar/Navbar';
 
 export { CreateATopic } from './Topic/CreateATopic';
 export { EditTopic } from './Topic/EditTopic';
-export { TopicDetails } from './Topic/TopicDetails';
-export { TopicPage } from './Topic/TopicPage';
+export { TopicsSection } from './Topic/TopicsSection';
+
+export { PostResults } from './Posts/PostResults';
 
 export { AddWords } from './Words/AddWords';
 export { DeleteWords } from './Words/DeleteWords';

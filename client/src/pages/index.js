@@ -5,3 +5,4 @@ export { NotFoundPage } from './NotFoundPage';
 export { ProfilePage } from './ProfilePage';
 export { SignupPage } from './auth/SignupPage';
 export { LoginPage } from './auth/LoginPage';
+export { PostsPage } from './PostsPage';

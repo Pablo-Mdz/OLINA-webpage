@@ -5,14 +5,26 @@ import App from './App';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { AuthProviderWrapper } from './context/auth.context';
 import { SearchProvider } from './context/search.context';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+    },
+  },
+});
 
 root.render(
   <SearchProvider>
     <Router>
       <AuthProviderWrapper>
-        <App />
+        <QueryClientProvider client={queryClient}>
+          <App />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
       </AuthProviderWrapper>
     </Router>
   </SearchProvider>,
