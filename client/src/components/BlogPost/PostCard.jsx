@@ -1,7 +1,4 @@
-import React from 'react';
-// import { ReadingTime } from '../Words/ReadingTime';
-
-export function PostCard({ post, RTime }) {
+export function PostCard({ post, prefetchPost }) {
   const date = new Date(post.createdAt).toLocaleString();
 
   const postBodyPreview = () => {
@@ -26,7 +23,7 @@ export function PostCard({ post, RTime }) {
   };
 
   return (
-    <>
+    <div onMouseEnter={() => prefetchPost && prefetchPost(post._id)}>
       <div className="flex flex-wrap mx-5">
         <div className=" w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
           <div
@@ -37,7 +34,7 @@ export function PostCard({ post, RTime }) {
               })`,
               height: '55%',
             }}
-          ></div>
+          />
 
           <div
             className="bg-white  px-2 flex flex-col "
@@ -73,6 +70,6 @@ export function PostCard({ post, RTime }) {
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

@@ -1,10 +1,11 @@
 import { useState, useContext, useRef, useLayoutEffect } from 'react';
 import { PostCard, CreateAPost } from '..';
 import { AuthContext } from '../../context/auth.context';
-import { usePosts } from '../../hooks';
+import { usePosts, usePrefetchPost } from '../../hooks';
 
 export function PostResults({ selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
+  const prefetchPost = usePrefetchPost();
 
   const [isCreating, setIsCreating] = useState(false);
   const createPostRef = useRef(null);
@@ -47,7 +48,7 @@ export function PostResults({ selectedTopicId }) {
         ) : postsData && postsData.posts && postsData.posts.length > 0 ? (
           postsData.posts.map((post) => (
             <div key={post._id} className="flex justify-center">
-              {post && <PostCard post={post} />}
+              {post && <PostCard post={post} prefetchPost={prefetchPost} />}
             </div>
           ))
         ) : (
