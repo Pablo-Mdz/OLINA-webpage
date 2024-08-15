@@ -66,7 +66,7 @@ export function PostResults({ selectedTopicId }) {
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
       >
         {isFetching ? (
-          <p>Cargando...</p>
+          <p>Loading...</p>
         ) : postsData && postsData.posts && postsData.posts.length > 0 ? (
           postsData.posts.map((post) => (
             <div key={post._id} className="flex justify-center">
@@ -74,7 +74,7 @@ export function PostResults({ selectedTopicId }) {
             </div>
           ))
         ) : (
-          <p>No hay publicaciones disponibles.</p>
+          <p>There are no posts.</p>
         )}
       </div>
 
