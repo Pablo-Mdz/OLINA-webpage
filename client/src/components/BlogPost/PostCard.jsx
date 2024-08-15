@@ -1,7 +1,6 @@
-import React from 'react';
-// import { ReadingTime } from '../Words/ReadingTime';
+import { Link } from 'react-router-dom';
 
-export function PostCard({ post, RTime }) {
+export function PostCard({ post, prefetchPost }) {
   const date = new Date(post.createdAt).toLocaleString();
 
   const postBodyPreview = () => {
@@ -26,7 +25,7 @@ export function PostCard({ post, RTime }) {
   };
 
   return (
-    <>
+    <div onMouseEnter={() => prefetchPost && prefetchPost(post._id)}>
       <div className="flex flex-wrap mx-5">
         <div className=" w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
           <div
@@ -37,7 +36,7 @@ export function PostCard({ post, RTime }) {
               })`,
               height: '55%',
             }}
-          ></div>
+          />
 
           <div
             className="bg-white  px-2 flex flex-col "
@@ -63,16 +62,16 @@ export function PostCard({ post, RTime }) {
                   <p>{post.comments.length} Comentarios</p>
                 </div>
               </div>
-              <a
-                href={`/post/${post._id}`}
+              <Link
+                to={`/post/${post._id}`}
                 className="bg-blue-800 text-white font-medium px-2 py-1 mb-3 rounded-lg no-underline hover:bg-blue-700"
               >
                 read more
-              </a>
+              </Link>
             </footer>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 }

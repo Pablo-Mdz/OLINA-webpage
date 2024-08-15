@@ -18,14 +18,14 @@ const queryClient = new QueryClient({
 });
 
 root.render(
-  <SearchProvider>
-    <Router>
-      <AuthProviderWrapper>
-        <QueryClientProvider client={queryClient}>
+  <QueryClientProvider client={queryClient}>
+    <SearchProvider>
+      <Router>
+        <AuthProviderWrapper>
           <App />
           <ReactQueryDevtools initialIsOpen={false} />
-        </QueryClientProvider>
-      </AuthProviderWrapper>
-    </Router>
-  </SearchProvider>,
+        </AuthProviderWrapper>
+      </Router>
+    </SearchProvider>
+  </QueryClientProvider>
 );
