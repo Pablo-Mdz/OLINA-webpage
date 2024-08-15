@@ -1,51 +1,85 @@
-import {
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-  useLayoutEffect,
-} from 'react';
-import axios from 'axios';
+import { useState, useContext, useRef, useLayoutEffect } from 'react';
 import { PostCard, CreateAPost } from '../../components';
 import { AuthContext } from '../../context/auth.context';
 import { SearchContext } from '../../context/search.context';
+import { useQuery } from '@tanstack/react-query';
+import { postActions } from '../../services';
 
 export function TopicDetails({ id, selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
-  const [topic, setTopic] = useState('');
-  const [posts, setPosts] = useState([]);
   const { searchTerm } = useContext(SearchContext);
+  const [posts, setPosts] = useState([])
   const [isCreating, setIsCreating] = useState(false);
   const createPostRef = useRef(null);
 
-  const filteredPost = posts.filter(
-    (post) =>
-      post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()),
-  );
+  const { data: postsData = [], isFetching } = useQuery({
+    queryKey: ['posts', id],
+    // queryFn: () =>
+    //   id === 'all' ? postActions.getPosts() : postActions.getPost(id),
+    queryFn: async () => {
+      const { posts: topicPosts } =
+        id === 'all'
+          ? await postActions.getPosts()
+          : await postActions.getPost(id);
 
-  const postSortedByDate = filteredPost.sort(
-    (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-  );
+      const filteredPosts = topicPosts.filter(
+        (post) =>
+          post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
 
-  useEffect(() => {
-    if (id === 'all') {
-      axios
-        .get('/api/post')
-        .then((response) => {
-          setPosts(response.data.posts);
-        })
-        .catch((err) => console.log(err));
-    } else {
-      axios
-        .get(`/api/topic/details/${id}`)
-        .then((response) => {
-          setTopic(response?.data?.topic);
-          setPosts(response?.data?.topic?.posts);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [id, searchTerm]);
+      const postSortedByDate = filteredPosts.sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+      );
+
+      return { posts: postSortedByDate };
+    },
+
+    // queryFn: async () => {
+    //   if (id === 'all') {
+    //     const { posts: topicPosts } = await postActions.getPosts();
+    //     const filteredPosts = topicPosts.filter(
+    //       (post) =>
+    //         post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //         post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    //     );
+
+    //     const postSortedByDate = filteredPosts.sort(
+    //       (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    //     );
+
+    //     return { posts: postSortedByDate };
+    //   } else {
+    //     const { topic, posts: topicPosts } = await postActions.getPost(id);
+
+    //     const filteredPosts = topicPosts.filter(
+    //       (post) =>
+    //         post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    //         post.title.toLowerCase().includes(searchTerm.toLowerCase()),
+    //     );
+
+    //     const postSortedByDate = filteredPosts.sort(
+    //       (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
+    //     );
+
+    //     return { topic, posts: postSortedByDate };
+    //   }
+    // },
+
+    staleTime: 1000 * 60 * 5,
+  });
+
+  // useEffect(() => {
+  //   if (id !== 'all') {
+  //     api
+  //       .get(`/api/topic/details/${id}`)
+  //       .then((response) => {
+  //         setTopic(response?.data?.topic);
+  //         setPosts(response?.data?.topic?.posts);
+  //       })
+  //       .catch((err) => console.log(err));
+  //   }
+  // }, [id]);
 
   const handleCreatePost = () => {
     setIsCreating(!isCreating);
@@ -61,7 +95,7 @@ export function TopicDetails({ id, selectedTopicId }) {
     <div className="topic-details-container w-full px-4 bg-plum-400">
       <div className="flex justify-between items-center my-2">
         <h1 className="text-4xl font-bold text-gray-800 font-pop my-8 ml-24 w-full text-start">
-          {!topic ? 'ALL POSTS' : 'TOPIC:  ' + topic.title}
+          {/* {!postsData.topic ? 'ALL POSTS' : 'TOPIC:  ' + postsData.topic.title} */}
         </h1>
 
         {isLoggedIn && selectedTopicId !== 'all' && (
@@ -75,20 +109,30 @@ export function TopicDetails({ id, selectedTopicId }) {
       </div>
 
       <div
-        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6  mx-auto sm:mx-0"
+        className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 mt-6 mx-auto sm:mx-0"
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
       >
-        {postSortedByDate.map((post) => (
-          <div key={post._id} className="flex justify-center">
-            {post && <PostCard post={post} />}
-          </div>
-        ))}
+        {isFetching ? (
+          <p>Cargando...</p>
+        ) : postsData && postsData.posts && postsData.posts.length > 0 ? (
+          postsData.posts.map((post) => (
+            <div key={post._id} className="flex justify-center">
+              {post && <PostCard post={post} />}
+            </div>
+          ))
+        ) : (
+          <p>No hay publicaciones disponibles.</p>
+        )}
       </div>
 
       <div className="w-full">
         {isCreating && (
           <div ref={createPostRef}>
-            <CreateAPost id={id} setPosts={setPosts} posts={posts} />
+            <CreateAPost
+              id={id}
+              posts={postsData.posts || []}
+              setPosts={setPosts}
+            />
           </div>
         )}
       </div>
