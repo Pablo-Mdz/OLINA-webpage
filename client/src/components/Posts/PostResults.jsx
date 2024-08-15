@@ -1,38 +1,15 @@
 import { useState, useContext, useRef, useLayoutEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
 import { PostCard, CreateAPost } from '..';
 import { AuthContext } from '../../context/auth.context';
-import { SearchContext } from '../../context/search.context';
-import { postActions } from '../../services';
+import { usePosts } from '../../hooks';
 
 export function PostResults({ selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
-  const { searchTerm } = useContext(SearchContext);
+
   const [isCreating, setIsCreating] = useState(false);
   const createPostRef = useRef(null);
 
-  const { data: postsData = [], isFetching } = useQuery({
-    queryKey: ['posts', selectedTopicId],
-    queryFn: async () => {
-      const { posts, topic } =
-        selectedTopicId === 'all'
-          ? await postActions.getPosts()
-          : await postActions.getPostsByTopicId(selectedTopicId);
-
-      const filteredPosts = posts.filter(
-        (post) =>
-          post.body.toLowerCase().includes(searchTerm.toLowerCase()) ||
-          post.title.toLowerCase().includes(searchTerm.toLowerCase()),
-      );
-
-      const postSortedByDate = filteredPosts.sort(
-        (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
-      );
-
-      return { posts: postSortedByDate, topic };
-    },
-    staleTime: 1000 * 60 * 5,
-  });
+  const { postsData, isFetching } = usePosts(selectedTopicId);
 
   const handleCreatePost = () => {
     setIsCreating(!isCreating);
