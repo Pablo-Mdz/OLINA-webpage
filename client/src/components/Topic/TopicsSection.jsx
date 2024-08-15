@@ -4,7 +4,7 @@ import { AuthContext } from '../../context/auth.context';
 import { useQueryClient } from '@tanstack/react-query';
 import { useTopics } from '../../hooks';
 
-export function TopicsSection({ selectedTopicId, setSelectedTopicId }) {
+export function TopicsSection({ setSelectedTopicId }) {
   const queryClient = useQueryClient();
   const [selectedTopic, setSelectedTopic] = useState(null);
   const [addTopic, setAddTopic] = useState(false);
@@ -12,16 +12,16 @@ export function TopicsSection({ selectedTopicId, setSelectedTopicId }) {
 
   const { data: topics, isFetching } = useTopics();
 
-  const handleTopicCreated = () => {
-    queryClient.invalidateQueries(['topics']);
-  };
-
   const TopicsSortedByDate = useMemo(() => {
     if (!topics) return [];
     return topics.topics.sort(
       (a, b) => new Date(b.createdAt) - new Date(a.createdAt),
     );
   }, [topics]);
+
+  const handleTopicCreated = () => {
+    queryClient.invalidateQueries(['topics']);
+  };
 
   const handleClickTopic = (topicId) => {
     setSelectedTopicId(topicId);
