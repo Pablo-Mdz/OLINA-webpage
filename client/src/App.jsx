@@ -1,4 +1,3 @@
-import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import {
   NotFoundPage,
@@ -8,6 +7,7 @@ import {
   SignupPage,
   ProfilePage,
   HomePage,
+  PostsPage,
 } from './pages';
 import {
   Words,
@@ -16,16 +16,15 @@ import {
   IsAnon,
   GalleryPage,
   AddPicture,
-  TopicPage,
   CreateAPost,
   CreateATopic,
-  TopicDetails,
+  PostResults,
   SinglePost,
 } from './components';
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Navbar />
 
       <Routes>
@@ -33,9 +32,9 @@ function App() {
         <Route path="/word" element={<Words />} />
         <Route path="/gallery" element={<GalleryPage />} />
         <Route path="/gallery/add-picture" element={<AddPicture />} />
-        <Route path="/topics" element={<TopicPage />} />
-        <Route path="/topics/:id" element={<TopicDetails showAllPosts />} />
+        <Route path="/topics/:id" element={<PostResults />} />
         <Route path="/create-post" element={<CreateAPost />} />
+        <Route path="/posts" element={<PostsPage />} />
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
         <Route path="/contact-me" element={<ContactMe />} />
@@ -69,7 +68,7 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 }
 

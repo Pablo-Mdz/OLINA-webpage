@@ -4,7 +4,7 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { modules } from './EditorToolbar';
 
-export function CreateAPost({ id }) {
+export function CreateAPost({ topicId }) {
   const [title, setTitle] = useState('');
   const [body, setBody] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -34,7 +34,7 @@ export function CreateAPost({ id }) {
     const requestBody = {
       title: title,
       body: body,
-      topicId: id,
+      topicId: topicId,
       imgUrl: coverImageUrl,
       publicId: coverPublicId,
     };
