@@ -37,10 +37,10 @@ export const Navbar = () => {
     logoutUser();
     navigate('/');
   };
-// TODO: add  <nav className="bg-blackToPink-500 font-pop rounded-b-3xl"> 
+  // TODO: add  <nav className="bg-blackToPink-500 font-pop rounded-b-3xl">
   return (
     <div className="bg-plum-400">
-      <nav className="bg-blackToPink-500 font-pop"> 
+      <nav className="bg-blackToPink-500 font-pop">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8s ">
           <div className="flex justify-between h-24 w-full">
             <div className="flex justify-around sm:px-40 items-center w-full">
@@ -51,9 +51,9 @@ export const Navbar = () => {
                 >
                   <OlinaLogo />
                 </Link>
-                <NavLink to="/gallery">Gallery</NavLink>
+                {/* <NavLink to="/gallery">Gallery</NavLink> */}
                 <NavLink to="/posts">Posts</NavLink>
-                <NavLink to="/word">Dictionary</NavLink>
+                {/* <NavLink to="/word">Dictionary</NavLink> */}
                 <NavLink to="/contact-me">Contact</NavLink>
                 <NavLink to="/about">About Me</NavLink>
                 {!isLoggedIn && (
