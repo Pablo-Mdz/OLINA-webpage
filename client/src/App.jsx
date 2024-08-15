@@ -1,4 +1,3 @@
-import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import {
   NotFoundPage,
@@ -8,6 +7,7 @@ import {
   SignupPage,
   ProfilePage,
   HomePage,
+  PostsPage,
 } from './pages';
 import {
   Words,
@@ -25,7 +25,7 @@ import {
 
 function App() {
   return (
-    <div className="App">
+    <>
       <Navbar />
 
       <Routes>
@@ -36,6 +36,7 @@ function App() {
         <Route path="/topics" element={<TopicPage />} />
         <Route path="/topics/:id" element={<TopicDetails showAllPosts />} />
         <Route path="/create-post" element={<CreateAPost />} />
+        <Route path="/posts" element={<PostsPage />} />
         <Route path="/post/:id" element={<SinglePost />} />
         <Route path="/create-topic" element={<CreateATopic />} />
         <Route path="/contact-me" element={<ContactMe />} />
@@ -69,7 +70,7 @@ function App() {
           }
         />
       </Routes>
-    </div>
+    </>
   );
 }
 

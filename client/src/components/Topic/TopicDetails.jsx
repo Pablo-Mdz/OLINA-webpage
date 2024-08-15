@@ -14,8 +14,6 @@ export function TopicDetails({ id, selectedTopicId }) {
 
   const { data: postsData = [], isFetching } = useQuery({
     queryKey: ['posts', id],
-    // queryFn: () =>
-    //   id === 'all' ? postActions.getPosts() : postActions.getPost(id),
     queryFn: async () => {
       const { posts: topicPosts } =
         id === 'all'

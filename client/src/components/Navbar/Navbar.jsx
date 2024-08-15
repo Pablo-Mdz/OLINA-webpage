@@ -53,6 +53,7 @@ export const Navbar = () => {
                 </Link>
                 <NavLink to="/gallery">Gallery</NavLink>
                 <NavLink to="/topics">Topics</NavLink>
+                <NavLink to="/posts">Posts</NavLink>
                 <NavLink to="/word">Dictionary</NavLink>
                 <NavLink to="/contact-me">Contact</NavLink>
                 <NavLink to="/about">About Me</NavLink>
