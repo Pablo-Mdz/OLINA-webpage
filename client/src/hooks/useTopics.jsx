@@ -7,5 +7,6 @@ export const useTopics = () => {
     queryFn: () => postActions.getTopics(),
     staleTime: 1000 * 60 * 5,
   });
+  
   return { topics, isFetching };
 };

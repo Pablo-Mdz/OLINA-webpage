@@ -10,7 +10,7 @@ export function TopicsSection({ setSelectedTopicId }) {
   const [addTopic, setAddTopic] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
 
-  const { data: topics, isFetching } = useTopics();
+  const { topics, isFetching } = useTopics();
 
   const TopicsSortedByDate = useMemo(() => {
     if (!topics) return [];
