@@ -1,14 +1,8 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  useContext,
-  useLayoutEffect,
-} from 'react';
+import React, { useState, useRef, useContext, useLayoutEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { AuthContext } from '../../context/auth.context';
+import { AuthContext } from '../context/auth.context';
 import axios from 'axios';
-import 'react-quill/dist/quill.snow.css';
+import { useQueryClient } from '@tanstack/react-query';
 import { useReactToPrint } from 'react-to-print';
 import { TbPrinter } from 'react-icons/tb';
 import {
@@ -16,24 +10,25 @@ import {
   TwitterShareButton,
   LinkedinShareButton,
 } from 'react-share';
+import { usePost } from '../hooks';
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import {
   ReadingTime,
   LikeButton,
   CommentBox,
   EditPostCard,
-} from '../../components';
+} from '../components';
 
-const CommentSection = ({
-  postId,
-  comments,
-  isLoggedIn,
-  reloadComments,
-  deleteComment,
-}) => {
+const CommentSection = ({ postId, comments, isLoggedIn, deleteComment }) => {
+  const queryClient = useQueryClient();
   return (
     <>
-      <CommentBox postId={postId} onCommentMade={reloadComments} />
+      <CommentBox
+        postId={postId}
+        onCommentMade={() => {
+          queryClient.invalidateQueries(['post', postId]);
+        }}
+      />
       {comments && <h3>comments: </h3>}
       {comments?.map((comment) => (
         <div key={comment._id}>
@@ -85,28 +80,21 @@ const ShareButtons = ({ postTitle, isCopied, copyToClipboard }) => {
   );
 };
 
-export const SinglePost = () => {
-  const [post, setPost] = useState(null);
+export const SinglePostPage = () => {
   const [postBeingEdited, setPostBeingEdited] = useState({});
   const [isEditing, setIsEditing] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
-  const [reloadTrigger, setReloadTrigger] = useState(false);
   const { isLoggedIn, user } = useContext(AuthContext);
   const editPostRef = useRef(null);
   const { id } = useParams();
+  const queryClient = useQueryClient();
 
   const copyToClipboard = () => {
     navigator.clipboard.writeText(window.location.href);
     setIsCopied(true);
   };
 
-  useEffect(() => {
-    axios.get(`/api/post/${id}`).then((response) => {
-      setPost(response.data);
-      console.log(response.data);
-      setPostBeingEdited(response.data);
-    });
-  }, [id, reloadTrigger]);
+  const { post, isFetching } = usePost(id);
 
   const handleEdit = () => {
     setIsEditing(!isEditing);
@@ -138,7 +126,7 @@ export const SinglePost = () => {
     axios
       .delete(`/api/comment/${commentId}`)
       .then(() => {
-        setReloadTrigger(!reloadTrigger);
+        queryClient.invalidateQueries(['post', id]);
       })
       .catch((error) => {
         console.error(error);
@@ -159,7 +147,7 @@ export const SinglePost = () => {
                   {post?.title}
                 </h1>
 
-                {post && <ReadingTime text={post.body} />}
+                {!isFetching && post && <ReadingTime text={post.body} />}
 
                 <div
                   dangerouslySetInnerHTML={{ __html: post?.body }}
@@ -171,7 +159,9 @@ export const SinglePost = () => {
                   postId={id}
                   comments={post?.comments}
                   isLoggedIn={isLoggedIn}
-                  reloadComments={() => setReloadTrigger(!reloadTrigger)}
+                  reloadComments={() =>
+                    queryClient.invalidateQueries(['post', id])
+                  }
                   deleteComment={deleteComment}
                 />
               </div>
@@ -212,7 +202,7 @@ export const SinglePost = () => {
               {isEditing && (
                 <div ref={editPostRef}>
                   <EditPostCard
-                    postBeingEdited={postBeingEdited}
+                    postBeingEdited={post}
                     onCancel={cancelEditing}
                   />
                 </div>
