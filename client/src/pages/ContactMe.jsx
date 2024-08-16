@@ -29,9 +29,9 @@ export const ContactMe = () => {
   };
 
   return (
-    <>
+    <div className="h-full min-h-[calc(100vh-3.0rem)] bg-plum-400 pt-10">
       <MetaData title="Olina - Blog | Contact Me" />
-      <div className="bg-white rounded-md shadow-md py-6 px-8 mx-auto max-w-xl">
+      <div className="bg-white rounded-md shadow-md py-6 px-8 mx-auto  max-w-xl">
         <h2 className="text-2xl font-medium mb-4 text-purple-600">
           Contact Me
         </h2>
@@ -92,6 +92,6 @@ export const ContactMe = () => {
           </button>
         </form>
       </div>
-    </>
+    </div>
   );
 };

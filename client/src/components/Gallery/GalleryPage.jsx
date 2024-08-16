@@ -54,7 +54,7 @@ export function GalleryPage() {
   return (
     <>
       {gallery ? (
-        <section className="overflow-hidden text-gray-700 mb-32">
+        <section className="overflow-hidden text-gray-700  min-h-[calc(100vh-3.0rem)] bg-plum-400">
           <div className="container px-5 py-2 mx-auto lg:pt-12 lg:px-32">
             <input
               placeholder="Search by name or translation"
