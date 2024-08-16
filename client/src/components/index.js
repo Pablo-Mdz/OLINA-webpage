@@ -6,7 +6,6 @@ export { modules } from './BlogPost/EditorToolbar';
 export { EditPostCard } from './BlogPost/EditPostCard';
 export { LikeButton } from './BlogPost/LikeButton';
 export { PostCard } from './BlogPost/PostCard';
-export { SinglePost } from './BlogPost/SinglePost';
 export { CommentBox } from './CommentBox/CommentBox';
 
 export { AddPicture } from './Gallery/AddPicture';

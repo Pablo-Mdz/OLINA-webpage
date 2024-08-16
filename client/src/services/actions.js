@@ -22,3 +22,8 @@ export const getTopics = async () => {
   const { data } = await api.get('/api/topic/list-topics');
   return data;
 };
+
+export const getAboutMe = async () => {
+  const { data } = await api.get('/api/about-me');
+  return data;
+}
