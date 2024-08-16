@@ -53,7 +53,7 @@ export const Navbar = () => {
                 </Link>
                 {/* <NavLink to="/gallery">Gallery</NavLink> */}
                 <NavLink to="/posts">Posts</NavLink>
-                <NavLink to="/word">Dictionary</NavLink>
+                {/* <NavLink to="/word">Dictionary</NavLink> */}
                 <NavLink to="/contact-me">Contact</NavLink>
                 <NavLink to="/about">About Me</NavLink>
                 {!isLoggedIn && (
@@ -130,7 +130,7 @@ export const Navbar = () => {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {/* <MobileNavLink to="/gallery">Gallery</MobileNavLink> */}
             <MobileNavLink to="/topics">Topics</MobileNavLink>
-            <MobileNavLink to="/dictionary">Dictionary</MobileNavLink>
+            {/* <MobileNavLink to="/dictionary">Dictionary</MobileNavLink> */}
             <MobileNavLink to="/contact-me">Contact</MobileNavLink>
             <MobileNavLink to="/about">About Me</MobileNavLink>
           </div>
