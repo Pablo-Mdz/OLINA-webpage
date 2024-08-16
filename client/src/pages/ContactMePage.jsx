@@ -3,7 +3,7 @@ import emailjs from '@emailjs/browser';
 import { useNavigate } from 'react-router-dom';
 import MetaData from '../components/Metadata';
 
-export const ContactMe = () => {
+export const ContactMePage = () => {
   const navigate = useNavigate();
   const form = useRef();
   const sendEmail = (e) => {
