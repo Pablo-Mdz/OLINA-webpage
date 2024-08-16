@@ -177,7 +177,7 @@ export const Words = () => {
   return (
     <>
       <MetaData title="Olina - Blog | Words" />
-      <div className="bg-whitePro min-h-screen font-pop">
+      <div className="bg-plum-400 min-h-screen font-pop">
         <div className="mx-auto max-w-7xl p-4 ">
           <h1 className="text-center text-4xl font-bold text-primary my-6">
             WORD LIST

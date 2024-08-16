@@ -64,7 +64,7 @@ export function CreateAPost({ topicId }) {
   };
 
   return (
-    <div className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 flex justify-center">
+    <div className="shadow-md rounded px-8 pt-6 pb-8 mb-4 flex justify-center">
       <div style={{ width: '80%' }}>
         <br />
         <h3 className="text-2xl font-medium mb-4">

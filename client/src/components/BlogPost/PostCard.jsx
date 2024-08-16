@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { findFirstImageUrl } from '../../helpers/findFirstImageUrl';
 
 export function PostCard({ post, prefetchPost }) {
   const date = new Date(post.createdAt).toLocaleString();
@@ -24,15 +25,20 @@ export function PostCard({ post, prefetchPost }) {
     );
   };
 
+
+
+  const imgUrl = findFirstImageUrl(post.body);
+  // TODO: create placeholder image to replace picsum.photos
+
   return (
     <div onMouseEnter={() => prefetchPost && prefetchPost(post._id)}>
       <div className="flex flex-wrap mx-5">
-        <div className=" w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col ">
+        <div className="w-96 h-96 rounded overflow-hidden shadow-lg bg-opacity-25 flex flex-col">
           <div
             className="bg-cover bg-center"
             style={{
               backgroundImage: `url(${
-                post.imgUrl ? post.imgUrl : 'https://picsum.photos/500/300'
+                imgUrl ? imgUrl : 'https://picsum.photos/500/300'
               })`,
               height: '55%',
             }}
