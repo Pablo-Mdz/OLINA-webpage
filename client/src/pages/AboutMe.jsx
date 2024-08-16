@@ -23,7 +23,7 @@ export const AboutMe = () => {
       <Helmet>
         <title>Olina - Blog | About Me</title>
       </Helmet>
-      <section className="h-full py-16 px-4">
+      <section className="h-full py-16 px-4 bg-plum-400">
         <div className="container mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
