@@ -11,6 +11,7 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import { usePost } from '../hooks';
+
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import {
   ReadingTime,
@@ -19,8 +20,11 @@ import {
   EditPostCard,
 } from '../components';
 
-const CommentSection = ({ postId, comments, isLoggedIn, deleteComment }) => {
+const CommentSection = ({ postId, comments = [], deleteComment }) => {
+  const { user } = useContext(AuthContext);
+  const userId = user?._id;
   const queryClient = useQueryClient();
+
   return (
     <>
       <CommentBox
@@ -34,10 +38,8 @@ const CommentSection = ({ postId, comments, isLoggedIn, deleteComment }) => {
         comments.map((comment) => (
           <div key={comment._id}>
             <p>{comment.body}</p>
-            {isLoggedIn && (
-              <button onClick={() => deleteComment(comment._id)}>
-                Delete: {comment._id}
-              </button>
+            {userId === comment.author && (
+              <button onClick={() => deleteComment(comment._id)}>Delete</button>
             )}
           </div>
         ))}
@@ -198,7 +200,6 @@ export const SinglePostPage = () => {
             <CommentSection
               postId={id}
               comments={post?.comments}
-              isLoggedIn={isLoggedIn}
               reloadComments={() => queryClient.invalidateQueries(['post', id])}
               deleteComment={deleteComment}
             />

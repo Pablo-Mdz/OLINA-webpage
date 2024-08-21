@@ -54,7 +54,6 @@ router.delete('/:commentId', (req, res) => {
       }
 
       if (deletedComment.post) {
-        console.log('@@@@@@@@@@@@@@@@@@@@@@:', deletedComment.post);
         return Post.findByIdAndUpdate(
           deletedComment.post,
           { $pull: { comments: commentId } },

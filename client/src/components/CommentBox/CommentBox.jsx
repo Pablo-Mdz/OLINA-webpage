@@ -43,7 +43,7 @@ export function CommentBox({ postId, onCommentMade }) {
           />
 
           <button
-            disabled={!isLoggedIn || isLoading}
+            // disabled={!isLoggedIn || isLoading}
             className={`border-0 ${
               isLoggedIn
                 ? 'bg-blackToPink-200 hover:bg-blackToPink-300'
