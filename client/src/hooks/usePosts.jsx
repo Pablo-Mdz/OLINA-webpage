@@ -5,7 +5,7 @@ import { SearchContext } from '../context/search.context';
 
 export const usePosts = (selectedTopicId) => {
   const { searchTerm } = useContext(SearchContext);
-  console.log('searchTerm', searchTerm);
+  
   const { data: postsData = [], isFetching } = useQuery({
     queryKey: ['posts', selectedTopicId, searchTerm],
     queryFn: async () => {

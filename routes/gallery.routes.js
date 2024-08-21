@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Gallery = require('../models/Gallery');
-const { uploader, cloudinary } = require('../config/cloudinary');
+const { uploader } = require('../config/cloudinary');
 const { deleteImages } = require('../utils/deleteImagesHelper');
 
 router.post('/add-photo', uploader.single('gallery'), (req, res, next) => {
@@ -44,15 +44,20 @@ router.put('/:imageId', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.post('/delete/:id', (req, res, next) => {
-  Gallery.findByIdAndDelete({ _id: req.params.id })
-    .then((data) => {
-      deleteImages(data);
-      res.status(200).json({ message: 'Entry deleted' });
-    })
-    .catch((err) => {
-      next(err);
-    });
+router.post('/delete/:id', async (req, res, next) => {
+  try {
+    const data = await Gallery.findByIdAndDelete({ _id: req.params.id });
+
+    if (!data) {
+      return res.status(404).json({ message: 'Entry not found' });
+    }
+
+    await deleteImages(data);
+
+    res.status(200).json({ message: 'Entry and associated images deleted' });
+  } catch (err) {
+    next(err);
+  }
 });
 
 /* router.post("/upload", uploader.single("imageURL"), (req, res, next) => {

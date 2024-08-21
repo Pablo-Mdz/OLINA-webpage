@@ -9,7 +9,6 @@ export const AboutMePage = () => {
 
   const { data, isFetching } = useAboutMe();
 
-
   if (isFetching) {
     return <div>Loading...</div>;
   }
@@ -19,8 +18,8 @@ export const AboutMePage = () => {
       <Helmet>
         <title>Olina - Blog | About Me</title>
       </Helmet>
-      <section className="h-full py-16 px-4 bg-plum-400">
-        <div className="container mx-auto">
+      <section className="h-full py-16 bg-plum-400">
+        <div className="sm:px-32">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
               <div className="text-black mb-8">

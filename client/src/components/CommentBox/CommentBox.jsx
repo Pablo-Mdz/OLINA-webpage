@@ -1,33 +1,39 @@
-import { useState } from 'react';
-import axios from 'axios';
+import { useState, useContext } from 'react';
+import { AuthContext } from '../../context/auth.context';
+import { usePostComment } from '../../hooks/usePostComment';
 
 export function CommentBox({ postId, onCommentMade }) {
   const [comment, setComment] = useState('');
+  const { isLoggedIn, user } = useContext(AuthContext);
+
+  const { mutate: postComment, isLoading } = usePostComment(
+    postId,
+    onCommentMade,
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const requestBody = {
+    if (comment.trim() === '') return;
+
+    const commentData = {
       comment,
       postId,
+      userId: user._id,
     };
 
-    axios
-      .post('/api/comment', requestBody)
-      .then((response) => {
+    postComment(commentData, {
+      onSuccess: () => {
         setComment('');
-        onCommentMade();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      },
+    });
   };
 
   return (
     <div>
       <h3>Leave a Comment:</h3>
       <form onSubmit={handleSubmit}>
-        <div className="flex justify-center ">
+        <div className="flex justify-start ">
           <textarea
             id="comment"
             value={comment}
@@ -35,8 +41,16 @@ export function CommentBox({ postId, onCommentMade }) {
             placeholder="Write a comment.."
             className="bg-blackToPink-200 w-2/5"
           />
-          <button className="bg-blackToPink-200 border-0 hover:bg-blackToPink-300">
-            Send
+
+          <button
+            disabled={!isLoggedIn || isLoading}
+            className={`border-0 ${
+              isLoggedIn
+                ? 'bg-blackToPink-200 hover:bg-blackToPink-300'
+                : 'bg-plum-300'
+            }`}
+          >
+            {isLoading ? 'Sending...' : 'Send'}
           </button>
         </div>
       </form>
