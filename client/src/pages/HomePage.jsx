@@ -1,4 +1,4 @@
-import MetaData from '../components/Metadata';
+import { MetaData } from '../components';
 
 export function HomePage() {
   return (

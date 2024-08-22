@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
-import MetaData from '../Metadata';
 import axios from 'axios';
 import Modal from 'react-modal';
-import { AuthContext } from '../../context/auth.context';
-import { EditWords, DeleteWords, AddWords } from '../../components';
+import { AuthContext } from '../../../context/auth.context';
+import { EditWords, DeleteWords, AddWords, MetaData } from '../../';
 
 const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
 

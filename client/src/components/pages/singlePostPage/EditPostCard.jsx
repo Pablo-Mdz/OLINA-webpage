@@ -3,7 +3,7 @@ import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import { useNavigate } from 'react-router-dom';
-import { modules } from './EditorToolbar';
+import { modules } from '../../';
 
 export function EditPostCard({ postBeingEdited: initialPost, onCancel }) {
   const [title, setTitle] = useState(initialPost.title);

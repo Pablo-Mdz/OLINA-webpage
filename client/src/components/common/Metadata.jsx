@@ -3,7 +3,7 @@ import { Helmet } from 'react-helmet';
 
 const defaultImageUrl = '/estetoscopio.webp';
 
-const MetaData = ({
+export const MetaData = ({
   title,
   description,
   keywords,
@@ -24,5 +24,3 @@ const MetaData = ({
     </Helmet>
   );
 };
-
-export default MetaData;

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { findFirstImageUrl } from '../../helpers/findFirstImageUrl';
+import { findFirstImageUrl } from '../../../helpers/findFirstImageUrl';
 
 export function PostCard({ post, prefetchPost }) {
   const date = new Date(post.createdAt).toLocaleDateString('de-DE');
