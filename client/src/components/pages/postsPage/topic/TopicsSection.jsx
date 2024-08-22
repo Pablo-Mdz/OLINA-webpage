@@ -1,8 +1,8 @@
 import { useState, useContext, useMemo } from 'react';
-import { CreateATopic, EditTopic } from '..';
-import { AuthContext } from '../../context/auth.context';
 import { useQueryClient } from '@tanstack/react-query';
-import { useTopics } from '../../hooks';
+import { CreateATopic, EditTopic, Loading } from '../../..';
+import { AuthContext } from '../../../../context/auth.context';
+import { useTopics } from '../../../../hooks';
 
 export function TopicsSection({ setSelectedTopicId }) {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ export function TopicsSection({ setSelectedTopicId }) {
     setAddTopic(false);
   };
 
-  isFetching && <div>Cargando...</div>;
+  isFetching && <Loading />;
 
   return (
     <div className="md:w-1/5 bg-opacity-50 mt-10">

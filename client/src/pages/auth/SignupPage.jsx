@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import MetaData from '../../components/Metadata';
+import { MetaData } from '../../components';
 import authService from '../../services/auth.service';
 import { useForm } from 'react-hook-form';
 

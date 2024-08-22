@@ -1,7 +1,7 @@
 import { useState, useContext, useRef, useLayoutEffect } from 'react';
-import { PostCard, CreateAPost } from '..';
-import { AuthContext } from '../../context/auth.context';
-import { usePosts, usePrefetchPost } from '../../hooks';
+import { PostCard, CreateAPost, Loading } from '../..';
+import { AuthContext } from '../../../context/auth.context';
+import { usePosts, usePrefetchPost } from '../../../hooks';
 
 export function PostResults({ selectedTopicId }) {
   const { isLoggedIn } = useContext(AuthContext);
@@ -44,7 +44,9 @@ export function PostResults({ selectedTopicId }) {
         style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(24rem, 1fr))' }}
       >
         {isFetching ? (
-          <p>Loading...</p>
+          <div className="flex justify-center">
+            <Loading />
+          </div>
         ) : postsData && postsData.posts && postsData.posts.length > 0 ? (
           postsData.posts.map((post) => (
             <div key={post._id} className="flex justify-center">
