@@ -46,10 +46,10 @@ export function TopicsSection({ setSelectedTopicId }) {
   return (
     <div className="md:w-1/5 bg-opacity-50 mt-10">
       {TopicsSortedByDate.map((topic) => (
-        <div key={topic._id} className="flex flex-col mb-2 ml-1">
+        <div key={topic._id} className="flex flex-col mb-2">
           <div className="flex justify-between">
             <button
-              className="text-left w-full text-lg font-medium text-gray-700 hover:text-gray-900"
+              className="text-left w-full text-base font-medium text-gray-700 hover:text-gray-900"
               onClick={() => handleClickTopic(topic._id)}
             >
               {topic.title}
@@ -73,7 +73,7 @@ export function TopicsSection({ setSelectedTopicId }) {
       ))}
       <button
         onClick={addTopicButton}
-        className="mt-4 ml-1 block text-lg font-medium text-gray-700 hover:text-gray-900"
+        className="mt-4 block text-base font-medium text-gray-700 hover:text-gray-900"
       >
         + Add a new topic
       </button>

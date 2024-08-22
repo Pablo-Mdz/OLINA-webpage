@@ -43,7 +43,7 @@ export function PostCard({ post, prefetchPost }) {
             className="bg-white px-2 flex flex-col"
             style={{ height: '45%' }}
           >
-            <h1 className="text-xl font-bold mb-1 flex mx-2">
+            <h1 className="text-lg font-bold mb-1 flex mx-2">
               {postTitlePreview()}
             </h1>
             <p

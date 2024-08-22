@@ -1,5 +1,5 @@
 import React, { useState, useRef, useContext, useLayoutEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { AuthContext } from '../context/auth.context';
 import axios from 'axios';
 import { useQueryClient } from '@tanstack/react-query';
@@ -183,11 +183,11 @@ export const SinglePostPage = () => {
               >
                 <TbPrinter className="text-lg items-center" />
               </span>
-              <a href="/posts">
+              <Link to="/posts">
                 <span className="inline-block bg-blackToPink-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-blackToPink-200 mr-2 mb-2 hover:text-plum-400">
                   Return to posts
                 </span>
-              </a>
+              </Link>
               <LikeButton id={id} initialLikes={post?.likes} />
             </div>
           </div>
