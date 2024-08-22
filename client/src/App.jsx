@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import {
   NotFoundPage,
   AboutMePage,
-  ContactMe,
+  // ContactMe,
   LoginPage,
   SignupPage,
   ProfilePage,
@@ -11,11 +11,11 @@ import {
   SinglePostPage,
 } from './pages';
 import {
-  Words,
+  // Words,
   Navbar,
-  IsPrivate,
-  IsAnon,
-  GalleryPage,
+  PrivateRoute,
+  GuestRoute,
+  // GalleryPage,
   AddPicture,
   CreateAPost,
   CreateATopic,
@@ -45,27 +45,27 @@ function App() {
         <Route
           path="/profile"
           element={
-            <IsPrivate>
+            <PrivateRoute>
               <ProfilePage />
-            </IsPrivate>
+            </PrivateRoute>
           }
         />
 
         <Route
           path="/signup"
           element={
-            <IsAnon>
+            <GuestRoute>
               <SignupPage />
-            </IsAnon>
+            </GuestRoute>
           }
         />
 
         <Route
           path="/login"
           element={
-            <IsAnon>
+            <GuestRoute>
               <LoginPage />
-            </IsAnon>
+            </GuestRoute>
           }
         />
       </Routes>

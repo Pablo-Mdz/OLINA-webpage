@@ -1,6 +1,6 @@
 import { useState, useContext } from 'react';
-import { AuthContext } from '../../context/auth.context';
-import { usePostComment } from '../../hooks/usePostComment';
+import { AuthContext } from '../../../context/auth.context';
+import { usePostComment } from '../../../hooks/usePostComment';
 
 export function CommentBox({ postId, onCommentMade }) {
   const [comment, setComment] = useState('');

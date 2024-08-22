@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext, useMemo } from 'react';
 import axios from 'axios';
-import { AuthContext } from '../../context/auth.context';
+import { AuthContext } from '../../../context/auth.context';
 import { Link } from 'react-router-dom';
 import { EditPicture } from './EditPicture';
 

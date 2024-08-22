@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../context/auth.context';
-import { SearchContext } from '../../context/search.context';
+import { AuthContext } from '../../../context/auth.context';
+import { SearchContext } from '../../../context/search.context';
 import OlinaLogo from './OlinaLogo';
 import { TbSearch } from 'react-icons/tb';
 

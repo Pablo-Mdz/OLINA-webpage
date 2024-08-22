@@ -19,7 +19,7 @@ export function NotFoundPage() {
       <div
         className="w-3/4 bg-cover bg-center"
         style={{
-          backgroundImage: `url('${process.env.PUBLIC_URL}/notFound.jpg')`,
+          backgroundImage: `url('/images/notFound.jpg')`,
         }}
       />
     </div>

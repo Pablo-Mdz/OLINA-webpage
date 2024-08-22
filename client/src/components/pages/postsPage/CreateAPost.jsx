@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
-import { modules } from './EditorToolbar';
+import { modules } from '../..';
 
 export function CreateAPost({ topicId }) {
   const [title, setTitle] = useState('');
