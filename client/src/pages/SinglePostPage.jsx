@@ -20,6 +20,17 @@ import {
   EditPostCard,
 } from '../components';
 
+const Quote = ({ comment, userName }) => (
+  <blockquote className="relative p-1 m-0 text-xl italic border-l-4 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+    <p className="mb-4">&ldquo;{comment}&rdquo;</p>
+    <cite className="flex items-center">
+      <div className="flex flex-col items-start">
+        <span className="mb-1 text-sm italic font-bold">by {userName}</span>
+      </div>
+    </cite>
+  </blockquote>
+);
+
 const CommentSection = ({ postId, comments = [], deleteComment }) => {
   const { user } = useContext(AuthContext);
   const userId = user?._id;
@@ -36,9 +47,9 @@ const CommentSection = ({ postId, comments = [], deleteComment }) => {
       {comments.length > 0 && <h3>Comments: </h3>}
       {comments.length > 0 &&
         comments.map((comment) => (
-          <div key={comment._id}>
-            <p>{comment.body}</p>
-            {userId === comment.author && (
+          <div key={comment._id} className="mb-2 w-3/4">
+            <Quote comment={comment.body} userName={comment.author.name} />
+            {userId === comment.author._id && (
               <button onClick={() => deleteComment(comment._id)}>Delete</button>
             )}
           </div>

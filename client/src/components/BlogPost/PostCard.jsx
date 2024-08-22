@@ -62,13 +62,13 @@ export function PostCard({ post, prefetchPost }) {
                 <p>{new Date(date).toLocaleDateString('es-ES')}</p>
               </div>
               <div>
-                {post.comments.length > 0 && (
-                  <div className="text-gray-600 text-xs ">
-                    <p>
-                      {post.comments.length} Comentarios
-                    </p>
-                  </div>
-                )}
+                <div className="text-gray-600 text-xs ">
+                  {post.comments.length > 0 ? (
+                    <p>{post.comments.length} Comments</p>
+                  ) : (
+                    <p>No Comments yet</p>
+                  )}
+                </div>
               </div>
               <Link
                 to={`/post/${post._id}`}

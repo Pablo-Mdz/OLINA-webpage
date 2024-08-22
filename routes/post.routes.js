@@ -46,7 +46,13 @@ router.get('/:postId', (req, res) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .populate('author')
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'author',
+        select: 'name',
+      },
+    })
     .then((post) => {
       res.status(200).json(post);
     })
