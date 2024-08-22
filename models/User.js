@@ -18,6 +18,11 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Name is required.'],
     },
+    role: {
+      type: String,
+      enum: ['admin', 'user'],
+      default: 'user',
+    },
     topics: [{ type: Schema.Types.ObjectId, ref: 'Topic' }],
     posts: [{ type: Schema.Types.ObjectId, ref: 'Post' }],
   },
