@@ -11,6 +11,7 @@ import {
   LinkedinShareButton,
 } from 'react-share';
 import { usePost } from '../hooks';
+
 import { FaFacebook, FaTwitter, FaLink, FaLinkedin } from 'react-icons/fa';
 import {
   ReadingTime,
@@ -19,8 +20,22 @@ import {
   EditPostCard,
 } from '../components';
 
-const CommentSection = ({ postId, comments, isLoggedIn, deleteComment }) => {
+const Quote = ({ comment, userName }) => (
+  <blockquote className="relative p-1 m-0 text-xl italic border-l-4 bg-neutral-100 text-neutral-600 border-neutral-500 quote">
+    <p className="mb-4">&ldquo;{comment}&rdquo;</p>
+    <cite className="flex items-center">
+      <div className="flex flex-col items-start">
+        <span className="mb-1 text-sm italic font-bold">by {userName}</span>
+      </div>
+    </cite>
+  </blockquote>
+);
+
+const CommentSection = ({ postId, comments = [], deleteComment }) => {
+  const { user } = useContext(AuthContext);
+  const userId = user?._id;
   const queryClient = useQueryClient();
+
   return (
     <>
       <CommentBox
@@ -29,24 +44,25 @@ const CommentSection = ({ postId, comments, isLoggedIn, deleteComment }) => {
           queryClient.invalidateQueries(['post', postId]);
         }}
       />
-      {comments && <h3>comments: </h3>}
-      {comments?.map((comment) => (
-        <div key={comment._id}>
-          <p>{comment.body}</p>
-          {isLoggedIn && (
-            <button onClick={() => deleteComment(comment._id)}>Delete</button>
-          )}
-        </div>
-      ))}
+      {comments.length > 0 && <h3>Comments: </h3>}
+      {comments.length > 0 &&
+        comments.map((comment) => (
+          <div key={comment._id} className="mb-2 w-3/4">
+            <Quote comment={comment.body} userName={comment.author.name} />
+            {userId === comment.author._id && (
+              <button onClick={() => deleteComment(comment._id)}>Delete</button>
+            )}
+          </div>
+        ))}
     </>
   );
 };
 
 const ShareButtons = ({ postTitle, isCopied, copyToClipboard }) => {
   return (
-    <div className="flex justify-between w-2/5 pl-6">
-      <h4 className="text-blackToPink-200 text-xl">Share this</h4>
-      <div className="flex gap-4">
+    <div className="flex justify-between">
+      <div className="flex gap-4 justify-start">
+        <h4 className="text-blackToPink-200 text-xl">Share this: </h4>
         <FacebookShareButton
           quote={postTitle}
           url={window.location.href}
@@ -134,83 +150,73 @@ export const SinglePostPage = () => {
   };
 
   return (
-    <>
-      <div
-        ref={componentRef}
-        className="flex relative bg-plum-400 pb-10 font-pop"
-      >
-        {postBeingEdited && (
-          <div className="w-full mt-5 bg-plum-400 rounded-2xl overflow-hidden">
-            <div className="flex justify-between">
-              <div className="px-6">
-                <h1 className="text-5xl font-bold text-blackToPink-200 capitalize">
-                  {post?.title}
-                </h1>
+    <div
+      ref={componentRef}
+      className="flex relative bg-plum-400 pb-10 font-pop sm:px-32"
+    >
+      {postBeingEdited && (
+        <div className="w-full mt-5 bg-plum-400 rounded-2xl overflow-hidden">
+          <div>
+            <h1 className="text-5xl font-bold text-blackToPink-200 capitalize">
+              {post?.title}
+            </h1>
 
-                {!isFetching && post && <ReadingTime text={post.body} />}
+            {!isFetching && post && <ReadingTime text={post.body} />}
 
-                <div
-                  dangerouslySetInnerHTML={{ __html: post?.body }}
-                  className="post-content"
-                />
-              </div>
-              <div className="mt-28 w-3/5 ">
-                <CommentSection
-                  postId={id}
-                  comments={post?.comments}
-                  isLoggedIn={isLoggedIn}
-                  reloadComments={() =>
-                    queryClient.invalidateQueries(['post', id])
-                  }
-                  deleteComment={deleteComment}
-                />
-              </div>
-            </div>
+            <div
+              dangerouslySetInnerHTML={{ __html: post?.body }}
+              className="post-content"
+            />
+          </div>
 
-            <div className="flex w-2/5 justify-between my-1 space-x-4 text-blackToPink-100 items-center">
-              <ShareButtons
-                postTitle={post?.title}
-                isCopied={isCopied}
-                copyToClipboard={copyToClipboard}
-              />
+          <div className="flex justify-between my-1 space-x-4 text-blackToPink-100 items-center">
+            <ShareButtons
+              postTitle={post?.title}
+              isCopied={isCopied}
+              copyToClipboard={copyToClipboard}
+            />
 
-              <div>
-                <span
-                  onClick={handlePrint}
-                  className="m-2 px-2 py-1 inline-block rounded-full bg-transparent text-blackToPink-200 hover:text-plum-400 hover:bg-blackToPink-200"
-                >
-                  <TbPrinter className="text-lg items-center" />
+            <div>
+              <span
+                onClick={handlePrint}
+                className="m-2 px-2 py-1 inline-block rounded-full bg-transparent text-blackToPink-200 hover:text-plum-400 hover:bg-blackToPink-200"
+              >
+                <TbPrinter className="text-lg items-center" />
+              </span>
+              <a href="/posts">
+                <span className="inline-block bg-blackToPink-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-blackToPink-200 mr-2 mb-2 hover:text-plum-400">
+                  Return to posts
                 </span>
-                <a href="/topics">
-                  <span className="inline-block bg-blackToPink-100 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 hover:bg-blackToPink-200 mr-2 mb-2 hover:text-plum-400">
-                    Return to topics
-                  </span>
-                </a>
-                <LikeButton id={id} initialLikes={post?.likes} />
-              </div>
-            </div>
-
-            <div className="flex justify-center w-2/5 my-1 space-x-4 text-blackToPink-100 items-center">
-              {isLoggedIn && user?._id === post?.author?._id && (
-                <button
-                  onClick={handleEdit}
-                  className="bg-cyan-500 text-white font-medium px-8 py-1 my-1 rounded mt-2"
-                >
-                  {!isEditing ? 'Edit post' : 'finish edition'}
-                </button>
-              )}
-              {isEditing && (
-                <div ref={editPostRef}>
-                  <EditPostCard
-                    postBeingEdited={post}
-                    onCancel={cancelEditing}
-                  />
-                </div>
-              )}
+              </a>
+              <LikeButton id={id} initialLikes={post?.likes} />
             </div>
           </div>
-        )}
-      </div>
-    </>
+
+          <div className="flex justify-center w-2/5 my-1 space-x-4 text-blackToPink-100 items-center">
+            {isLoggedIn && user?._id === post?.author?._id && (
+              <button
+                onClick={handleEdit}
+                className="bg-cyan-500 text-white font-medium px-8 py-1 my-1 rounded mt-2"
+              >
+                {!isEditing ? 'Edit post' : 'finish edition'}
+              </button>
+            )}
+            {isEditing && (
+              <div ref={editPostRef}>
+                <EditPostCard postBeingEdited={post} onCancel={cancelEditing} />
+              </div>
+            )}
+          </div>
+          <div className="mt-20">
+            <CommentSection
+              postId={id}
+              comments={post?.comments}
+              reloadComments={() => queryClient.invalidateQueries(['post', id])}
+              deleteComment={deleteComment}
+            />
+          </div>
+        </div>
+      )}
+    </div>
   );
 };

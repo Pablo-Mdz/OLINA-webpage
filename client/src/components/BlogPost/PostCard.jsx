@@ -25,8 +25,6 @@ export function PostCard({ post, prefetchPost }) {
     );
   };
 
-
-
   const imgUrl = findFirstImageUrl(post.body);
   // TODO: create placeholder image to replace picsum.photos
 
@@ -48,7 +46,7 @@ export function PostCard({ post, prefetchPost }) {
             className="bg-white  px-2 flex flex-col "
             style={{ height: '45%' }}
           >
-            <h1 className="text-2xl font-bold mb-1 flex ml-4">
+            <h1 className="text-xl font-bold mb-1 flex ml-4">
               {postTitlePreview()}
             </h1>
             <p
@@ -63,9 +61,13 @@ export function PostCard({ post, prefetchPost }) {
                 <p className="flex justify-start ">{post.likes} ❤️</p>
                 <p>{new Date(date).toLocaleDateString('es-ES')}</p>
               </div>
-              <div className="flex justify-start">
+              <div>
                 <div className="text-gray-600 text-xs ">
-                  <p>{post.comments.length} Comentarios</p>
+                  {post.comments.length > 0 ? (
+                    <p>{post.comments.length} Comments</p>
+                  ) : (
+                    <p>No Comments yet</p>
+                  )}
                 </div>
               </div>
               <Link

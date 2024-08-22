@@ -17,28 +17,26 @@ module.exports = {
   extractImageIds,
 };
 
-const deleteImages = (data) => {
-  if (data.publicId) {
-    cloudinary.uploader.destroy(data.publicId, (error, result) => {
-      if (error) {
-        console.error('Error deleting image from Cloudinary: ', error);
-      } else {
-        console.log('Deleted image from Cloudinary publicId: ', result);
-      }
-    });
-  }
+const deleteImages = async (data) => {
+  try {
+    if (data.publicId) {
+      const result = await cloudinary.uploader.destroy(data.publicId);
+      console.log('Deleted image from Cloudinary publicId: ', result);
+    }
 
-  if (data.body) {
-    const imageIds = extractImageIds(data.body);
-    imageIds.forEach((imageId) => {
-      cloudinary.uploader.destroy(imageId, (error, result) => {
-        if (error) {
-          console.error('Error deleting image from Cloudinary: ', error);
-        } else {
-          console.log('Deleted image from Cloudinary: ', result);
-        }
+    if (data.body) {
+      const imageIds = extractImageIds(data.body);
+      const deletePromises = imageIds.map((imageId) =>
+        cloudinary.uploader.destroy(imageId),
+      );
+
+      const results = await Promise.all(deletePromises);
+      results.forEach((result) => {
+        console.log('Deleted image from Cloudinary: ', result);
       });
-    });
+    }
+  } catch (error) {
+    console.error('Error deleting images from Cloudinary: ', error);
   }
 };
 

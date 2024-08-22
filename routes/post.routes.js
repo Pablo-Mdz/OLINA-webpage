@@ -1,16 +1,12 @@
 const router = require('express').Router();
 const Post = require('../models/Post');
 const Topic = require('../models/Topic');
+const Comment = require('../models/Comment');
+const User = require('../models/User');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 const { deleteImages } = require('../utils/deleteImagesHelper');
-const User = require('../models/User');
-const { findById } = require('../models/Post');
-const { uploader, cloudinary } = require('../config/cloudinary');
-const { restart } = require('nodemon');
 
 router.post('/', isAuthenticated, (req, res) => {
-  console.log('this is req.body of post:', req.body);
-  console.log('this is req.payload._id of post:', req.payload._id);
   const authorId = req.payload._id;
   const { title, body, topicId, imgUrl, publicId } = req.body;
   Post.create({
@@ -50,7 +46,13 @@ router.get('/:postId', (req, res) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .populate('author')
-    .populate('comments')
+    .populate({
+      path: 'comments',
+      populate: {
+        path: 'author',
+        select: 'name',
+      },
+    })
     .then((post) => {
       res.status(200).json(post);
     })
@@ -66,16 +68,26 @@ router.put('/:postId', (req, res) => {
     .catch((err) => console.log(err));
 });
 
-router.delete('/:postId', (req, res) => {
+router.delete('/:postId', async (req, res) => {
   const postID = req.params.postId;
-  Post.findByIdAndDelete(postID)
-    .then((data) => {
-      // helper function to delete images from Cloudinary
-      deleteImages(data);
 
-      res.status(200).json({ message: 'Post deleted' });
-    })
-    .catch((err) => console.log(err));
+  try {
+    const post = await Post.findById(postID);
+
+    if (!post) {
+      return res.status(404).json({ message: 'Post not found' });
+    }
+
+    await Comment.deleteMany({ post: postID });
+
+    await deleteImages(post);
+
+    await Post.findByIdAndDelete(postID);
+    res.status(200).json({ message: 'Post and associated comments deleted' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: 'Failed to delete post', error: err });
+  }
 });
 
 router.get('/:id/likes', async (req, res) => {

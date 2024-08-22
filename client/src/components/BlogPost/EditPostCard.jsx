@@ -48,7 +48,7 @@ export function EditPostCard({ postBeingEdited: initialPost, onCancel }) {
         console.log(response);
         window.location.reload(false);
       })
-      .then(navigate('/topics'))
+      .then(navigate('/posts'))
       .catch((err) => console.log(err));
   };
 

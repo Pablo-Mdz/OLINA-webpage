@@ -26,4 +26,9 @@ export const getTopics = async () => {
 export const getAboutMe = async () => {
   const { data } = await api.get('/api/about-me');
   return data;
-}
+};
+
+export const postComment = async (commentData) => {
+  const { data } = await api.post('/api/comment', commentData);
+  return data;
+};
