@@ -25,7 +25,7 @@ export function PostResults({ selectedTopicId }) {
   return (
     <div className="topic-details-container w-full px-4 bg-plum-400">
       <div className="flex justify-between items-center my-2">
-        <h1 className="text-4xl font-bold text-gray-800 font-pop my-8 ml-24 w-full text-start">
+        <h1 className="text-4xl font-bold text-gray-800 font-pop my-8 ml-10 w-full text-start">
           {!postsData.topic ? 'ALL POSTS' : 'TOPIC:  ' + postsData.topic.title}
         </h1>
 

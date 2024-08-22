@@ -2,14 +2,10 @@ import { Link } from 'react-router-dom';
 import { findFirstImageUrl } from '../../helpers/findFirstImageUrl';
 
 export function PostCard({ post, prefetchPost }) {
-  const date = new Date(post.createdAt).toLocaleString();
+  const date = new Date(post.createdAt).toLocaleDateString('de-DE');
 
-  const postBodyPreview = () => {
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(post.body, 'text/html');
-    const textContent = doc.body.textContent || '';
-    const words = textContent.split(' ');
-    const maxLength = 3;
+  const textPreview = (text, maxLength) => {
+    const words = text.split(' ');
     return (
       words.slice(0, maxLength).join(' ') +
       (words.length > maxLength ? '...' : '')
@@ -17,16 +13,17 @@ export function PostCard({ post, prefetchPost }) {
   };
 
   const postTitlePreview = () => {
-    const words = post.title.split(' ');
-    const maxLength = 5;
-    return (
-      words.slice(0, maxLength).join(' ') +
-      (words.length > maxLength ? '...' : '')
-    );
+    return textPreview(post.title, 5);
+  };
+
+  const postBodyPreview = () => {
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(post.body, 'text/html');
+    const textContent = doc.body.textContent || '';
+    return textPreview(textContent, 20);
   };
 
   const imgUrl = findFirstImageUrl(post.body);
-  // TODO: create placeholder image to replace picsum.photos
 
   return (
     <div onMouseEnter={() => prefetchPost && prefetchPost(post._id)}>
@@ -43,23 +40,23 @@ export function PostCard({ post, prefetchPost }) {
           />
 
           <div
-            className="bg-white  px-2 flex flex-col "
+            className="bg-white px-2 flex flex-col"
             style={{ height: '45%' }}
           >
-            <h1 className="text-xl font-bold mb-1 flex ml-4">
+            <h1 className="text-xl font-bold mb-1 flex mx-2">
               {postTitlePreview()}
             </h1>
             <p
-              className="text-sm text-gray-600 my-2 flex ml-4 "
+              className="text-sm text-gray-600 my-2 flex mx-2"
               style={{ maxHeight: '3rem' }}
             >
               {postBodyPreview()}
             </p>
 
-            <footer className="flex justify-between items-end  py-5 ">
-              <div className="text-gray-600 text-xs  ">
+            <footer className="flex justify-between items-end mt-0">
+              <div className="text-gray-600 text-xs p-0">
                 <p className="flex justify-start ">{post.likes} ❤️</p>
-                <p>{new Date(date).toLocaleDateString('es-ES')}</p>
+                <p>{date}</p>
               </div>
               <div>
                 <div className="text-gray-600 text-xs ">
