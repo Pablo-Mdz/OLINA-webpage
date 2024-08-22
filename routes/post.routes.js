@@ -80,6 +80,10 @@ router.delete('/:postId', async (req, res) => {
 
     await Comment.deleteMany({ post: postID });
 
+    await User.findByIdAndUpdate(post.author, {
+      $pull: { posts: postID },
+    });
+
     await deleteImages(post);
 
     await Post.findByIdAndDelete(postID);
