@@ -22,7 +22,7 @@ export const EditTopic = ({ topic, onCancel }) => {
       .delete(`/api/topic/details/${topic?._id}`)
       .then(() => {
         window.location.reload(false);
-        window.location.href = '/topics';
+        window.location.href = '/posts';
       })
       .catch((err) => console.log(err));
   };
