@@ -9,7 +9,6 @@ export const usePost = (postId) => {
       const post = await postActions.getPostById(postId);
       return post;
     },
-    staleTime: 1000 * 60 * 5,
   });
   return { post, isFetching };
 };

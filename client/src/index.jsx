@@ -13,6 +13,7 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       retry: false,
+      staleTime: 1000 * 60 * 60,
     },
   },
 });
@@ -27,5 +28,5 @@ root.render(
         </AuthProviderWrapper>
       </Router>
     </SearchProvider>
-  </QueryClientProvider>
+  </QueryClientProvider>,
 );
