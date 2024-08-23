@@ -26,7 +26,6 @@ export const usePosts = (selectedTopicId) => {
 
       return { posts: postSortedByDate, topic };
     },
-    staleTime: 1000 * 60 * 5,
   });
 
   return { postsData, isFetching };

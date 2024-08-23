@@ -2,14 +2,22 @@ import React, { useState, useContext } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../context/auth.context';
 import { SearchContext } from '../../../context/search.context';
+import { usePrefetchAboutMe, usePrefetchPosts } from '../../../hooks';
 import OlinaLogo from './OlinaLogo';
 import { TbSearch } from 'react-icons/tb';
 
-const NavLink = ({ to, children, extraClasses = '', onClick }) => (
+const NavLink = ({
+  to,
+  children,
+  extraClasses = '',
+  onClick,
+  onMouseEnter,
+}) => (
   <Link
     to={to}
     className={`ml-4 text-plum-500 hover:text-blackToPink-200 no-underline ${extraClasses}`}
     onClick={onClick}
+    onMouseEnter={onMouseEnter}
   >
     {children}
   </Link>
@@ -28,6 +36,9 @@ export const Navbar = () => {
   const toggleMenu = () => setIsOpen(!isOpen);
   const { isLoggedIn, logoutUser } = useContext(AuthContext);
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
+
+  const prefetchAboutMe = usePrefetchAboutMe();
+  const prefetchPosts = usePrefetchPosts();
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -52,9 +63,13 @@ export const Navbar = () => {
                   <OlinaLogo />
                 </Link>
                 {/* <NavLink to="/gallery">Gallery</NavLink> */}
-                <NavLink to="/posts">Posts</NavLink>
                 {/* <NavLink to="/word">Dictionary</NavLink> */}
-                <NavLink to="/about">About Me</NavLink>
+                <NavLink to="/posts" onMouseEnter={prefetchPosts}>
+                  Posts
+                </NavLink>
+                <NavLink to="/about" onMouseEnter={prefetchAboutMe}>
+                  About Me
+                </NavLink>
                 <NavLink to="/contact-me">Contact</NavLink>
                 {!isLoggedIn && (
                   <>
@@ -129,8 +144,8 @@ export const Navbar = () => {
         <div className={`${isOpen ? 'block' : 'hidden'} sm:hidden`}>
           <div className="px-2 pt-2 pb-3 space-y-1">
             {/* <MobileNavLink to="/gallery">Gallery</MobileNavLink> */}
-            <MobileNavLink to="/posts">Posts</MobileNavLink>
             {/* <MobileNavLink to="/dictionary">Dictionary</MobileNavLink> */}
+            <MobileNavLink to="/posts">Posts</MobileNavLink>
             <MobileNavLink to="/contact-me">Contact</MobileNavLink>
             <MobileNavLink to="/about">About Me</MobileNavLink>
           </div>
