@@ -107,7 +107,7 @@ docker-compose up -d
 
 This will spin up a MongoDB instance that is accessible locally via mongodb://mongo:27017/oliinadb.
 
-###API Documentation
+### API Documentation
 
 For API documentation, we use [Swagger](https://swagger.io/).
 
