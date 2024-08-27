@@ -5,21 +5,23 @@
    - [Clone the Repository](#clone-the-repository)
    - [Backend Setup](#backend-setup)
    - [Frontend Setup](#frontend-setup)
+   - [Environment Variables](#environment-variables)
 3. [Development Environment Setup](#development-environment-setup)
    - [Docker Installation](#docker-installation)
    - [Environment Variable Configuration](#environment-variable-configuration)
    - [Starting the Docker Container](#starting-the-docker-container)
-4. [Additional Documentation](#additional-documentation)
-4. [Participants](#participants)
+4. [Deployment](#deployment)
+5. [Additional Documentation](#additional-documentation)
+6. [Participants](#participants)
 
 ## Project Overview
 
-This project was primarily developed using **JavaScript**. For the backend, we utilized **Express**, and **MongoDB** was employed as the non-relational database. The frontend was built using **React**.
+This project was primarily developed using **JavaScript**. For the backend, we utilized [Express](https://expressjs.com/), and [MongoDB](https://www.mongodb.com/) was employed as the non-relational database. The frontend was built using [React](https://react.dev/).
 
-The general idea behind this project was to approach it as closely as possible to a professional workflow. **We collaborated with two UX/UI designers** whose work can be found on this Figma link.
+The general idea behind this project was to approach it as closely as possible to a professional workflow. **We collaborated with two UX/UI designers** whose work can be found on this [Figma link](https://www.figma.com/design/Y6sBPY04gNVRd69kBeNTQt/OLINA'S-BLOG---Janine%2C-Bori?node-id=18-2).
 
 The process involved creating Pull Requests (PRs), conducting code reviews, and completing the Pull Request Template. Once approved, the changes were merged using the “Squash and merge” method.
-For our commits, we have been using **Conventional Commits** (feat, refactor, docs, fix, style, chore, test).
+For our commits, we have been using [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) (feat, refactor, docs, fix, style, chore, test).
 
 **Design Collaboration**
 
@@ -70,11 +72,15 @@ npm install
 npm run dev
 ```
 
+4. Environment Variables
+
+Before running the application, ensure that you copy the **.env.template** file and rename it to **.env.** This will allow you to configure the environment variables needed for both the backend and frontend.
+
 ---
 
 ### Development Environment Setup
 
-For development, we’ve used MongoDB through Docker. This allows each developer to have a local database where they can make all the necessary changes for their tasks without affecting the production database.
+For development, we’ve used MongoDB through [Docker](https://www.docker.com/). This allows each developer to have a local database where they can make all the necessary changes for their tasks without affecting the production database.
 
 Docker Installation
 
@@ -100,20 +106,29 @@ docker-compose up -d
 
 This will spin up a MongoDB instance that is accessible locally via mongodb://mongo:27017/oliinadb.
 
------
+### Deployment
+
+The application has been deployed on a **VPS** using [Dokku](https://dokku.com/). You can view the live app at the following URL:
+
+[Olina](https://olina.versanetsolutions.com/)
+
+---
+
 ### Additional Documentation
 
 For more detailed information about the backend and frontend implementations, please refer to the respective README files located in their directories.
 
-----
+---
 
 ### Participants:
 
 **Developers:**
+
 - [Dilara Deniz Saganak](https://www.linkedin.com/in/dilara-deniz-saganak-45190b146/)
 - [Pablo Cigoy](https://www.linkedin.com/in/pablo-cigoy/)
 - [Antonio Saleme](https://www.linkedin.com/in/antonio-saleme-sastre/)
 
 **UX/UI Designers:**
+
 - [Borbala Nemes](https://www.linkedin.com/in/borinemes/)
 - [Janine Wieting](https://www.linkedin.com/in/janine-wieting/)
