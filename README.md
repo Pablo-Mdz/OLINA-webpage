@@ -10,9 +10,10 @@
    - [Docker Installation](#docker-installation)
    - [Environment Variable Configuration](#environment-variable-configuration)
    - [Starting the Docker Container](#starting-the-docker-container)
-4. [Deployment](#deployment)
-5. [Additional Documentation](#additional-documentation)
-6. [Participants](#participants)
+4. - [API Documentation](#api-documentation)
+5. [Deployment](#deployment)
+6. [Additional Documentation](#additional-documentation)
+7. [Participants](#participants)
 
 ## Project Overview
 
@@ -84,7 +85,7 @@ For development, we’ve used MongoDB through [Docker](https://www.docker.com/).
 
 Docker Installation
 
-1.  Ensure Docker is installed on your system. If it isn’t, you can download it from this URL.
+1.  Ensure Docker is installed on your system. If it isn’t, you can download it from this [URL](https://www.docker.com/get-started/).
 
 (Please note, you may need to create an account on Docker.)
 
@@ -106,11 +107,21 @@ docker-compose up -d
 
 This will spin up a MongoDB instance that is accessible locally via mongodb://mongo:27017/oliinadb.
 
+###API Documentation
+
+For API documentation, we use [Swagger](https://swagger.io/).
+
+To access the Swagger documentation, visit the following URL:
+
+```bash
+http://localhost:5005/api-docs/#/
+```
+
 ### Deployment
 
 The application has been deployed on a **VPS** using [Dokku](https://dokku.com/). You can view the live app at the following URL:
 
-[Olina](https://olina.versanetsolutions.com/)
+[Olina Wep Page](https://olina.versanetsolutions.com/)
 
 ---
 
