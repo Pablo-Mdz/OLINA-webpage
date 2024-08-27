@@ -1,16 +1,10 @@
-// ℹ️ Gets access to environment variables/settings
-// https://www.npmjs.com/package/dotenv
-require('dotenv').config();
-
-// ℹ️ Connects to the database
-require('./db');
-
-const cors = require('cors');
-// Handles http requests (express is node js framework)
-// https://www.npmjs.com/package/express
 const express = require('express');
-
 const app = express();
+require('dotenv').config();
+require('./db');
+const swaggerDocs = require('./config/swagger');
+const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 app.use(
   cors({
@@ -45,6 +39,9 @@ app.use('/api/about-me', aboutMe);
 const word = require('./routes/word.routes');
 app.use('/', word);
 
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+}
 require('./error-handling')(app);
 
 module.exports = app;
