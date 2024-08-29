@@ -2,7 +2,7 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MetaData } from '../../components';
 import { AuthContext } from '../../context/auth.context';
-import { Controller, SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import authService from '../../services/auth.service';
 
 export function LoginPage() {
