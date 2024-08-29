@@ -2,8 +2,8 @@ import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MetaData } from '../../components';
 import { AuthContext } from '../../context/auth.context';
+import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import authService from '../../services/auth.service';
-import { useForm } from 'react-hook-form';
 
 export function LoginPage() {
   const [errorMessage, setErrorMessage] = useState(undefined);
@@ -39,21 +39,18 @@ export function LoginPage() {
       <div className="bg-plum-400 min-h-screen flex justify-center py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-700">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
               Sign in to your account
             </h2>
           </div>
+
           <form
             onSubmit={handleSubmit(handleLoginSubmit)}
             className="mt-8 space-y-6"
             noValidate
           >
-            <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
                 <input
                   {...register('email', {
                     required: 'Email is required',
@@ -74,10 +71,8 @@ export function LoginPage() {
                   <p className="text-red-500">{errors.email.message}</p>
                 )}
               </div>
+
               <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
                 <input
                   {...register('password', {
                     required: 'Password is required',
@@ -95,20 +90,19 @@ export function LoginPage() {
                 )}
               </div>
             </div>
-            {errorMessage && (
-              <p className="text-red-500 text-xs mt-2">{errorMessage}</p>
-            )}
+            {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
             <div className="flex items-center justify-between">
               <div className="text-sm">
                 <Link
                   to="/signup"
-                  className="font-medium text-gray-700 hover:text-gray-600"
+                  className="font-medium text-gray-300 hover:text-gray-600"
                 >
                   Don't have an account? Sign up
                 </Link>
               </div>
             </div>
+
             <div>
               <button
                 type="submit"
