@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node server.js",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client",
     "dev": "nodemon server.js",
     "format": "prettier --write ."
   },
@@ -26,5 +27,9 @@
   },
   "devDependencies": {
     "nodemon": "^2.0.21"
+  },
+  "engines": {
+    "node": "22.1.0",
+    "npm": "10.8.3"
   }
 }

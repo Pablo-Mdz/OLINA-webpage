@@ -8,9 +8,18 @@ const cors = require('cors');
 
 app.use(
   cors({
-    origin: ['https://oliina.com', 'http://localhost:3000'],
+    origin: ['https://olina.versanetsolutions.com', 'http://localhost:3000'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
   }),
 );
+
+// healthcheck route
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('OK');
+});
+
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
 require('./config')(app);
 
@@ -39,6 +48,14 @@ app.use('/api/about-me', aboutMe);
 const word = require('./routes/word.routes');
 app.use('/', word);
 
+const path = require('path');
+app.use(express.static(path.join(__dirname, '/client/build')));
+
+app.use((req, res) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + '/client/build/index.html');
+});
+// ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 if (process.env.NODE_ENV !== 'production') {
   app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 }

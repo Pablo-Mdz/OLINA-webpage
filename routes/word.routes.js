@@ -146,8 +146,6 @@ router.post(`/${path}/:id/edit`, (req, res) => {
   const id = req.params.id;
   const updateData = req.body.editWord;
   const user = req.body.user;
-  console.log('this is id:', id);
-  console.log('this is all the data:', updateData);
 
   Word.findById(id)
     .then((response) => {

@@ -4,7 +4,8 @@ import Modal from 'react-modal';
 import { AuthContext } from '../../../context/auth.context';
 import { EditWords, DeleteWords, AddWords, MetaData } from '../../';
 
-const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
+// const API_URL = process.env.REACT_APP_SERVER_URL || 'http://localhost:5005';
+const API_URL = "https://olina.versanetsolutions.com" || 'http://localhost:5005';
 
 export const Words = () => {
   const [words, setWords] = useState([]);

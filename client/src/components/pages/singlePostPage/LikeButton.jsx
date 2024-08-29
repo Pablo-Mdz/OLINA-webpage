@@ -32,8 +32,7 @@ export function LikeButton({ id, initialLikes }) {
 
     axios
       .put(`/api/post/likes/${id}`, { likes: newLikes })
-      .then((response) => {
-      })
+      .then((response) => {})
       .catch((error) => console.log(error));
   };
 
@@ -42,7 +41,7 @@ export function LikeButton({ id, initialLikes }) {
       className="inline-block bg-blackToPink-100 rounded-full border-none px-3 py-1 text-sm font-semibold text-gray-700 hover:text-plum-400 hover:bg-blackToPink-200 mr-2 mb-2"
       onClick={handleClick}
     >
-      <span className='mr-1'>{liked ? '❤️' : '🤍'}</span>
+      <span className="mr-1">{liked ? '❤️' : '🤍'}</span>
       <span>{likes} Likes</span>
     </button>
   );

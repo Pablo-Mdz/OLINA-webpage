@@ -9,7 +9,7 @@ export const MetaData = ({
   keywords,
   image = defaultImageUrl,
 }) => {
-  const imageUrl = image || `${process.env.REACT_APP_SERVER_URL}/${image}`;
+  const imageUrl = image || `https://olina.versanetsolutions.com/${image}`;
 
   return (
     <Helmet>

@@ -83,7 +83,6 @@ export function CreateAboutMe() {
               </div>
 
               <br />
-
               <button
                 type="submit"
                 className="px-4 py-1 mt-12 border-2 border-gray-900 rounded uppercase font-medium text-xs"
