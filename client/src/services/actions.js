@@ -32,3 +32,18 @@ export const postComment = async (commentData) => {
   const { data } = await api.post('/api/comment', commentData);
   return data;
 };
+
+export const postAboutMe = async (aboutMeData) => {
+  const { data } = await api.post('/api/about-me', aboutMeData);
+  return data;
+};
+
+export const deleteAboutMe = async (id) => {
+  const { data } = await api.delete(`/api/about-me/delete/${id}`);
+  return data;
+};
+
+export const deletePicture = async (id) => {
+  const { data } = await api.post(`/api/gallery/delete/${id}`);
+  return data;
+};

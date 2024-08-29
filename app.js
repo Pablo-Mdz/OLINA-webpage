@@ -1,9 +1,10 @@
-require('dotenv').config();
-require('./db');
-
-const cors = require('cors');
 const express = require('express');
 const app = express();
+require('dotenv').config();
+require('./db');
+const swaggerDocs = require('./config/swagger');
+const swaggerUi = require('swagger-ui-express');
+const cors = require('cors');
 
 app.use(
   cors({
@@ -55,6 +56,9 @@ app.use((req, res) => {
   res.sendFile(__dirname + '/client/build/index.html');
 });
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
+if (process.env.NODE_ENV !== 'production') {
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
+}
 require('./error-handling')(app);
 
 module.exports = app;

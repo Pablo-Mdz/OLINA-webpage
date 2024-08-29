@@ -1,1 +1,1 @@
-export * as postActions from './actions';
+export * as actions from './actions';

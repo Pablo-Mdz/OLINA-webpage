@@ -7,7 +7,64 @@ const User = require('../models/User');
 const { isAuthenticated } = require('../middleware/jwt.middleware.js');
 const saltRounds = 10;
 
-// POST /auth/signup  - Creates a new user in the database
+/**
+ * @swagger
+ * tags:
+ *   name: Auth
+ *   description: Authentication management
+ */
+
+/**
+ * @swagger
+ * /auth/signup:
+ *   post:
+ *     summary: Creates a new user
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *               - name
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email.
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 description: The user's password.
+ *                 example: StrongPassword123
+ *               name:
+ *                 type: string
+ *                 description: The user's name.
+ *                 example: John Doe
+ *     responses:
+ *       201:
+ *         description: The user was successfully created.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 user:
+ *                   type: object
+ *                   properties:
+ *                     email:
+ *                       type: string
+ *                     name:
+ *                       type: string
+ *                     _id:
+ *                       type: string
+ *       400:
+ *         description: Invalid input or user already exists.
+ *       500:
+ *         description: Server error.
+ */
 router.post('/signup', (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -52,7 +109,49 @@ router.post('/signup', (req, res, next) => {
     .catch((err) => next(err));
 });
 
-// POST  /auth/login - Verifies email and password and returns a JWT
+/**
+ * @swagger
+ * /auth/login:
+ *   post:
+ *     summary: Verifies email and password and returns a JWT
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: The user's email.
+ *                 example: user@example.com
+ *               password:
+ *                 type: string
+ *                 description: The user's password.
+ *                 example: StrongPassword123
+ *     responses:
+ *       200:
+ *         description: Successfully authenticated. Returns a JWT.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 authToken:
+ *                   type: string
+ *                   description: The JWT token.
+ *                   example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+ *       400:
+ *         description: Missing email or password.
+ *       401:
+ *         description: Authentication failed.
+ *       500:
+ *         description: Server error.
+ */
 router.post('/login', (req, res, next) => {
   const { email, password } = req.body;
 
@@ -87,11 +186,35 @@ router.post('/login', (req, res, next) => {
     })
     .catch((err) => next(err));
 });
-// GET  /auth/verify  -  Used to verify JWT stored on the client
-router.get('/verify', isAuthenticated, (req, res, next) => {
-  // console.log(`req.payload`, req.payload);
 
-  // Send back the token payload object containing the user data
+/**
+ * @swagger
+ * /auth/verify:
+ *   get:
+ *     summary: Verifies JWT token stored on the client
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: The JWT is valid, and the payload is returned.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 _id:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                 name:
+ *                   type: string
+ *       401:
+ *         description: Invalid or missing JWT token.
+ *       500:
+ *         description: Server error.
+ */
+router.get('/verify', isAuthenticated, (req, res, next) => {
   res.status(200).json(req.payload);
 });
 

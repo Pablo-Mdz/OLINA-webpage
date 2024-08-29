@@ -1,18 +1,18 @@
 import { useContext } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { postActions } from '../services';
+import { actions } from '../services';
 import { SearchContext } from '../context/search.context';
 
 export const usePosts = (selectedTopicId) => {
   const { searchTerm } = useContext(SearchContext);
-  
+
   const { data: postsData = [], isFetching } = useQuery({
     queryKey: ['posts', selectedTopicId, searchTerm],
     queryFn: async () => {
       const { posts, topic } =
         selectedTopicId === 'all'
-          ? await postActions.getPosts()
-          : await postActions.getPostsByTopicId(selectedTopicId);
+          ? await actions.getPosts()
+          : await actions.getPostsByTopicId(selectedTopicId);
 
       const filteredPosts = posts.filter(
         (post) =>

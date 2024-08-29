@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { postActions } from '../services';
+import { actions } from '../services';
 
 export const usePrefetchAboutMe = () => {
   const queryClient = useQueryClient();
@@ -7,7 +7,7 @@ export const usePrefetchAboutMe = () => {
   const prefetchAboutMe = () => {
     queryClient.prefetchQuery({
       queryKey: ['aboutMe'],
-      queryFn: () => postActions.getAboutMe(),
+      queryFn: () => actions.getAboutMe(),
     });
   };
 

@@ -6,6 +6,53 @@ const User = require('../models/User');
 const { isAuthenticated } = require('../middleware/jwt.middleware');
 const { deleteImages } = require('../utils/deleteImagesHelper');
 
+/**
+ * @swagger
+ * tags:
+ *   name: Posts
+ *   description: API endpoints for managing posts
+ */
+
+/**
+ * @swagger
+ * /posts:
+ *   post:
+ *     summary: Create a new post
+ *     tags: [Posts]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "New Post Title"
+ *               body:
+ *                 type: string
+ *                 example: "This is the content of the new post."
+ *               topicId:
+ *                 type: string
+ *                 example: "60d21b4671f4b54baf0cfe07"
+ *               imgUrl:
+ *                 type: string
+ *                 example: "https://example.com/image.jpg"
+ *               publicId:
+ *                 type: string
+ *                 example: "abc123xyz"
+ *     responses:
+ *       200:
+ *         description: The created post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       500:
+ *         description: Internal server error
+ */
 router.post('/', isAuthenticated, (req, res) => {
   const authorId = req.payload._id;
   const { title, body, topicId, imgUrl, publicId } = req.body;
@@ -33,6 +80,27 @@ router.post('/', isAuthenticated, (req, res) => {
   });
 });
 
+/**
+ * @swagger
+ * /posts:
+ *   get:
+ *     summary: Retrieve all posts
+ *     tags: [Posts]
+ *     responses:
+ *       200:
+ *         description: List of all posts
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 posts:
+ *                   type: array
+ *                   items:
+ *                     $ref: '#/components/schemas/Post'
+ *       500:
+ *         description: Internal server error
+ */
 router.get('/', (req, res) => {
   Post.find()
     .populate('author')
@@ -42,6 +110,31 @@ router.get('/', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+/**
+ * @swagger
+ * /posts/{postId}:
+ *   get:
+ *     summary: Retrieve a single post by ID
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post to retrieve
+ *     responses:
+ *       200:
+ *         description: The requested post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post not found
+ *       500:
+ *         description: Internal server error
+ */
 router.get('/:postId', (req, res) => {
   const postId = req.params.postId;
   Post.findById(postId)
@@ -59,6 +152,44 @@ router.get('/:postId', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+/**
+ * @swagger
+ * /posts/{postId}:
+ *   put:
+ *     summary: Update a post by ID
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post to update
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               title:
+ *                 type: string
+ *                 example: "Updated Post Title"
+ *               body:
+ *                 type: string
+ *                 example: "This is the updated content of the post."
+ *     responses:
+ *       200:
+ *         description: The updated post
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post not found
+ *       500:
+ *         description: Internal server error
+ */
 router.put('/:postId', (req, res) => {
   const { title, body } = req.body;
   Post.findByIdAndUpdate(req.params.postId, { title, body }, { new: true })
@@ -68,6 +199,27 @@ router.put('/:postId', (req, res) => {
     .catch((err) => console.log(err));
 });
 
+/**
+ * @swagger
+ * /posts/{postId}:
+ *   delete:
+ *     summary: Delete a post by ID
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: postId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post to delete
+ *     responses:
+ *       200:
+ *         description: Post and associated comments deleted
+ *       404:
+ *         description: Post not found
+ *       500:
+ *         description: Failed to delete post
+ */
 router.delete('/:postId', async (req, res) => {
   const postID = req.params.postId;
 
@@ -94,6 +246,35 @@ router.delete('/:postId', async (req, res) => {
   }
 });
 
+/**
+ * @swagger
+ * /posts/{id}/likes:
+ *   get:
+ *     summary: Get the number of likes for a post
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post
+ *     responses:
+ *       200:
+ *         description: Number of likes
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 likes:
+ *                   type: number
+ *                   example: 123
+ *       404:
+ *         description: Post not found
+ *       500:
+ *         description: Internal server error
+ */
 router.get('/:id/likes', async (req, res) => {
   const postId = req.params.id;
   Post.findById(postId)
@@ -103,6 +284,41 @@ router.get('/:id/likes', async (req, res) => {
     .catch((err) => console.log(err));
 });
 
+/**
+ * @swagger
+ * /posts/likes/{id}:
+ *   put:
+ *     summary: Update the number of likes for a post
+ *     tags: [Posts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The ID of the post
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               likes:
+ *                 type: number
+ *                 example: 150
+ *     responses:
+ *       200:
+ *         description: The updated post with new likes count
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Post'
+ *       404:
+ *         description: Post not found
+ *       500:
+ *         description: Internal server error
+ */
 router.put('/likes/:id', (req, res) => {
   const postId = req.params.id;
   const { likes } = req.body;

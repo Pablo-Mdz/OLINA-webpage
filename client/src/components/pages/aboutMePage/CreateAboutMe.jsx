@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
+import { useAboutMeMutation } from '../../../hooks';
 
 const modules = {
   toolbar: {
@@ -53,6 +54,7 @@ const modules = {
 
 export function CreateAboutMe() {
   const [aboutMe, setAboutMe] = useState('');
+  const mutation = useAboutMeMutation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,13 +63,7 @@ export function CreateAboutMe() {
       aboutMe,
     };
 
-    axios
-      .post(`/api/about-me`, requestBody)
-      .then((response) => {
-        console.log('RESPONSE: ', response);
-        window.location.reload(false);
-      })
-      .catch((err) => console.log(err));
+    mutation.mutate(requestBody);
   };
 
   return (
@@ -90,8 +86,9 @@ export function CreateAboutMe() {
               <button
                 type="submit"
                 className="px-4 py-1 mt-12 border-2 border-gray-900 rounded uppercase font-medium text-xs"
+                disabled={mutation.isLoading}
               >
-                Add About Me
+                {mutation.isLoading ? 'Saving...' : 'Add About Me'}
               </button>
             </form>
           </div>

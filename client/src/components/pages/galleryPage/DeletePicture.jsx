@@ -1,10 +1,10 @@
-import axios from 'axios';
+import { actions } from '../../../services';
 
 export function DeletePicture({ id }) {
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`/api/gallery/delete/${id}`)
+    actions
+      .deletePicture(id)
       .then((response) => {
         console.log(response);
         window.location.reload(false);

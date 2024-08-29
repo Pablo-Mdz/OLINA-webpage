@@ -20,19 +20,16 @@ export const AboutMePage = () => {
       </Helmet>
       <section className="h-full py-16 bg-plum-400">
         <div className="sm:px-32">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <div className="text-black mb-8">
-                {data.map((aboutMe) => (
-                  <div key={aboutMe._id}>
-                    <div dangerouslySetInnerHTML={{ __html: aboutMe.body }} />
-                    {isLoggedIn && (
-                      <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+          <div className="mb-8">
+            {data &&
+              data.map((aboutMe, index) => (
+                <div key={index}>
+                  <div dangerouslySetInnerHTML={{ __html: aboutMe.body }} />
+                  {isLoggedIn && (
+                    <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </section>

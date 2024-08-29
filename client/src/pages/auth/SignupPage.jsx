@@ -37,7 +37,7 @@ export function SignupPage() {
       <div className="bg-plum-400 min-h-screen flex justify-center  py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-md w-full space-y-8">
           <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-700">
+            <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-300">
               Sign in to your account
             </h2>
           </div>
@@ -49,9 +49,6 @@ export function SignupPage() {
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="rounded-md shadow-sm -space-y-px">
               <div>
-                <label htmlFor="email-address" className="sr-only">
-                  Email address
-                </label>
                 <input
                   {...register('email', {
                     required: 'Email is required',
@@ -73,9 +70,6 @@ export function SignupPage() {
                 )}
               </div>
               <div>
-                <label htmlFor="password" className="sr-only">
-                  Password
-                </label>
                 <input
                   {...register('password', {
                     required: 'Password is required',
@@ -97,9 +91,6 @@ export function SignupPage() {
                 )}
               </div>
               <div>
-                <label htmlFor="name" className="sr-only">
-                  Name
-                </label>
                 <input
                   {...register('name', {
                     required: 'Name is required',
@@ -113,7 +104,7 @@ export function SignupPage() {
                   type="text"
                   autoComplete="off"
                   required
-                  className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                  className="appearance-none rounded-none relative block w-full px-3 py-2 mb-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                   placeholder="Your name"
                 />
               </div>
@@ -130,7 +121,7 @@ export function SignupPage() {
               <div className="text-sm">
                 <Link
                   to="/login"
-                  className="font-medium text-gray-700 hover:text-gray-600"
+                  className="font-medium text-gray-300 hover:text-gray-400"
                 >
                   Already have account? Login
                 </Link>
