@@ -7,3 +7,4 @@ export { usePrefetchAboutMe } from './usePrefetchAboutMe';
 export { usePrefetchPost } from './usePrefetchPost';
 export { usePrefetchPosts } from './usePrefetchPosts';
 export { useAboutMeMutation } from './useAboutMeMutation';
+export { useDeleteAboutMe } from './useDeleteAboutMe';

@@ -1,10 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postActions } from '../services';
+import { actions } from '../services';
 
 export const useAboutMeMutation = () => {
   const queryClient = useQueryClient();
   const mutation = useMutation({
-    mutationFn: postActions.postAboutMe,
+    mutationFn: actions.postAboutMe,
 
     // Optimistically update the cache before the mutation occurs
     onMutate: async (newAboutMe) => {

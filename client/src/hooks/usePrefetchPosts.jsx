@@ -1,5 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { postActions } from '../services';
+import { actions } from '../services';
 
 export const usePrefetchPosts = () => {
   const queryClient = useQueryClient();
@@ -7,7 +7,7 @@ export const usePrefetchPosts = () => {
   const prefetchPosts = () => {
     queryClient.prefetchQuery({
       queryKey: ['posts', 'all', ''],
-      queryFn: () => postActions.getPosts(),
+      queryFn: () => actions.getPosts(),
     });
   };
 

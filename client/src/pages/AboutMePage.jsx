@@ -21,14 +21,15 @@ export const AboutMePage = () => {
       <section className="h-full py-16 bg-plum-400">
         <div className="sm:px-32">
           <div className="mb-8">
-            {data.map((aboutMe, index) => (
-              <div key={index}>
-                <div dangerouslySetInnerHTML={{ __html: aboutMe.body }} />
-                {isLoggedIn && (
-                  <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
-                )}
-              </div>
-            ))}
+            {data &&
+              data.map((aboutMe, index) => (
+                <div key={index}>
+                  <div dangerouslySetInnerHTML={{ __html: aboutMe.body }} />
+                  {isLoggedIn && (
+                    <DeleteAboutMe key={aboutMe._id} aboutMe={aboutMe} />
+                  )}
+                </div>
+              ))}
           </div>
         </div>
       </section>
