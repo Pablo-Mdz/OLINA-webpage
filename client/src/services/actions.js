@@ -32,3 +32,8 @@ export const postComment = async (commentData) => {
   const { data } = await api.post('/api/comment', commentData);
   return data;
 };
+
+export const postAboutMe = async (aboutMeData) => {
+  const { data } = await api.post('/api/about-me', aboutMeData);
+  return data;
+};
